@@ -1,0 +1,60 @@
+.results-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .summary-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .card-item strong {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .card-item span {
+    color: #333;
+  }
+  
+  .card-item.account-info {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .payment-button {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #4a90e2;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .payment-button:hover {
+    background-color: #357ABD;
+    transform: scale(1.05);
+  }
+  

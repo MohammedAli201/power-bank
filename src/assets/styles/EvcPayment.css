@@ -1,0 +1,35 @@
+.payment-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .response-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .response-data {
+    text-align: left;
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+  }
+  

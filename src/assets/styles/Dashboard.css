@@ -1,0 +1,25 @@
+.dashboard {
+    padding: 20px;
+  }
+  
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .loading .MuiCircularProgress-root {
+    margin-bottom: 10px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  ul {
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+  
