@@ -110,6 +110,7 @@ h2 {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
+  margin-top: 2.5rem;
 }
 
 .submit-button:hover {

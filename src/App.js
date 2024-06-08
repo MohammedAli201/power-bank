@@ -4,6 +4,7 @@ import React,{useState} from 'react';
 import ApiService from './services/apiService';
 import DisplayOptions from './components/DisplayOptions';
 import DisplayResults from './components/DisplayResults';
+
 import Forms from './components/Forms';
 import Home from './components/Home';
 import EvcPayment from './services/EvcPayment';
@@ -11,7 +12,7 @@ import ExampleComponent from  './components/ExampleComponent'
 import Dashboard from './components/Dashboard';
 import { BrowserRouter as Router,Route, Routes  } from 'react-router-dom';
 import Header from './components/header';
-
+import Footer from './components/Footer';
 const App = () => {
 const [completForm, setcompletForm] = useState(false);
 const [conformation,setConformation] = useState(false);
@@ -49,7 +50,7 @@ const completedForm = (data) => {
       </div>
     </Router>
       
-     
+    <Footer />
     </div>
   );
 };

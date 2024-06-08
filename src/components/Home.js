@@ -1,5 +1,5 @@
 import React from "react";
-import Footer from "./Footer";
+
 import heroImage from "../assets/images/PowerBank-hero-section.png";
 import logo from "../assets/images/Power.png"; // Your logo image
 import "../assets/styles/Home.css";
@@ -34,7 +34,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Footer />
+    
     </div>
   );
 };
