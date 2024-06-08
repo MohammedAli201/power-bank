@@ -56,7 +56,7 @@ const DisplayOptions = ({ completedForm }) => {
       </div>
       <div className="phone-input">
         <h3>Phone Number</h3>
-        <input
+        <input className="phone-input-box"
           type="text"
           value={phone}
           onChange={handlerEventPhone}

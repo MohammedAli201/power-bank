@@ -1,6 +1,6 @@
 /* Base Styles */
 .options-container {
-  padding: 40px;
+  padding: 100px;
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
@@ -9,10 +9,11 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 40px;
+  font-size: 1.8rem;
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 2rem;
   color: #333;
   margin-bottom: 20px;
 }
@@ -49,46 +50,59 @@ h2 {
 
 .amount {
   margin: 20px 0;
+  font-size: 1.8rem;
 }
 
 .amount h3 {
-  font-size: 18px;
+  font-size: 1.8rem;
   color: #333;
 }
 
 .amount p {
-  font-size: 22px;
+  font-size: 2.2rem;
   color: #4a90e2;
   font-weight: bold;
 }
 
-.phone-input {
-  margin: 20px 0;
-}
+
+
+
 
 .phone-input h3 {
-  font-size: 18px;
+  font-size: 1.8rem;
   color: #333;
 }
 
 .phone-input input {
   padding: 10px;
-  font-size: 16px;
+  font-size: 1.8rem;
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 100%;
   box-sizing: border-box;
 }
+.phone-input-box {
+  font-size: 1.8rem;
+  width: 100%;
+  height: 50px;
+}
+.phone-input-box::placeholder {
+  font-size: 1.8rem;
+  color: #333;
+
+}
+
+
 
 .error {
   color: red;
-  font-size: 14px;
+  font-size: 1.3rem;
   margin-top: 5px;
 }
 
 .submit-button {
   padding: 12px 24px;
-  font-size: 16px;
+  font-size: 1.8rem;
   font-weight: bold;
   color: white;
   background-color: #4a90e2;
