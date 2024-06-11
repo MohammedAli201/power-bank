@@ -1,17 +1,17 @@
 import React from "react";
-
 import heroImage from "../assets/images/PowerBank-hero-section.png";
-import logo from "../assets/images/Power.png"; // Your logo image
+import logo from "../assets/images/Power.png";
 import "../assets/styles/Home.css";
 import { useNavigate } from "react-router-dom";
+
 const Home = () => {
- const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const handleRentNow = (e) => {
     e.preventDefault();
-    // Your logic here
-    // Send the user to the rent page
     navigate("/DisplayOptions");
   }
+
   return (
     <div className="home-section">
       <div className="hero-section">
@@ -34,7 +34,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-    
     </div>
   );
 };

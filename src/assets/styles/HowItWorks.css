@@ -1,0 +1,56 @@
+/* src/assets/styles/HowItWorks.css */
+
+/* How It Works Section Styles */
+.how-it-works-section {
+    padding: 3rem 2rem;
+    background-color: #fff;
+    text-align: center;
+}
+  
+.how-it-works-header {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #333;
+}
+  
+.steps-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+  
+.step-item {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.step-icon, .step-img {
+    margin-bottom: 1rem;
+}
+
+.step-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain; /* Ensure the image fits within the specified dimensions */
+}
+  
+.step-item h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 1rem;
+}
+  
+.step-item p {
+    font-size: 1rem;
+    color: #666;
+}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "./header";
 import '../assets/styles/DisplayOptions.css';
 
 const DisplayOptions = ({ completedForm }) => {
@@ -37,7 +36,6 @@ const DisplayOptions = ({ completedForm }) => {
 
   return (
     <div className="options-container">
-      {/* <Header /> */}
       <h2>Choose Hours</h2>
       <div className="hour-selector">
         {[1, 2, 3, 4, 5].map((hour) => (
@@ -56,7 +54,8 @@ const DisplayOptions = ({ completedForm }) => {
       </div>
       <div className="phone-input">
         <h3>Phone Number</h3>
-        <input className="phone-input-box"
+        <input
+          className="phone-input-box"
           type="text"
           value={phone}
           onChange={handlerEventPhone}

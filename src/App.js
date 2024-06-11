@@ -13,6 +13,7 @@ import Dashboard from './components/Dashboard';
 import { BrowserRouter as Router,Route, Routes  } from 'react-router-dom';
 import Header from './components/header';
 import Footer from './components/Footer';
+import MainPage from './components/MainPage';
 const App = () => {
 const [completForm, setcompletForm] = useState(false);
 const [conformation,setConformation] = useState(false);
@@ -38,7 +39,7 @@ const completedForm = (data) => {
                 </nav> */}
         <Routes>
 
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="Dashboard" element={<Dashboard />} />
           <Route path="/DisplayOptions" element={  <DisplayOptions  completedForm = {completedForm}/>} />
           <Route path="/DisplayResults" element={completForm &&<DisplayResults conformationForm ={conformationForm} />} />

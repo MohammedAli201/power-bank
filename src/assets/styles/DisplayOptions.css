@@ -1,45 +1,43 @@
 /* Base Styles */
 .options-container {
-  padding: 100px;
-  max-width: 600px;
+  padding: 60px 20px; /* Adjusted padding for better spacing */
+  max-width: 500px; /* Reduced width for a more compact look */
   margin: 0 auto;
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: #fff; /* Changed to white for a clean look */
   border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 40px;
-  font-size: 1.8rem;
+  border-radius: 10px; /* Slightly more rounded corners */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Enhanced shadow for a floating effect */
+  margin-top: 60px;
+  font-size: 1.6rem; /* Adjusted font size */
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 2.2rem; /* Increased font size for emphasis */
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-weight: 700; /* Bold header */
 }
 
 .hour-selector {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px; /* Add gap between hour options */
-  overflow-x: auto; /* Allow horizontal scrolling if needed */
-  margin-bottom: 20px;
-  padding: 10px 0; /* Padding to avoid clipping */
+  gap: 15px; /* Increased gap for better spacing */
+  margin-bottom: 25px;
 }
 
 .hour-option {
-  flex: 0 0 auto; /* Ensure items don’t shrink or grow */
-  padding: 10px 20px;
-  background-color: #fff;
-  border: 2px solid #ddd;
-  border-radius: 5px;
+  padding: 15px 25px; /* Enlarged padding for clickable area */
+  background-color: #f0f0f0;
+  border: 2px solid transparent; /* Transparent border for initial state */
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, border-color 0.3s;
 }
 
 .hour-option:hover {
-  background-color: #e9e9e9;
+  background-color: #e0e0e0;
 }
 
 .hour-option.selected {
@@ -50,7 +48,6 @@ h2 {
 
 .amount {
   margin: 20px 0;
-  font-size: 1.8rem;
 }
 
 .amount h3 {
@@ -59,14 +56,10 @@ h2 {
 }
 
 .amount p {
-  font-size: 2.2rem;
+  font-size: 2.4rem; /* Increased font size */
   color: #4a90e2;
   font-weight: bold;
 }
-
-
-
-
 
 .phone-input h3 {
   font-size: 1.8rem;
@@ -74,34 +67,28 @@ h2 {
 }
 
 .phone-input input {
-  padding: 10px;
-  font-size: 1.8rem;
+  padding: 12px;
+  font-size: 1.6rem; /* Adjusted font size */
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 100%;
   box-sizing: border-box;
+  margin-top: 10px; /* Added margin for better spacing */
 }
-.phone-input-box {
-  font-size: 1.8rem;
-  width: 100%;
-  height: 50px;
-}
+
 .phone-input-box::placeholder {
-  font-size: 1.8rem;
-  color: #333;
-
+  font-size: 1.6rem;
+  color: #888; /* Changed color for better distinction */
 }
-
-
 
 .error {
   color: red;
-  font-size: 1.3rem;
+  font-size: 1.4rem; /* Slightly increased font size */
   margin-top: 5px;
 }
 
 .submit-button {
-  padding: 12px 24px;
+  padding: 14px 28px; /* Increased padding for a bigger button */
   font-size: 1.8rem;
   font-weight: bold;
   color: white;
@@ -110,7 +97,7 @@ h2 {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
-  margin-top: 2.5rem;
+  margin-top: 25px; /* Adjusted margin for better spacing */
 }
 
 .submit-button:hover {
@@ -123,87 +110,82 @@ h2 {
 /* Medium devices (tablets, 768px and up) */
 @media (max-width: 768px) {
   .options-container {
-    padding: 15px;
+    padding: 20px;
     max-width: 100%;
   }
 
   h2 {
-    font-size: 22px;
-    margin-bottom: 15px;
+    font-size: 2rem;
   }
 
   .hour-selector {
-    padding: 10px 0;
+    gap: 10px;
   }
 
   .hour-option {
-    padding: 8px 15px;
-    margin: 0 5px; /* Adjust margins for better spacing */
+    padding: 12px 20px;
   }
 
   .amount h3 {
-    font-size: 16px;
+    font-size: 1.6rem;
   }
 
   .amount p {
-    font-size: 20px;
+    font-size: 2rem;
   }
 
   .phone-input h3 {
-    font-size: 16px;
+    font-size: 1.6rem;
   }
 
   .phone-input input {
-    font-size: 14px;
-    padding: 8px;
+    font-size: 1.4rem;
+    padding: 10px;
   }
 
   .submit-button {
-    font-size: 14px;
-    padding: 10px 20px;
+    font-size: 1.6rem;
+    padding: 12px 24px;
   }
 }
 
 /* Small devices (phones, 480px and up) */
 @media (max-width: 480px) {
   .options-container {
-    padding: 10px;
+    padding: 15px;
   }
 
   h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 1.8rem;
   }
 
   .hour-selector {
     gap: 5px;
-    overflow-x: auto;
   }
 
   .hour-option {
-    padding: 6px 10px;
-    margin: 0 2px; /* Adjust margins for better spacing */
+    padding: 10px 15px;
   }
 
   .amount h3 {
-    font-size: 14px;
+    font-size: 1.4rem;
   }
 
   .amount p {
-    font-size: 18px;
+    font-size: 1.8rem;
   }
 
   .phone-input h3 {
-    font-size: 14px;
+    font-size: 1.4rem;
   }
 
   .phone-input input {
-    font-size: 14px;
+    font-size: 1.2rem;
     padding: 8px;
   }
 
   .submit-button {
-    font-size: 14px;
-    padding: 8px 16px;
+    font-size: 1.4rem;
+    padding: 10px 20px;
   }
 }

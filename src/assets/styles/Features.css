@@ -1,0 +1,52 @@
+/* src/assets/styles/Features.css */
+
+/* Features Section Styles */
+.features-section {
+    padding: 3rem 2rem;
+    background-color: #f0f4f8;
+    text-align: center;
+}
+  
+.features-header {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #333;
+}
+  
+.features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+  
+.feature-item {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: center; /* Center the content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.feature-icon {
+    color: blue;
+    font-size: 48px;
+    margin-bottom: 1rem;
+}
+  
+.feature-item h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 1rem;
+}
+  
+.feature-item p {
+    font-size: 1rem;
+    color: #666;
+}

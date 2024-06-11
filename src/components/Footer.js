@@ -1,52 +1,59 @@
 import React from 'react';
-import "../assets/styles/Footer.css"; // Ensure to link your CSS file
+import "../assets/styles/Footer.css";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
-    return (
-        <div className="footer-container">
-            <footer className="footer-content">
-                <div className="footer-row">
-                   
-                    <div className="footer-column">
-                        <h3>COMPANY NAME</h3>
-                        <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    </div>
-                    <div className="footer-column">
-                        <h3>PRODUCTS</h3>
-                        <ul>
-                            <li>Angular</li>
-                            <li>React</li>
-                            <li>Vue</li>
-                            <li>Laravel</li>
-                        </ul>
-                    </div>
-                    <div className="footer-column">
-                        <h3>USEFUL LINKS</h3>
-                        <ul>
-                            <li>Pricing</li>
-                            <li>Settings</li>
-                            <li>Orders</li>
-                            <li>Help</li>
-                        </ul>
-                    </div>
-                    <div className="footer-column">
-                        <h3>CONTACT</h3>
-                        <p>Muqdisho, Xamar Weyne, Somalia</p>
-                        <p>PowerBank@gmail.com</p>
-                        <p>+ 252615738865</p>
-                        <p>+ 25261575654</p>
-                    </div>
-
-                    <div className="footer-column">
-                      
-                        <p>&copy; 2024 - All rights reserved</p>
-                    </div>
-                </div>
-                
-            </footer>
-            
+  return (
+    <div className="footer-container">
+      <footer className="footer-content">
+        <div className="footer-row">
+          <div className="footer-column">
+            <h3>COMPANY NAME</h3>
+            <p>
+              Organize your footer content. Lorem ipsum dolor sit amet,
+              consectetur adipisicing elit.
+            </p>
+          </div>
+          <div className="footer-column">
+            <h3>PRODUCTS</h3>
+            <ul>
+              <li><a href="#">Angular</a></li>
+              <li><a href="#">React</a></li>
+              <li><a href="#">Vue</a></li>
+              <li><a href="#">Laravel</a></li>
+            </ul>
+          </div>
+          <div className="footer-column">
+            <h3>USEFUL LINKS</h3>
+            <ul>
+              <li><a href="#">Pricing</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="#">Orders</a></li>
+              <li><a href="#">Help</a></li>
+            </ul>
+          </div>
+          <div className="footer-column">
+            <h3>CONTACT</h3>
+            <p>Muqdisho, Xamar Weyne, Somalia</p>
+            <p><a href="mailto:PowerBank@gmail.com">PowerBank@gmail.com</a></p>
+            <p><a href="tel:+252615738865">+252615738865</a></p>
+            <p><a href="tel:+25261575654">+25261575654</a></p>
+          </div>
         </div>
-    );
+        <div className="footer-row">
+          <div className="footer-column">
+            <p>&copy; 2024 - All rights reserved</p>
+          </div>
+        </div>
+        <div className="footer-social">
+          <a href="https://www.facebook.com" aria-label="Facebook"><FaFacebook /></a>
+          <a href="https://www.twitter.com" aria-label="Twitter"><FaTwitter /></a>
+          <a href="https://www.instagram.com" aria-label="Instagram"><FaInstagram /></a>
+          <a href="https://www.linkedin.com" aria-label="LinkedIn"><FaLinkedin /></a>
+        </div>
+      </footer>
+    </div>
+  );
 };
 
 export default Footer;
