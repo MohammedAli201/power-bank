@@ -42,11 +42,11 @@ const DisplayResults = ({ conformationForm }) => {
             </tr>
             <tr>
               <th>Bank</th>
-              <td>Example Bank</td>
+              <td>Salam Bank</td>
             </tr>
             <tr>
               <th>SWIFT Code</th>
-              <td>EXAMP123</td>
+              <td>SALAM123</td>
             </tr>
           </tbody>
         </table>
