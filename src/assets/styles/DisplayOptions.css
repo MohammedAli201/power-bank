@@ -1,36 +1,37 @@
 /* Base Styles */
 .options-container {
-  padding: 60px 20px; /* Adjusted padding for better spacing */
-  max-width: 500px; /* Reduced width for a more compact look */
+  padding: 40px 15px; /* Reduced padding */
+  max-width: 450px; /* Adjusted width */
   margin: 0 auto;
   text-align: center;
-  background-color: #fff; /* Changed to white for a clean look */
+  background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 10px; /* Slightly more rounded corners */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Enhanced shadow for a floating effect */
-  margin-top: 60px;
-  font-size: 1.6rem; /* Adjusted font size */
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+  font-size: 1.1rem; /* Reduced font size */
 }
 
 h2 {
-  font-size: 2.2rem; /* Increased font size for emphasis */
-  color: #333;
-  margin-bottom: 25px;
-  font-weight: 700; /* Bold header */
+  font-size: 1.1rem; /* Reduced font size */
+  color: #3f13df;
+  margin-bottom: 20px;
+  font-weight: 700;
+  margin-top: 15px;
 }
 
 .hour-selector {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px; /* Increased gap for better spacing */
-  margin-bottom: 25px;
+  gap: 10px; /* Reduced gap */
+  margin-bottom: 20px;
 }
 
 .hour-option {
-  padding: 15px 25px; /* Enlarged padding for clickable area */
+  padding: 10px 20px; /* Reduced padding */
   background-color: #f0f0f0;
-  border: 2px solid transparent; /* Transparent border for initial state */
+  border: 2px solid transparent;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, border-color 0.3s;
@@ -47,49 +48,57 @@ h2 {
 }
 
 .amount {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .amount h3 {
-  font-size: 1.8rem;
-  color: #333;
+  font-size: 1.1rem; /* Reduced font size */
+  color: #3d3fdf;
 }
 
 .amount p {
-  font-size: 2.4rem; /* Increased font size */
+  font-size: 1.1rem; /* Reduced font size */
   color: #4a90e2;
   font-weight: bold;
 }
 
-.phone-input h3 {
-  font-size: 1.8rem;
+.phone-input,
+.email-input {
+  margin: 15px 0; /* Reduced margin */
+}
+
+.phone-input h3,
+.email-input h3 {
+  font-size: 1.1rem; /* Reduced font size */
   color: #333;
 }
 
-.phone-input input {
-  padding: 12px;
-  font-size: 1.6rem; /* Adjusted font size */
+.phone-input input,
+.email-input input {
+  padding: 10px; /* Reduced padding */
+  font-size: 1.1rem; /* Reduced font size */
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 100%;
   box-sizing: border-box;
-  margin-top: 10px; /* Added margin for better spacing */
+  margin-top: 8px;
 }
 
-.phone-input-box::placeholder {
-  font-size: 1.6rem;
-  color: #888; /* Changed color for better distinction */
+.phone-input-box::placeholder,
+.email-input-box::placeholder {
+  font-size: 1.1rem; /* Reduced font size */
+  color: #888;
 }
 
 .error {
   color: red;
-  font-size: 1.4rem; /* Slightly increased font size */
-  margin-top: 5px;
+  font-size: 1.1rem; /* Reduced font size */
+  margin-top: 4px;
 }
 
 .submit-button {
-  padding: 14px 28px; /* Increased padding for a bigger button */
-  font-size: 1.8rem;
+  padding: 12px 24px; /* Reduced padding */
+  font-size: 1.1rem; /* Reduced font size */
   font-weight: bold;
   color: white;
   background-color: #4a90e2;
@@ -97,7 +106,7 @@ h2 {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
-  margin-top: 25px; /* Adjusted margin for better spacing */
+  margin-top: 20px; /* Adjusted margin */
 }
 
 .submit-button:hover {
@@ -105,87 +114,109 @@ h2 {
   transform: scale(1.05);
 }
 
+/* Contact Information */
+.contact-info {
+  margin-top: 25px; /* Reduced margin */
+  font-size: 1.1rem; /* Reduced font size */
+  color: #d87a7a;
+  text-align: center;
+}
+
+.contact-info h3 {
+  font-size: 1.2rem; /* Reduced font size */
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.contact-info p {
+  margin: 4px 0; /* Adjusted margin */
+}
+
 /* Responsive Styles */
 
 /* Medium devices (tablets, 768px and up) */
 @media (max-width: 768px) {
   .options-container {
-    padding: 20px;
+    padding: 15px;
     max-width: 100%;
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.6rem; /* Reduced font size */
   }
 
   .hour-selector {
-    gap: 10px;
+    gap: 8px; /* Reduced gap */
   }
 
   .hour-option {
-    padding: 12px 20px;
+    padding: 10px 15px; /* Reduced padding */
   }
 
   .amount h3 {
-    font-size: 1.6rem;
+    font-size: 1.4rem; /* Reduced font size */
   }
 
   .amount p {
-    font-size: 2rem;
+    font-size: 1.8rem; /* Reduced font size */
   }
 
-  .phone-input h3 {
-    font-size: 1.6rem;
+  .phone-input h3,
+  .email-input h3 {
+    font-size: 1.4rem; /* Reduced font size */
   }
 
-  .phone-input input {
-    font-size: 1.4rem;
-    padding: 10px;
+  .phone-input input,
+  .email-input input {
+    font-size: 1.2rem; /* Reduced font size */
+    padding: 8px; /* Reduced padding */
   }
 
   .submit-button {
-    font-size: 1.6rem;
-    padding: 12px 24px;
+    font-size: 1.4rem; /* Reduced font size */
+    padding: 10px 20px; /* Reduced padding */
   }
 }
 
 /* Small devices (phones, 480px and up) */
 @media (max-width: 480px) {
   .options-container {
-    padding: 15px;
+    padding: 10px; /* Reduced padding */
   }
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.4rem; /* Reduced font size */
   }
 
   .hour-selector {
-    gap: 5px;
+    gap: 5px; /* Reduced gap */
   }
 
   .hour-option {
-    padding: 10px 15px;
+    padding: 8px 12px; /* Reduced padding */
   }
 
   .amount h3 {
-    font-size: 1.4rem;
+    font-size: 1.2rem; /* Reduced font size */
   }
 
   .amount p {
-    font-size: 1.8rem;
+    font-size: 1.6rem; /* Reduced font size */
   }
 
-  .phone-input h3 {
-    font-size: 1.4rem;
+  .phone-input h3,
+  .email-input h3 {
+    font-size: 1.2rem; /* Reduced font size */
   }
 
-  .phone-input input {
-    font-size: 1.2rem;
-    padding: 8px;
+  .phone-input input,
+  .email-input input {
+    font-size: 1rem; /* Reduced font size */
+    padding: 6px; /* Reduced padding */
   }
 
   .submit-button {
-    font-size: 1.4rem;
-    padding: 10px 20px;
+    font-size: 1.2rem; /* Reduced font size */
+    padding: 8px 16px; /* Reduced padding */
   }
 }

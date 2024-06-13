@@ -16,23 +16,40 @@ const DisplayResults = ({ conformationForm }) => {
   return (
     <div className="results-container">
       <h1>Information Summary</h1>
-      <div className="summary-card">
-        <div className="card-item">
-          <strong>Amount of hours you selected:</strong>
-          <span>{formData.selectHrs} hrs</span>
-        </div>
-        <div className="card-item">
-          <strong>Phone:</strong>
-          <span>{formData.phone}</span>
-        </div>
-        <div className="card-item">
-          <strong>Amount to be paid:</strong>
-          <span>{formData.amount} $</span>
-        </div>
-        <div className="card-item account-info">
-          <strong>Our account for payment:</strong>
-          <span>89858</span>
-        </div>
+      <table className="summary-table">
+        <tbody>
+          <tr>
+            <th>Amount of hours you selected</th>
+            <td>{formData.selectHrs} hrs</td>
+          </tr>
+          <tr>
+            <th>Phone</th>
+            <td>{formData.phone}</td>
+          </tr>
+          <tr>
+            <th>Amount to be paid</th>
+            <td>${formData.amount.toFixed(2)}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div className="account-info">
+        <h2>Our Account for Payment</h2>
+        <table className="account-table">
+          <tbody>
+            <tr>
+              <th>Account Number</th>
+              <td>89858</td>
+            </tr>
+            <tr>
+              <th>Bank</th>
+              <td>Example Bank</td>
+            </tr>
+            <tr>
+              <th>SWIFT Code</th>
+              <td>EXAMP123</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <button className="payment-button" onClick={completeReview}>Confirm and make payment</button>
     </div>

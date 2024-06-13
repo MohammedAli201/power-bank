@@ -8,12 +8,13 @@ const DisplayOptions = ({ completedForm }) => {
   const [costperHr, setCostperHr] = useState(0.5);
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const [email, setEmail] = useState('');
 
   const handleSelectHour = (hour) => {
     setSelectHrs(hour);
   };
 
-  const handlerEventPhone = (e) => {
+  const handlePhoneChange = (e) => {
     const phoneInput = e.target.value;
     if (/^061\d{7}$/.test(phoneInput)) {
       setPhoneError('');
@@ -21,6 +22,10 @@ const DisplayOptions = ({ completedForm }) => {
       setPhoneError('Phone number must be in the format 061xxxxxxx');
     }
     setPhone(phoneInput);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -31,7 +36,7 @@ const DisplayOptions = ({ completedForm }) => {
     }
     let amount = selectHrs * costperHr;
     completedForm();
-    navigate("/DisplayResults", { state: { selectHrs, amount, phone } });
+    navigate("/DisplayResults", { state: { selectHrs, amount, phone, email } });
   };
 
   return (
@@ -58,12 +63,18 @@ const DisplayOptions = ({ completedForm }) => {
           className="phone-input-box"
           type="text"
           value={phone}
-          onChange={handlerEventPhone}
+          onChange={handlePhoneChange}
           placeholder="061xxxxxxx"
         />
         {phoneError && <p className="error">{phoneError}</p>}
       </div>
+     
       <button className="submit-button" onClick={handleSubmit}>Submit</button>
+      <div className="contact-info">
+        <h3>Contact Us</h3>
+        <p>Phone: 0611234567</p>
+        <p>Email: example@mail.com</p>
+      </div>
     </div>
   );
 };
