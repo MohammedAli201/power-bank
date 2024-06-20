@@ -14,6 +14,7 @@ import { BrowserRouter as Router,Route, Routes  } from 'react-router-dom';
 import Header from './components/header';
 import Footer from './components/Footer';
 import MainPage from './components/MainPage';
+import StationInfo from './components/Power_bankInfo';
 const App = () => {
 const [completForm, setcompletForm] = useState(false);
 const [conformation,setConformation] = useState(false);
@@ -46,6 +47,7 @@ const completedForm = (data) => {
           <Route path="/EvcPayment" element={conformation&&<EvcPayment />} />
           {/* <Route path="/ExampleComponent" element={<ExampleComponent />} /> */}
           {/* <Route path="/ApiService" element={<ApiService />} /> */}
+          <Route path="/stationInfo" element={<StationInfo />} />
 
         </Routes>
       </div>

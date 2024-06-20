@@ -50,17 +50,6 @@ const ServiceTimer = ({paymentIsSucced}) => {
     }
   };
 
-  // save information about the payment and 
-
-  
-
-  // Simulate receiving a payment success notification
-//   useEffect(() => {
-//     if (paymentIsSucced) {
-//       startTimer();
-//     }
-//   }, []);
-
   const startTimer = () => {
     const paymentStartTime = Date.now();
     localStorage.setItem('paymentStartTime', paymentStartTime);

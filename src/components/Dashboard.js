@@ -53,6 +53,7 @@ const Dashboard = () => {
       });
 
       setData(fetchedData);
+      console.log("Fetched Data:", fetchedData);
       setLoading(false);
       console.log("Fetched Data:", fetchedData);
     } catch (error) {

@@ -3,7 +3,7 @@ import ServiceTimer from "./ServiceTimer";
 import ApiService from "./apiService";
 import '../assets/styles/EvcPayment.css';
 import PreventDoubleUse from "./preventDoubleUse";
-
+import ReleaseBattery from "../ReleaseBatteries/releaseBattery";
 
 const EvcPayment = () => {
   const paymentInfo = {
@@ -31,8 +31,8 @@ const EvcPayment = () => {
     fetchData();
   }, []);
 
+
   
-  // This function will be used to make payment and send request to external api in order to check the payment is succeeded or not
 
 
   return (
@@ -50,6 +50,7 @@ const EvcPayment = () => {
           )} */}
           {paymentIsSucceeded && <ServiceTimer paymentIsSucceeded={paymentIsSucceeded} />}
           <PreventDoubleUse paymentInfo={paymentInfo} />
+
         </div>
       )}
     </div>
