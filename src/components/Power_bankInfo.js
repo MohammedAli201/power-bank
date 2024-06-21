@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ApiService from '../services/apiService';
 import '../assets/styles/Power_bankInfo.css';
-
 const Power_bankInfo = () => {
     const [stationId, setStationId] = useState("");
     const [stationData, setStationData] = useState(null);
