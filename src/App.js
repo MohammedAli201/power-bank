@@ -45,6 +45,7 @@ const completedForm = (data) => {
           <Route path="/DisplayOptions" element={  <DisplayOptions  completedForm = {completedForm}/>} />
           <Route path="/DisplayResults" element={completForm &&<DisplayResults conformationForm ={conformationForm} />} />
           <Route path="/EvcPayment" element={conformation&&<EvcPayment />} />
+          
           {/* <Route path="/ExampleComponent" element={<ExampleComponent />} /> */}
           {/* <Route path="/ApiService" element={<ApiService />} /> */}
           <Route path="/stationInfo" element={<StationInfo />} />

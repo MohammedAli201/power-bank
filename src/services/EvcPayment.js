@@ -1,73 +1,78 @@
-import { useState, useEffect } from "react";
-import ServiceTimer from "./ServiceTimer";
-import ApiService from "./apiService";
+// src/pages/EvcPayment.js
+import { useState, useEffect, useRef } from "react";
 import '../assets/styles/EvcPayment.css';
-import PreventDoubleUse from "./preventDoubleUse";
+import FaceCapture from '../components/FaceCapture';
 
-import SlotsComponent from "../SlotSelection/SlotsComponent";
-// import ApiStationInformation from "./apiStationInformation";
 const EvcPayment = () => {
-
-  const paymentInfo = {
-    mobileNumber: '0618056580',
-    paymentId: "payment_002",
-  };
   const stationId = 'WSEP161683346505';
-  const [response, setResponse] = useState(null);
+  const apiBaseUrl = 'http://localhost:9000/api/v1/stations/powerBankRouter/';
+  const [error, setError] = useState("");
   const [stationData, setStationData] = useState(null);
-  const [success, setSuccess] = useState(false);
-  const [paymentIsSucceeded, setPaymentIsSucceeded] = useState(true);
-  const [error, setError] = useState(null);
-// This will fetch the payment data from the API
+  const [paymentIsSucceeded, setPaymentIsSucceeded] = useState(false);
+  const [paymentInfores, setPaymentInfores] = useState(null);
+  const hasFetchedData = useRef(false);
+
   useEffect(() => {
-    // const fetchData = async () => {
-    //   const result = await ApiService({
-    //     apiUrl: "https://jsonplaceholder.typicode.com/todos/1",
-    //     method: "GET",
-    //   });
-    //   if (result.error) {
-    //     setError(result.error);
-    //   } else {
-    //     setResponse(result);
-    //     // fetchStationInfo();
-        
-
-    //   }
-    // };
-
-    fetchStationInfo();
+    if (!hasFetchedData.current) {
+      fetchDataAndMakePayment();
+      hasFetchedData.current = true;
+    }
   }, []);
 
-  
-  const fetchStationInfo = async () => {
+  // Fetch station information and make payment request
+  const fetchDataAndMakePayment = async () => {
     try {
-        const response = await ApiService({
-            apiUrl: `/v1/station/${stationId}`, // Directly use stationId
-        });
-        setStationData(response);
-        setSuccess(true)
-        setError('');
-    } catch (err) {
-        setError(`Error: ${err.message}`);
-        setStationData(null);
+      // Fetch station information
+      const stationResponse = await fetch(`${apiBaseUrl}${stationId}`, {
+        method: 'GET',
+      });
+
+      if (!stationResponse.ok) {
+        throw new Error('Failed to fetch station information');
+      }
+
+      const stationData = await stationResponse.json();
+      console.log("Station Data:", stationData.batteries);
+      setStationData(stationData);
+
+      // After successfully fetching station data, make the payment request
+      await evcPaymentRequest();
+    } catch (error) {
+      console.error('Error fetching station data or making payment:', error);
+      setError('Error fetching station data or making payment');
     }
-};
+  };
 
-// This will fetch the slots data from the API
-// useEffect(() => {
-//  const { stationData, error } = FetchStationData(stationId);
-//   if (error) {
-//     setError(error);
-//   }
-//   if (stationData) {
-//     setSlotsData(stationData);
-//   }
-// }
-// , []);
+  // Make EVC payment request
+  const evcPaymentRequest = async () => {
+    const data = {
+      paymentTime: new Date().toISOString(),
+      stationId,
+      userPhone: '1234567890' // Replace with actual user phone number
+    };
 
+    try {
+      const response = await fetch(`http://localhost:9000/api/v1/stations/payments/evc_paymentRequest`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+      });
 
-  
-console.log("slotsData",stationData);
+      if (!response.ok) {
+        throw new Error('Failed to save payment information');
+      }
+
+      const data_res = await response.json();
+      setPaymentIsSucceeded(true);
+      setPaymentInfores(data_res);
+      console.log("Payment saved successfully:", data_res);
+    } catch (error) {
+      console.error('Error saving payment information:', error);
+      setError('Error saving payment information');
+    }
+  };
 
   return (
     <div className="payment-container">
@@ -78,16 +83,17 @@ console.log("slotsData",stationData);
         </div>
       ) : (
         <div className="response-container">
-          {/* <h3>Response:</h3>
-          {response && (
-            <pre className="response-data">{JSON.stringify(response, null, 2)}</pre>
-          )} */}
-           {/* <SlotsComponent slots={stationData.batteries} paymentIsSucceeded={paymentIsSucceeded} /> */}
-          {/* {paymentIsSucceeded && <ServiceTimer paymentIsSucceeded={paymentIsSucceeded} />} */}
-          {/* <PreventDoubleUse paymentInfo={paymentInfo} /> */}
-
-          {success && <SlotsComponent slots={stationData.batteries} paymentIsSucceeded={paymentIsSucceeded} />}
-
+          <h3>{paymentIsSucceeded ? 'Payment is successful' : 'Processing payment...'}</h3>
+      
+          {/* Only render FaceCapture if stationData and payment information are available */}
+          {stationData && paymentInfores && (
+            <FaceCapture
+              slots={stationData.batteries}
+              paymentInfores={paymentInfores}
+              paymentIsSucceeded={paymentIsSucceeded}
+              stationId={stationId} // Pass stationId as prop
+            />
+          )}
         </div>
       )}
     </div>

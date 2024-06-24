@@ -4,7 +4,7 @@ const ApiService = async ({ apiUrl, method = 'GET', body = null, headers = {} })
   
     try {
       // Initialize the fetch options
-      const options = {
+        const options = {
         method,
         headers: {
           'Authorization': `Basic ${btoa(apiKey + ':')}`,
