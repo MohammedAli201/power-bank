@@ -3,8 +3,6 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* background-color: #f0f4f8;  */
-  /* background: url('../images/back-gradient.png') no-repeat center center/cover; */
 }
 
 /* Hero Section Styles */
@@ -23,7 +21,7 @@
   top: 20px;
   left: 20px;
   z-index: 10;
-  transform: scale(1.5); /* Adjusted scale for better visibility */
+  transform: scale(1);
 }
 
 .logo-overlay img {
@@ -48,8 +46,7 @@
   border-radius: 15px;
   gap: 1.25rem;
   animation: fadeIn 1s ease-in-out;
-  margin-top: 8rem; /* Adjusted margin for better alignment */
-  
+  margin-top: 8rem;
 }
 
 /* Hero Text Styles */
@@ -78,17 +75,17 @@
 }
 
 .hero-text .hero-text-battery {
-  font-size: 4rem; /* Adjusted size for better balance */
+  font-size: 4rem;
   font-weight: 800;
   color: #007bff;
-  line-height: 1.2; /* Adjusted line height for better spacing */
+  line-height: 1.2;
   margin-bottom: 1rem;
   margin-top: 0.5rem;
   font-family: 'Montserrat', sans-serif;
 }
 
 .hero-text .hero-text-p {
-  font-size: 1.5rem; /* Adjusted size for better readability */
+  font-size: 1.5rem;
   font-weight: 400;
   color: #333;
   line-height: 1.5;
@@ -126,6 +123,7 @@
 
 .hero-image img {
   max-width: 100%;
+  max-height: 300px; /* Adjust this value to limit the height */
   height: auto;
   border-radius: 0.625rem;
   transition: transform 0.3s ease-in-out;

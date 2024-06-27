@@ -1,20 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 import React,{useState} from 'react';
-import ApiService from './services/apiService';
-import DisplayOptions from './components/DisplayOptions';
-import DisplayResults from './components/DisplayResults';
+import DisplayOptions from './components/ServiceBooking';
+import DisplayResults from './components/BookingConfirmation';
 
-import Forms from './components/Forms';
-import Home from './components/Home';
-import EvcPayment from './services/EvcPayment';
-import ExampleComponent from  './components/ExampleComponent'
+import EvcPayment from './services/PaymentProcessing';
+
 import Dashboard from './components/Dashboard';
 import { BrowserRouter as Router,Route, Routes  } from 'react-router-dom';
-import Header from './components/header';
-import Footer from './components/Footer';
-import MainPage from './components/MainPage';
-import StationInfo from './components/Power_bankInfo';
+import Footer from './components/page/Footer';
+import MainPage from './components/page/MainPage';
+import StationInfo from './components/StationInfo';
 const App = () => {
 const [completForm, setcompletForm] = useState(false);
 const [conformation,setConformation] = useState(false);
