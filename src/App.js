@@ -11,6 +11,7 @@ import { BrowserRouter as Router,Route, Routes  } from 'react-router-dom';
 import Footer from './components/page/Footer';
 import MainPage from './components/page/MainPage';
 import StationInfo from './components/StationInfo';
+import ProfileBusiness from './components/page/ProfileBusiness';
 const App = () => {
 const [completForm, setcompletForm] = useState(false);
 const [conformation,setConformation] = useState(false);
@@ -45,6 +46,7 @@ const completedForm = (data) => {
           {/* <Route path="/ExampleComponent" element={<ExampleComponent />} /> */}
           {/* <Route path="/ApiService" element={<ApiService />} /> */}
           <Route path="/stationInfo" element={<StationInfo />} />
+          <Route path="/profileBusiness" element={<ProfileBusiness />} />
 
         </Routes>
       </div>

@@ -1,0 +1,82 @@
+.profile-business-card {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.profile-business-card h1 {
+    color: #2c3e50;
+    text-align: center;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.profile-business-card .intro {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.profile-business-card .section {
+    margin-bottom: 40px;
+}
+
+.profile-business-card h2 {
+    color: #34495e;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+.profile-business-card ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.profile-business-card li {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.profile-business-card li::before {
+    content: '•';
+    color: #3498db;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.profile-business-card strong {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.profile-business-card .section p {
+    line-height: 1.6;
+    color: #555;
+}
+
+.profile-business-card .section:last-child p {
+    margin-top: 10px;
+    line-height: 1.8;
+}
+
+.profile-business-card .section h2 {
+    font-size: 20px;
+}
+
+.profile-business-card .section ul {
+    font-size: 16px;
+}
+
+.profile-business-card .section li {
+    font-size: 16px;
+}
