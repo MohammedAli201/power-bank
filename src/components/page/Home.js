@@ -9,7 +9,7 @@ const Home = () => {
 
   const handleRentNow = (e) => {
     e.preventDefault();
-    navigate("/DisplayOptions");
+    navigate("/ServiceBooking");
   }
 
   return (
