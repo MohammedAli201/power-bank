@@ -8,7 +8,8 @@ import Footer from './components/page/Footer';
 import MainPage from './components/page/MainPage';
 import StationInfo from './components/StationInfo';
 import ProfileBusiness from './components/page/ProfileBusiness';
-import heroImage from './assets/images/logo_bedrift.jpg';
+// import heroImage from './assets/images/logo_bedrift.jpg';
+import heroImage from './assets/images/logo_svg.svg';
 import './App.css';
 
 const App = () => {
@@ -34,7 +35,7 @@ const App = () => {
     <div className='App'>
       <Router>
         <header className="header">
-          <img src={heroImage} className="logo" alt="logo" />
+          <img src={heroImage} height={200}     className="logo" alt="logo" />
           <nav className="navbar">
             <input type="checkbox" id="nav-toggle" className="nav-toggle" />
             <label htmlFor="nav-toggle" className="nav-toggle-label">

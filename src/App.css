@@ -11,12 +11,18 @@ body, html, .App {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #fff;
+  background-color: #ffff;
+  height: 50px;
 }
 
 .logo {
-  height: 40px;
-  transform: scale(2.5);
+  /* height: 50px; */
+  /* transform: scale(8.9); */
+  margin-left: 5rem;
+  
+  
+ 
+
 }
 
 .navbar {
@@ -36,8 +42,10 @@ body, html, .App {
 
 .nav-link {
   text-decoration: none;
-  color: #007BFF;
-  font-weight: bold;
+  color: #050505;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .nav-link:hover {
