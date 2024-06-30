@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding: 0 20px;
 }
 
 /* Hero Section Styles */
@@ -13,8 +14,7 @@
   justify-content: center;
   position: relative;
   width: 100%;
-  margin-left: 20px;
-  margin-right: 20px;
+  padding: 20px;
 }
 
 /* Logo Overlay Styles */
@@ -136,6 +136,40 @@
 }
 
 /* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+  }
+
+  .hero-text {
+    align-items: center;
+    padding: 1.5rem;
+  }
+
+  .hero-text-wrapper {
+    align-items: center;
+  }
+
+  .hero-text .title-text {
+    font-size: 2.25rem;
+  }
+
+  .hero-text .hero-text-battery {
+    font-size: 3.5rem;
+  }
+
+  .hero-text .hero-text-p {
+    font-size: 1.25rem;
+  }
+
+  .hero-image {
+    padding: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-content {
     flex-direction: column;
@@ -169,8 +203,22 @@
 }
 
 @media (max-width: 480px) {
+  .hero-section {
+    padding: 10px;
+  }
+
   .hero-content {
     padding: 0.625rem;
+    margin-top: 4rem;
+  }
+
+  .hero-text {
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .hero-text-wrapper {
+    align-items: center;
   }
 
   .hero-text .title-text {
@@ -183,11 +231,16 @@
 
   .hero-text .hero-text-p {
     font-size: 0.9rem;
+    text-align: center;
   }
 
   .hero-text .cta-button {
     font-size: 1rem;
     padding: 0.625rem 1.25rem;
+  }
+
+  .hero-image {
+    padding: 0.625rem;
   }
 }
 

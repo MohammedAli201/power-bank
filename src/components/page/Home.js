@@ -15,9 +15,9 @@ const Home = () => {
   return (
     <div className="home-section">
       <div className="hero-section">
-        <div className="logo-overlay">
+        {/* <div className="logo-overlay">
           <img src={logo} alt="Logo" />
-        </div>
+        </div> */}
         <div className="hero-content">
           <div className="hero-text">
             <div className="hero-text-wrapper">
