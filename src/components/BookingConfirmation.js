@@ -10,7 +10,7 @@ const BookingConfirmation = ({ conformationForm }) => {
   const completeReview = () => {
     alert('Payment has been made');
     conformationForm();
-    navigate("/EvcPayment");
+    navigate("/PaymentProcessing");
   };
 
   return (

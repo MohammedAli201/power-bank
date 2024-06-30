@@ -37,7 +37,7 @@ const ServiceBooking = ({ completedForm }) => {
     }
     let amount = selectHrs * costperHr;
     completedForm();
-    navigate("/DisplayResults", { state: { selectHrs, amount, phone } });
+    navigate("/BookingConfirmation", { state: { selectHrs, amount, phone } });
   };
 
   return (
