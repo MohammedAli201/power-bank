@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import DisplayOptions from './components/ServiceBooking';
-import DisplayResults from './components/BookingConfirmation';
-import EvcPayment from './services/PaymentProcessing';
+import ServiceBooking from './components/ServiceBooking';
+import BookingConfirmation from './components/BookingConfirmation';
+import PaymentProcessing from './services/PaymentProcessing';
 import Dashboard from './components/Dashboard';
 import Footer from './components/page/Footer';
 import MainPage from './components/page/MainPage';
@@ -45,7 +45,7 @@ const App = () => {
                 <Link to="/" className="nav-link" onClick={closeMenu}>Home</Link>
               </li>
               <li className="nav-item">
-                <Link to="/DisplayOptions" className="nav-link" onClick={closeMenu}>Display Options</Link>
+                <Link to="/ServiceBooking" className="nav-link" onClick={closeMenu}>ServiceBooking</Link>
               </li>
               <li className="nav-item">
                 <Link to="/Dashboard" className="nav-link" onClick={closeMenu}>Dashboard</Link>
@@ -63,9 +63,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/DisplayOptions" element={<DisplayOptions completedForm={completedForm} />} />
-            <Route path="/DisplayResults" element={completForm && <DisplayResults conformationForm={conformationForm} />} />
-            <Route path="/EvcPayment" element={conformation && <EvcPayment />} />
+            <Route path="/ServiceBooking" element={<ServiceBooking completedForm={completedForm} />} />
+            <Route path="/BookingConfirmation" element={completForm && <BookingConfirmation conformationForm={conformationForm} />} />
+            <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
             <Route path="/StationInfo" element={<StationInfo />} />
             <Route path="/ProfileBusiness" element={<ProfileBusiness />} />
           </Routes>
