@@ -20,19 +20,19 @@ const Footer = () => {
           <div className="footer-column">
             <h3>PRODUCTS</h3>
             <ul>
-              <li><a href="#">Angular</a></li>
-              <li><a href="#">React</a></li>
-              <li><a href="#">Vue</a></li>
-              <li><a href="#">Laravel</a></li>
+              <li><a href="https://www.facebook.com/drmuxsincm">Angular</a></li>
+              <li><a href="https://www.facebook.com/drmuxsincm">React</a></li>
+              <li><a href="https://www.facebook.com/drmuxsincm">Vue</a></li>
+              <li><a href="https://www.facebook.com/drmuxsincm">Laravel</a></li>
             </ul>
           </div>
           <div className="footer-column">
             <h3>USEFUL LINKS</h3>
             <ul>
-              <li><a href="#">Pricing</a></li>
-              <li><a href="#">Settings</a></li>
-              <li><a href="#">Orders</a></li>
-              <li><a href="#">Help</a></li>
+              <li><a href="https://www.facebook.com/drmuxsincm">Pricing</a></li>
+              <li><a href="https://www.facebook.com/drmuxsincm">Settings</a></li>
+              <li><a href="https://www.facebook.com/drmuxsincm">Orders</a></li>
+              <li><a href="https://www.facebook.com/drmuxsincm">Help</a></li>
             </ul>
           </div>
           <div className="footer-column">

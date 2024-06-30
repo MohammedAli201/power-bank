@@ -5,10 +5,11 @@ import '../assets/styles/ServiceBooking.css';
 const ServiceBooking = ({ completedForm }) => {
   const navigate = useNavigate();
   const [selectHrs, setSelectHrs] = useState(1);
-  const [costperHr, setCostperHr] = useState(0.5);
+  // const [costperHr, setCostperHr] = useState(0.5);
+  const costperHr = 0.5;
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
 
   const handleSelectHour = (hour) => {
     setSelectHrs(hour);
@@ -24,9 +25,9 @@ const ServiceBooking = ({ completedForm }) => {
     setPhone(phoneInput);
   };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  // const handleEmailChange = (e) => {
+  //   setEmail(e.target.value);
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ const ServiceBooking = ({ completedForm }) => {
     }
     let amount = selectHrs * costperHr;
     completedForm();
-    navigate("/DisplayResults", { state: { selectHrs, amount, phone, email } });
+    navigate("/DisplayResults", { state: { selectHrs, amount, phone } });
   };
 
   return (

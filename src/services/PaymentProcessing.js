@@ -16,7 +16,7 @@ const PaymentProcessing = () => {
       fetchDataAndMakePayment();
       hasFetchedData.current = true;
     }
-  }, []);
+  }, );
 
   // Fetch station information and make payment request
   const fetchDataAndMakePayment = async () => {

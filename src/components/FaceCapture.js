@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+// import React, { useEffect, useRef, useState } from 'react';
 
-
+import React from 'react';
 const FaceCapture = ({ slots, paymentInfores, paymentIsSucceeded }) => {
 
   return (
