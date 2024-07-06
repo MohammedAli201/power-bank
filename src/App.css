@@ -1,3 +1,4 @@
+/* App.css */
 /* General Styles */
 body, html, .App {
   margin: 0;
@@ -13,7 +14,7 @@ body, html, .App {
   padding: 1rem 2rem;
   background-color: #ffffff;
   height: 50px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow for a professional look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -37,10 +38,36 @@ body, html, .App {
 
 .nav-link {
   text-decoration: none;
-  color: #050505;
+  color: #fff;
   font-weight: 500;
   font-size: 14px;
   font-family: 'Roboto', sans-serif;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.home-link {
+  background-color: #007BFF;
+}
+
+.service-link {
+  background-color: #28a745;
+}
+
+.dashboard-link {
+  background-color: #ffc107;
+}
+
+.station-link {
+  background-color: #17a2b8;
+}
+
+.profile-link {
+  background-color: #6f42c1;
+}
+
+.upload-link {
+  background-color: #e83e8c;
 }
 
 .nav-link:hover {
@@ -112,26 +139,26 @@ body, html, .App {
   .nav-menu {
     display: none;
     flex-direction: column;
-    width: 100%; /* Full width */
+    width: 100%;
     background-color: #333;
-    position: fixed; /* Fixed position for full screen */
+    position: fixed;
     top: 0;
-    right: 0; /* Align to the right */
-    bottom: 0; /* Cover the full height */
+    right: 0;
+    bottom: 0;
     margin: 0;
     padding: 2rem;
-    border-radius: 0; /* No rounded corners */
-    box-shadow: none; /* No box shadow */
-    overflow: hidden; /* Ensure the menu is hidden when not expanded */
-    transform: scaleX(0); /* Initially scaled to 0 */
-    transform-origin: right; /* Scale from the right */
-    transition: transform 0.3s ease-in-out; /* Smooth transition for expansion */
-    z-index: 1000; /* Ensure it's above other content */
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
   }
 
   .nav-toggle:checked + .nav-toggle-label + .nav-menu {
     display: flex;
-    transform: scaleX(1); /* Expand the menu */
+    transform: scaleX(1);
   }
 
   .nav-item {
@@ -143,7 +170,7 @@ body, html, .App {
   .nav-link {
     padding: 1.5rem;
     display: block;
-    font-size: 1.2rem; /* Increased font size for professionalism */
-    color: #fff; /* White color for contrast */
+    font-size: 1.2rem;
+    color: #fff;
   }
 }

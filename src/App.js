@@ -10,10 +10,8 @@ import StationInfo from './components/StationInfo';
 import ProfileBusiness from './components/page/ProfileBusiness';
 import VideoUpload from './components/page/upload';
 import Succes from './components/page/succes';
-// import heroImage from './assets/images/logo_bedrift.jpg';
 import heroImage from './assets/images/logo_svg.svg';
 import './App.css';
-
 
 const App = () => {
   const [completForm, setcompletForm] = useState(false);
@@ -38,7 +36,7 @@ const App = () => {
     <div className='App'>
       <Router>
         <header className="header">
-          <img src={heroImage} height={200}     className="logo" alt="logo" />
+          <img src={heroImage} height={200} className="logo" alt="logo" />
           <nav className="navbar">
             <input type="checkbox" id="nav-toggle" className="nav-toggle" />
             <label htmlFor="nav-toggle" className="nav-toggle-label">
@@ -46,26 +44,23 @@ const App = () => {
             </label>
             <ul className="nav-menu">
               <li className="nav-item">
-                <Link to="/" className="nav-link" onClick={closeMenu}>Home</Link>
+                <Link to="/" className="nav-link home-link" onClick={closeMenu}>Home</Link>
               </li>
               <li className="nav-item">
-                <Link to="/ServiceBooking" className="nav-link" onClick={closeMenu}>ServiceBooking</Link>
+                <Link to="/ServiceBooking" className="nav-link service-link" onClick={closeMenu}>ServiceBooking</Link>
               </li>
               <li className="nav-item">
-                <Link to="/Dashboard" className="nav-link" onClick={closeMenu}>Dashboard</Link>
+                <Link to="/Dashboard" className="nav-link dashboard-link" onClick={closeMenu}>Dashboard</Link>
               </li>
               <li className="nav-item">
-                <Link to="/StationInfo" className="nav-link" onClick={closeMenu}>Station Info</Link>
+                <Link to="/StationInfo" className="nav-link station-link" onClick={closeMenu}>Station Info</Link>
               </li>
               <li className="nav-item">
-                <Link to="/ProfileBusiness" className="nav-link" onClick={closeMenu}>Profile Business</Link>
+                <Link to="/ProfileBusiness" className="nav-link profile-link" onClick={closeMenu}>Profile Business</Link>
               </li>
-
               <li className="nav-item">
-                <Link to="/upload" className="nav-link" onClick={closeMenu}>Upload</Link>
+                <Link to="/upload" className="nav-link upload-link" onClick={closeMenu}>Upload</Link>
               </li>
-
-
             </ul>
           </nav>
         </header>
@@ -79,7 +74,7 @@ const App = () => {
             <Route path="/StationInfo" element={<StationInfo />} />
             <Route path="/ProfileBusiness" element={<ProfileBusiness />} />
             <Route path="/upload" element={<VideoUpload />} />
-            <Route path="/Succes" element={< Succes/>} />
+            <Route path="/Succes" element={<Succes />} />
           </Routes>
         </main>
       </Router>
