@@ -1,8 +1,9 @@
-import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React  from "react";
+import { useLocation , useNavigate } from "react-router-dom";
 import '../assets/styles/BookingConfirmation.css';
 
 const BookingConfirmation = ({ conformationForm }) => {
+  
   const location = useLocation();
   const formData = location.state;
   const navigate = useNavigate();
@@ -10,7 +11,10 @@ const BookingConfirmation = ({ conformationForm }) => {
   const completeReview = () => {
     alert('Payment has been made');
     conformationForm();
-    navigate("/PaymentProcessing");
+   
+    // navigate("/PaymentProcessing");
+    navigate("/PaymentProcessing", { state: formData });
+
   };
 
   return (
@@ -24,7 +28,7 @@ const BookingConfirmation = ({ conformationForm }) => {
           </tr>
           <tr>
             <th>Phone</th>
-            <td>{formData.phone}</td>
+            <td>{formData.phones}</td>
           </tr>
           <tr>
             <th>Amount to be paid</th>
@@ -32,7 +36,7 @@ const BookingConfirmation = ({ conformationForm }) => {
           </tr>
         </tbody>
       </table>
-      <div className="account-info">
+      {/* <div className="account-info">
         <h2>Our Account for Payment</h2>
         <table className="account-table">
           <tbody>
@@ -50,7 +54,7 @@ const BookingConfirmation = ({ conformationForm }) => {
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> */}
       <button className="payment-button" onClick={completeReview}>Confirm and make payment</button>
     </div>
   );

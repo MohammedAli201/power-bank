@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import '../assets/styles/PaymentProcessing.css';
 import FaceCapture from '../components/FaceCapture';
 
 const PaymentProcessing = () => {
+  const location = useLocation();
+  const userInfo = location.state;
   const stationId = 'WSEP161683346505';
   const apiBaseUrl = 'http://localhost:9000/api/v1/stations/powerBankRouter/';
   const [error, setError] = useState("");
@@ -12,6 +15,7 @@ const PaymentProcessing = () => {
   const hasFetchedData = useRef(false);
 
   useEffect(() => {
+    console.warn("Payment Processing:", userInfo);
     if (!hasFetchedData.current) {
       fetchDataAndMakePayment();
       hasFetchedData.current = true;
@@ -45,10 +49,18 @@ const PaymentProcessing = () => {
   // Make EVC payment request
   const evcPaymentRequest = async () => {
     const data = {
-      paymentTime: new Date().toISOString(),
-      stationId,
-      userPhone: '1234567890' // Replace with actual user phone number
+      stationId: stationId,
+      userId: userInfo.userId,
+      amount: userInfo.amount,
+      accountNo : userInfo.phones,
+      hours: userInfo.selectHrs,
+      currency: "USD",
+      description: "wan diray"
+         
+    
+
     };
+    console.warn("Payment Request Data:", data);
 
     try {
       const response = await fetch(`http://localhost:9000/api/v1/stations/payments/evc_paymentRequest`, {

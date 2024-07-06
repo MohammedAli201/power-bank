@@ -1,13 +1,11 @@
-import React from 'react';
+// station.js
+const stationNameMap = {
+    'Barubax': 'WSEP161683346505',
+    'Balack sea': 'WSEP161683346505',
+};
 
-const Station = ({stationName}) => {
-    const stationNameMap = {
-        'Barubax': 'WSEP161683346505',
-        'Balack sea': 'WSEP161683346505',
-    };
-
+const getStationCode = (stationName) => {
     return stationNameMap[stationName];
-   
-}
+};
 
-export default Station;
+export default getStationCode;

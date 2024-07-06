@@ -8,9 +8,12 @@ import Footer from './components/page/Footer';
 import MainPage from './components/page/MainPage';
 import StationInfo from './components/StationInfo';
 import ProfileBusiness from './components/page/ProfileBusiness';
+import VideoUpload from './components/page/upload';
+import Succes from './components/page/succes';
 // import heroImage from './assets/images/logo_bedrift.jpg';
 import heroImage from './assets/images/logo_svg.svg';
 import './App.css';
+
 
 const App = () => {
   const [completForm, setcompletForm] = useState(false);
@@ -57,6 +60,12 @@ const App = () => {
               <li className="nav-item">
                 <Link to="/ProfileBusiness" className="nav-link" onClick={closeMenu}>Profile Business</Link>
               </li>
+
+              <li className="nav-item">
+                <Link to="/upload" className="nav-link" onClick={closeMenu}>Upload</Link>
+              </li>
+
+
             </ul>
           </nav>
         </header>
@@ -69,6 +78,8 @@ const App = () => {
             <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
             <Route path="/StationInfo" element={<StationInfo />} />
             <Route path="/ProfileBusiness" element={<ProfileBusiness />} />
+            <Route path="/upload" element={<VideoUpload />} />
+            <Route path="/Succes" element={< Succes/>} />
           </Routes>
         </main>
       </Router>
