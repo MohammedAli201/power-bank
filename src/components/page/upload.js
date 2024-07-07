@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/upload.css';
+import { useAuth } from '../../hooks/AuthProvider';
 import getStationCode from '../stations/station';
 
 const VideoUpload = () => {
   const [videoFile, setVideoFile] = useState(null);
   const [stationName, setStationName] = useState('');
   const [error, setError] = useState(false);
+  const auth = useAuth();
   const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     setVideoFile(event.target.files[0]);
+    console.log('Selected video file:', event.target.files[0]);
   };
 
   const handleStationName = (event) => {
     setStationName(event.target.value);
+    console.log('Entered station name:', event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!videoFile) return;
+    if (!videoFile) {
+      console.error('No video file selected');
+      return;
+    }
 
     const stationCode = getStationCode(stationName);
     console.log('Station return value:', stationCode);
@@ -41,6 +48,10 @@ const VideoUpload = () => {
     try {
       const response = await fetch('http://localhost:9000/api/v1/stations/video/upload', {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+          accept: 'application/json',
+        },
         body: formData,
       });
 
@@ -49,7 +60,7 @@ const VideoUpload = () => {
         navigate('/Succes', { state: { message: 'Video uploaded successfully', error: false, success: true }});
         console.log('Video uploaded successfully:', result);
       } else {
-        console.error('Error uploading video');
+        console.error('Error uploading video, status:', response.status);
         navigate('/Succes', { state: { message: 'Video could not be uploaded successfully', error: true, success: false }});
       }
     } catch (error) {
@@ -75,6 +86,8 @@ const VideoUpload = () => {
           </div>
           <button type="submit" className="upload__form__input_button">Submit</button>
         </form>
+
+       
       </div>
     </div>
   );

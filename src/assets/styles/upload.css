@@ -12,6 +12,17 @@
     margin: 0 auto;
     margin-top: 3rem;
 }
+/* .upload__form__input_button_logout {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin: 10px 0;
+    background-color: #f1356d;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+} */
 
 .upload__form {
     padding: 20px;

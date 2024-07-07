@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import AuthProvider from './hooks/AuthProvider';
 import ServiceBooking from './components/ServiceBooking';
 import BookingConfirmation from './components/BookingConfirmation';
 import PaymentProcessing from './services/PaymentProcessing';
 import Dashboard from './components/Dashboard';
 import Footer from './components/page/Footer';
 import MainPage from './components/page/MainPage';
+import Login from './components/page/login';
+
 import StationInfo from './components/StationInfo';
 import ProfileBusiness from './components/page/ProfileBusiness';
 import VideoUpload from './components/page/upload';
 import Succes from './components/page/succes';
+import PrivateRoute from './components/PrivateRoute';
 import heroImage from './assets/images/logo_svg.svg';
 import './App.css';
 
@@ -34,7 +38,9 @@ const App = () => {
 
   return (
     <div className='App'>
+     
       <Router>
+      <AuthProvider>
         <header className="header">
           <img src={heroImage} height={200} className="logo" alt="logo" />
           <nav className="navbar">
@@ -67,18 +73,29 @@ const App = () => {
         <main>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
+            
+            <Route element={<PrivateRoute />}>
+              <Route path="/Dashboard" element={<Dashboard />} />
+            </Route>
+            {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
             <Route path="/ServiceBooking" element={<ServiceBooking completedForm={completedForm} />} />
             <Route path="/BookingConfirmation" element={completForm && <BookingConfirmation conformationForm={conformationForm} />} />
             <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
             <Route path="/StationInfo" element={<StationInfo />} />
             <Route path="/ProfileBusiness" element={<ProfileBusiness />} />
+            <Route element={<PrivateRoute />}>
             <Route path="/upload" element={<VideoUpload />} />
+            </Route>
+            {/* <Route path="/upload" element={<VideoUpload />} /> */}
             <Route path="/Succes" element={<Succes />} />
+            <Route path="/login" element={<Login />} />
+
           </Routes>
         </main>
+        </AuthProvider>
       </Router>
       <Footer />
+      
     </div>
   );
 };

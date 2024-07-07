@@ -1,8 +1,26 @@
+/* Ensure the container takes full height and centers its content */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    padding: 20px; /* Optional: Adds some padding for better layout on smaller screens */
+}
+
 .notification {
     padding: 20px;
     border-radius: 5px;
     margin: 20px 0;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 600px; /* Set a max width for better readability */
+    width: 100%; /* Make it responsive */
+    box-sizing: border-box; /* Ensure padding doesn't affect the width */
 }
 
 .notification--success {
@@ -20,4 +38,18 @@
 .error-message {
     margin-top: 10px;
     font-weight: bold;
+}
+
+.upload__form__input_button_logout {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #f1356d;
+    color: white;
+    cursor: pointer;
+    width: 50%;
+    max-width: 200px; /* Optional: Set a max width to prevent it from becoming too large */
+    margin: 20px auto 0 auto; /* Center the button horizontally and add some top margin */
+    text-align: center;
 }
