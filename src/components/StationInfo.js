@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import '../assets/styles/StationInfo.css';
 import config from '../config/config';
 import getStationCode from './stations/station';
@@ -8,8 +8,18 @@ const StationInfo = () => {
     const [stationId, setStationId] = useState("");
     const [stationData, setStationData] = useState(null);
     const [error, setError] = useState('');
-const handleChange = (value) => {
-    console.log("Captcha value:", value);
+    const [isLoading, setIsLoading] = useState(false);
+    const [captchaVerified, setCaptchaVerified] = useState(false);
+    const recaptchaRef = useRef();
+    const SITE_KEY = "6LeMvQsqAAAAAEKEDynagBFxxmqDZeXF1BhcAE77";
+
+    const verifyRecaptcha = async (token) => {
+        if (recaptchaRef.current.getValue()) {
+            setCaptchaVerified(true);
+        } else {
+            setCaptchaVerified(false);
+            alert('Please verify the reCAPTCHA!');
+        }
     };
 
     const fetchStationInfo = async () => {
@@ -17,24 +27,31 @@ const handleChange = (value) => {
             setError('Please enter a station ID');
             return;
         }
+        setError('');
+        setIsLoading(true);
         const id = getStationCode(stationId);
         try {
             const response = await fetch(`${config.URL}api/v1/stations/powerBankRouter/${id}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            const data = await response.json(); // Convert response to JSON
+            const data = await response.json();
             setStationData(data);
-            setError('');
         } catch (err) {
             setError(`Error: ${err.message}`);
             setStationData(null);
+        } finally {
+            setIsLoading(false);
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        fetchStationInfo();
+        if (!captchaVerified) {
+            alert('Please verify the reCAPTCHA!');
+            return;
+        }
+        await fetchStationInfo();
     };
 
     return (
@@ -49,7 +66,14 @@ const handleChange = (value) => {
                         required
                     />
                 </label>
-                <button type="submit">Get Station Info</button>
+                <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={SITE_KEY}
+                    onChange={verifyRecaptcha}
+                />
+                <button type="submit" disabled={!captchaVerified || isLoading}>
+                    {isLoading ? 'Loading...' : 'Get Station Info'}
+                </button>
             </form>
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -100,10 +124,6 @@ const handleChange = (value) => {
                     </table>
                 </div>
             )}
-         <ReCAPTCHA
-    sitekey= "6LeMvQsqAAAAAEKEDynagBFxxmqDZeXF1BhcAE77"
-    onChange={handleChange}
-  />
         </div>
     );
 };
