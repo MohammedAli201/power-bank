@@ -8,6 +8,9 @@ const StationInfo = () => {
     const [stationId, setStationId] = useState("");
     const [stationData, setStationData] = useState(null);
     const [error, setError] = useState('');
+const handleChange = (value) => {
+    console.log("Captcha value:", value);
+    };
 
     const fetchStationInfo = async () => {
         if (!stationId) {
@@ -97,7 +100,10 @@ const StationInfo = () => {
                     </table>
                 </div>
             )}
-            <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} />
+         <ReCAPTCHA
+    sitekey= "6LeMvQsqAAAAAEKEDynagBFxxmqDZeXF1BhcAE77"
+    onChange={handleChange}
+  />
         </div>
     );
 };
