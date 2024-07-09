@@ -2,12 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import '../assets/styles/PaymentProcessing.css';
 import FaceCapture from '../components/FaceCapture';
-
+import config from "../config/config";
 const PaymentProcessing = () => {
   const location = useLocation();
   const userInfo = location.state;
   const stationId = 'WSEP161683346505';
-  const apiBaseUrl = 'http://localhost:9000/api/v1/stations/powerBankRouter/';
+  const apiBaseUrl = `${config.URL}api/v1/stations/powerBankRouter/`;
   const [error, setError] = useState("");
   const [stationData, setStationData] = useState(null);
   const [paymentIsSucceeded, setPaymentIsSucceeded] = useState(false);
@@ -63,7 +63,7 @@ const PaymentProcessing = () => {
     console.warn("Payment Request Data:", data);
 
     try {
-      const response = await fetch(`http://localhost:9000/api/v1/stations/payments/evc_paymentRequest`, {
+      const response = await fetch(`${config.URL}api/v1/stations/payments/evc_paymentRequest`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

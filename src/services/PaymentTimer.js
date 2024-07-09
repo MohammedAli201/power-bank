@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import config from "../config/config";
 
 const PaymentTimer = ({ paymentIsSucced }) => {
   // First we want to check if the payment is successful
@@ -22,7 +22,7 @@ const PaymentTimer = ({ paymentIsSucced }) => {
     };
     setTimer(new Date().getTime());
     try {
-      const response = await fetch(`http://localhost:9000/api/v1/stations/${stationId}/savePaymentInfo`, {
+      const response = await fetch(`${config}/api/v1/stations/${stationId}/savePaymentInfo`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

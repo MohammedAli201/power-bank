@@ -11,7 +11,7 @@ import Login from './components/page/login';
 
 import StationInfo from './components/StationInfo';
 import ProfileBusiness from './components/page/ProfileBusiness';
-import VideoUpload from './components/page/upload';
+// import VideoUpload from './components/page/upload';
 import Succes from './components/page/succes';
 import PrivateRoute from './components/PrivateRoute';
 import heroImage from './assets/images/logo_svg.svg';
@@ -64,9 +64,9 @@ const App = () => {
               <li className="nav-item">
                 <Link to="/ProfileBusiness" className="nav-link profile-link" onClick={closeMenu}>Profile Business</Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/upload" className="nav-link upload-link" onClick={closeMenu}>Upload</Link>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </header>
@@ -81,12 +81,12 @@ const App = () => {
             <Route path="/ServiceBooking" element={<ServiceBooking completedForm={completedForm} />} />
             <Route path="/BookingConfirmation" element={completForm && <BookingConfirmation conformationForm={conformationForm} />} />
             <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
-            <Route path="/StationInfo" element={<StationInfo />} />
+            {/* <Route path="/StationInfo" element={<StationInfo />} /> */}
             <Route path="/ProfileBusiness" element={<ProfileBusiness />} />
             <Route element={<PrivateRoute />}>
-            <Route path="/upload" element={<VideoUpload />} />
-            </Route>
-            {/* <Route path="/upload" element={<VideoUpload />} /> */}
+            <Route path="/StationInfo" element={<StationInfo />} />
+            </Route> 
+        
             <Route path="/Succes" element={<Succes />} />
             <Route path="/login" element={<Login />} />
 

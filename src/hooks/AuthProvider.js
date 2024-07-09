@@ -1,6 +1,6 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import config from "../config/config";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
 
   const loginAction = async (data) => {
     try {
-      const response = await fetch("http://localhost:9000/api/v1/users/login", {
+      const response = await fetch(`${config.URL}api/v1/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
