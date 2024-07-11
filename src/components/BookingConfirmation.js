@@ -11,7 +11,12 @@ const BookingConfirmation = ({ conformationForm }) => {
   const completeReview = () => {
     alert('Payment has been made');
     conformationForm();
-   
+    // TODO: conver the hours to milliseconds
+    
+     const hrToMs = formData.selectHrs * 3600000;
+     formData.selectHrs = hrToMs;
+     console.log(formData);
+
     // navigate("/PaymentProcessing");
     navigate("/PaymentProcessing", { state: formData });
 

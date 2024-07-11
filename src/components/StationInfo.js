@@ -66,6 +66,7 @@ const StationInfo = () => {
                         required
                     />
                 </label>
+           
                 <ReCAPTCHA
                     ref={recaptchaRef}
                     sitekey={SITE_KEY}
