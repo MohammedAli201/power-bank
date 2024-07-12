@@ -82,7 +82,7 @@ const App = () => {
             <Route path="/Dashboard" element={<Dashboard />} />
           </Route>
           {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
-          <Route path="/ServiceBooking" element={<ServiceBooking completedForm={completedForm} />} />
+          <Route path="/ServiceBooking/:stationId" element={<ServiceBooking completedForm={completedForm} />} />
           <Route path="/BookingConfirmation" element={completForm && <BookingConfirmation conformationForm={conformationForm} />} />
           <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
           {/* <Route path="/StationInfo" element={<StationInfo />} /> */}

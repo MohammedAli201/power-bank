@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../hooks/AuthProvider";
 import '../assets/styles/ServiceBooking.css';
+
 
 const ServiceBooking = ({ completedForm }) => {
   const navigate = useNavigate();
+  const { stationId } = useParams();
+
   const [selectHrs, setSelectHrs] = useState(1);
   // const [costperHr, setCostperHr] = useState(0.5);
   const costperHr = 0.5;
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
   // const [email, setEmail] = useState('');
-
+  const { handleUserInputInfo } = useAuth();
   const handleSelectHour = (hour) => {
     setSelectHrs(hour);
   };
@@ -36,10 +40,11 @@ const ServiceBooking = ({ completedForm }) => {
       return;
     }
     let amount = selectHrs * costperHr;
+    let hrToMs = 3600000*selectHrs;
     completedForm();
     let phones = phone.replace("06", "2526");
-    console.log(phones);
-    navigate("/BookingConfirmation", { state: { selectHrs, amount, phones } });
+    handleUserInputInfo({ selectHrs, amount, phones, hrToMs ,stationId});
+    navigate("/BookingConfirmation");
   };
 
   return (

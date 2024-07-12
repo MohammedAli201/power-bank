@@ -1,11 +1,15 @@
 import React  from "react";
-import { useLocation , useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/AuthProvider";
 import '../assets/styles/BookingConfirmation.css';
 
 const BookingConfirmation = ({ conformationForm }) => {
-  
-  const location = useLocation();
-  const formData = location.state;
+  const {userInputInfo} = useAuth();
+  console.log("From BookingConfirmation",userInputInfo)
+  const {selectHrs,amount,phones} = userInputInfo
+  // console.log(userInputInfo.selectHrs,userInputInfo.amount,userInputInfo.phones);
+  // const location = useLocation();
+  // const formData = location.state;
   const navigate = useNavigate();
 
   const completeReview = () => {
@@ -13,12 +17,12 @@ const BookingConfirmation = ({ conformationForm }) => {
     conformationForm();
     // TODO: conver the hours to milliseconds
     
-     const hrToMs = formData.selectHrs * 3600000;
-     formData.selectHrs = hrToMs;
-     console.log(formData);
+    //  const hrToMs = selectHrs * 3600000;
+    //  selectHrs = hrToMs;
+    // const formData = { selectHrs, amount, phones };
 
     // navigate("/PaymentProcessing");
-    navigate("/PaymentProcessing", { state: formData });
+    navigate("/PaymentProcessing");
 
   };
 
@@ -29,15 +33,15 @@ const BookingConfirmation = ({ conformationForm }) => {
         <tbody>
           <tr>
             <th>Amount of hours you selected</th>
-            <td>{formData.selectHrs} hrs</td>
+            <td>{selectHrs} hrs</td>
           </tr>
           <tr>
             <th>Phone</th>
-            <td>{formData.phones}</td>
+            <td>{phones}</td>
           </tr>
           <tr>
             <th>Amount to be paid</th>
-            <td>${formData.amount.toFixed(2)}</td>
+            <td>${amount.toFixed(2)}</td>
           </tr>
         </tbody>
       </table>

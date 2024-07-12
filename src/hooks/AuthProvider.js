@@ -6,9 +6,15 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [IsPaymentCompleted, setIsPaymentCompleted] = useState(false);
+  const [userInputInfo,setUserInputInfo] = useState({selectHrs: 1, amount: 0, phones: '', hrToMs:1, stationId:''}); //
+  
+
+
   const [token, setToken] = useState(localStorage.getItem('site') || '');
   const navigateRef = useRef(null);  // Use ref to store navigate function
-
+const handleUserInputInfo = (data) => {
+    setUserInputInfo(data);
+  }
   const setNavigate = (navigate) => {
     navigateRef.current = navigate;
   };
@@ -60,7 +66,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, IsPaymentCompleted, loginAction, logOut, paymentCompleted, setNavigate }}>
+    <AuthContext.Provider value={{ token, user, IsPaymentCompleted,userInputInfo, loginAction, logOut, paymentCompleted, setNavigate,handleUserInputInfo }}>
       {children}
     </AuthContext.Provider>
   );

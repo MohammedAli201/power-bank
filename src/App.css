@@ -32,18 +32,24 @@ body, html, .App {
   padding: 0;
 }
 
-.nav-item {
-  margin-left: 2rem;
-}
+/* .nav-item {
+  margin-left: 4rem;
+} */
 
 .nav-link {
   text-decoration: none;
   color: #fff;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Roboto', sans-serif;
   padding: 0.5rem 1rem;
-  border-radius: 5px;
+  border-radius: 100px;
+  width: 100%;
+ 
+  /* text-align: center; */
+  /* margin: 0 auto; */
+  margin: 1rem;
+
 }
 
 .home-link {
@@ -172,5 +178,11 @@ body, html, .App {
     display: block;
     font-size: 1.2rem;
     color: #fff;
+  }
+
+  /* Additional styles for small devices */
+  .nav-link {
+    width: 50%;
+    margin: 0 auto;
   }
 }
