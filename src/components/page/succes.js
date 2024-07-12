@@ -84,11 +84,11 @@ const Success = () => {
     const [response, setResponse] = useState(null);
     const [remainingTime, setRemainingTime] = useState(null);
 
-    const addTime = (time) => {
-        const date = new Date();
-        date.setMilliseconds(date.getMilliseconds() + time);
-        return date;
-    };
+    // const addTime = (time) => {
+    //     const date = new Date();
+    //     date.setMilliseconds(date.getMilliseconds() + time);
+    //     return date;
+    // };
 
     // first save the paymentInformation. 
     const fetchRentalInfo = async () => {
