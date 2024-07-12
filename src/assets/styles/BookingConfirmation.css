@@ -1,67 +1,52 @@
 /* Results Container Styles */
 .results-container {
   padding: 20px;
-  max-width: 600px; /* Reduced max-width */
+  max-width: 600px;
   margin: 0 auto;
   text-align: center;
-  font-size: 1.2rem; /* Reduced font size */
+  font-size: 1.2rem;
+  background-color: #f0f4f8;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
 }
 
 /* Header Styles */
 h1 {
   margin-bottom: 15px;
-  font-size: 1.8rem; /* Reduced font size */
-  color: #fffdfd;
+  font-size: 1.8rem;
+  color: #333;
 }
 
 /* Summary Table Styles */
-.summary-table,
-.account-table {
+.summary-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
 .summary-table th,
-.summary-table td,
-.account-table th,
-.account-table td {
-  padding: 8px;
-  border: 2px solid #e08383;
+.summary-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
   text-align: left;
-  font-size: 1.2rem; /* Reduced font size */
+  font-size: 1rem;
 }
 
-.summary-table th,
-.account-table th {
-  background-color: #e0dfdf;
+.summary-table th {
+  background-color: #f7f7f7;
   color: #333;
   font-weight: bold;
 }
 
-.summary-table td,
-.account-table td {
-  color: #6893f1;
-}
-
-/* Account Info Styles */
-.account-info {
-  margin-top: 20px;
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
-}
-
-.account-info h2 {
-  font-size: 1.4rem; /* Reduced font size */
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
+.summary-table td {
+  color: #555;
 }
 
 /* Payment Button Styles */
 .payment-button {
-  padding: 15px 20px; /* Reduced padding */
-  font-size: 1.1rem; /* Reduced font size */
+  padding: 10px 20px;
+  font-size: 1rem;
   font-weight: bold;
   color: white;
   background-color: #4a90e2;
@@ -69,10 +54,51 @@ h1 {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-top: 20px; /* Adjusted margin */
+  margin-top: 20px;
 }
 
 .payment-button:hover {
   background-color: #357ABD;
   transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .results-container {
+    padding: 15px;
+    font-size: 1rem;
+  }
+
+  .summary-table th,
+  .summary-table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .payment-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .results-container {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .summary-table th,
+  .summary-table td {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+
+  .payment-button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
 }

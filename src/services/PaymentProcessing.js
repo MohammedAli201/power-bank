@@ -3,10 +3,11 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import getStationCode from "../components/stations/station";
 import '../assets/styles/PaymentProcessing.css';
-import FaceCapture from '../components/FaceCapture';
+// import FaceCapture from '../components/FaceCapture';
 import config from "../config/config";
 import { useAuth } from '../hooks/AuthProvider';
-
+import Loader from "../components/loader";
+import Completed from "../components/completed";
 const PaymentProcessing = () => {
 
   // const location = useLocation();
@@ -15,10 +16,12 @@ const PaymentProcessing = () => {
   const apiBaseUrl = `${config.URL}api/v1/stations/powerBankRouter/`;
   const paymentURL = "http://localhost:9000/api/v1/stations/payments/savePaymentInfoWithUserInfo";
 
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [stationData, setStationData] = useState(null);
-  const [paymentIsSucceeded, setPaymentIsSucceeded] = useState(true);
-  const [paymentInfores, setPaymentInfores] = useState(null);
+  // const [paymentIsSucceeded, setPaymentIsSucceeded] = useState(true);
+  const [loading, setLoading] = useState(true);
+  // const [isPaymentCompleted, setIsPaymentCompleted] = useState(false);
+  // const [paymentInfores, setPaymentInfores] = useState(null);
   const hasFetchedData = useRef(false);
   const {userInputInfo,paymentCompleted} = useAuth();
   const {selectHrs,amount,phones,hrToMs,stationId} = userInputInfo
@@ -53,8 +56,6 @@ const PaymentProcessing = () => {
 
   const forceUnlock = useCallback(async () => {
     const slotId = stationData.batteries[0].slotId;
-
-
     try {
       const response = await fetch(`${config.URL}api/v1/stations/powerBankRouter/${stationName}/forceUnlock`, {
         method: 'POST',
@@ -69,11 +70,12 @@ const PaymentProcessing = () => {
       }
 
       const data_res = await response.json();
+      navigate('/Success')
       console.log("Force unlock successful:", data_res);
     } catch (error) {
       console.error('Error forcing unlock:', error);
     }
-  }, [stationData, stationName]);
+  }, [stationData, stationName, navigate]);
 
   const evcPaymentRequest = useCallback(async () => {
     const data = {
@@ -101,12 +103,14 @@ const PaymentProcessing = () => {
 
       const data_res = await response.json();
       await forceUnlock();
-      setPaymentIsSucceeded(true);
-      setPaymentInfores(data_res);
+      setLoading(false);
+      // setPaymentIsSucceeded(true);
+      // setPaymentInfores(data_res);
+      
       console.log("Payment saved successfully:", data_res);
     } catch (error) {
       console.error('Error making payment request:', error);
-      setError('Error making payment request');
+      // setError('Error making payment request');
     }
   }, [forceUnlock, stationName, amount, phones, selectHrs]);
 
@@ -156,7 +160,7 @@ const PaymentProcessing = () => {
       console.log("Payment saved successfully:", res);
     } catch (error) {
       console.error('Error saving payment information:', error);
-      setError('Error saving payment information');
+      // setError('Error saving payment information');
     }
   }, [ convertMillisToHours, navigate, paymentURL, timeManager, amount, phones, selectHrs, paymentCompleted, hrToMs, stationName]);
 
@@ -173,7 +177,7 @@ const PaymentProcessing = () => {
       await evcPaymentRequest();
     } catch (error) {
       console.error('Error fetching station data or making payment:', error);
-      setError('Error fetching station data or making payment');
+      // setError('Error fetching station data or making payment');
     }
   }, [apiBaseUrl, evcPaymentRequest, stationName]);
 
@@ -187,28 +191,45 @@ const PaymentProcessing = () => {
     }
   }, [fetchDataAndMakePayment, savePaymentWithPowerBank, userInputInfo]);
 
+
   return (
     <div className="payment-container">
-      <h1>Payment</h1>
-      {error ? (
-        <div className="error-message">
-          <h3>Error: {error}</h3>
-        </div>
+    
+      {loading ? (
+        <Loader message="Payment is Under Process" />
       ) : (
-        <div className="response-container">
-          <h3>{paymentIsSucceeded ? 'Payment is successful' : 'Processing payment...'}</h3>
-          {stationData && paymentInfores && (
-            <FaceCapture
-              slots={stationData.batteries}
-              paymentInfores={paymentInfores}
-              paymentIsSucceeded={paymentIsSucceeded}
-              stationName={stationName}
-            />
-          )}
+        <div className="response--1">
+          {/* <h3> 'Payment is successful' : 'Processing payment...'</h3> */}
+          <Completed message ="The payment is completed"/>
         </div>
       )}
     </div>
   );
+  
+  // return (
+
+
+  //   <div className="payment-container">
+  //     <h1>Payment</h1>
+  //     {error ? (
+  //       <div className="error-message">
+  //         <h3>Error: {error}</h3>
+  //       </div>
+  //     ) : (
+  //       <div className="response-container">
+  //         <h3>{paymentIsSucceeded ? 'Payment is successful' : 'Processing payment...'}</h3>
+  //         {stationData && paymentInfores && (
+  //           <FaceCapture
+  //             slots={stationData.batteries}
+  //             paymentInfores={paymentInfores}
+  //             paymentIsSucceeded={paymentIsSucceeded}
+  //             stationName={stationName}
+  //           />
+  //         )}
+  //       </div>
+  //     )}
+  //   </div>
+  // );
 };
 
 export default PaymentProcessing;

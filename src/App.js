@@ -62,12 +62,12 @@ const App = () => {
             <li className="nav-item">
               <Link to="/Dashboard" className="nav-link dashboard-link" onClick={closeMenu}>Dashboard</Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to="/StationInfo" className="nav-link station-link" onClick={closeMenu}>Station Info</Link>
             </li>
             <li className="nav-item">
               <Link to="/ProfileBusiness" className="nav-link profile-link" onClick={closeMenu}>Profile Business</Link>
-            </li>
+            </li> */}
             {/* <li className="nav-item">
               <Link to="/upload" className="nav-link upload-link" onClick={closeMenu}>Upload</Link>
             </li> */}
@@ -82,7 +82,7 @@ const App = () => {
             <Route path="/Dashboard" element={<Dashboard />} />
           </Route>
           {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
-          <Route path="/ServiceBooking/:stationId" element={<ServiceBooking completedForm={completedForm} />} />
+          <Route path="/ServiceBooking/:stationId?" element={<ServiceBooking completedForm={completedForm} />} />
           <Route path="/BookingConfirmation" element={completForm && <BookingConfirmation conformationForm={conformationForm} />} />
           <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
           {/* <Route path="/StationInfo" element={<StationInfo />} /> */}

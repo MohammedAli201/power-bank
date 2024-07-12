@@ -37,18 +37,32 @@ body, html, .App {
 } */
 
 .nav-link {
-  text-decoration: none;
+  /* text-decoration: none;
   color: #fff;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 12px;
   font-family: 'Roboto', sans-serif;
-  padding: 0.5rem 1rem;
+  padding: 1.2rem ;
   border-radius: 100px;
-  width: 100%;
+ 
  
   /* text-align: center; */
   /* margin: 0 auto; */
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  padding: 1rem 1rem;
+  border-radius: 120px;
+  width: 120px;  /* Example width, adjust as necessary to fit the longest item */
+  text-align: center;
   margin: 1rem;
+  display: flex;
+  justify-content: center;  /* Centers text horizontally */
+  align-items: center;    
 
 }
 
@@ -77,7 +91,8 @@ body, html, .App {
 }
 
 .nav-link:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  color: #cb8585;
 }
 
 /* Mobile Navigation */
