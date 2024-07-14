@@ -79,7 +79,7 @@
 
 // const Success = () => {
 //     const location = useLocation();
-//     const { millisecondsPaid, phoneNumber } = location.state || {};
+//     const { millisecondsPaid, phones } = location.state || {};
 
 //     const [response, setResponse] = useState(null);
 //     const [remainingTime, setRemainingTime] = useState(null);
@@ -93,7 +93,7 @@
 //     // first save the paymentInformation. 
 //     const fetchRentalInfo = async () => {
 //         const data = {
-//             rentalId: phoneNumber,
+//             rentalId: phones,
 //             rentalDurationInMilliseconds: 300000,
 //         };
 
@@ -112,7 +112,7 @@
 
 //             const data_res = await response.json();
 //             setResponse(data_res);
-//             localStorage.setItem(`${phoneNumber}`, phoneNumber);
+//             localStorage.setItem(`${phones}`, phones);
 
 //             console.log("Payment saved successfully:", data_res);
 //         } catch (error) {
@@ -126,7 +126,7 @@
 //             fetchRentalInfo();
 //         }
 //     // eslint-disable-next-line react-hooks/exhaustive-deps
-//     }, [millisecondsPaid, phoneNumber]);
+//     }, [millisecondsPaid, phones]);
 
 //     useEffect(() => {
 //         if (remainingTime !== null) {
@@ -172,23 +172,25 @@
 
 // export default Success;
 import React, { useState, useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useAuth } from '../../hooks/AuthProvider';
+import { connectSocket, socket } from '../../services/websocketService';
+import '../../assets/styles/Success.css';
 
 const Success = () => {
-    const location = useLocation();
-    const { millisecondsPaid, phoneNumber } = location.state || {};
+    const { userInputInfo } = useAuth();
+    const { phones, millisecondsPaid } = userInputInfo;
 
-    const [response, setResponse] = useState(null);
-    const [remainingTime, setRemainingTime] = useState(null);
+    const [isSystemUnlocked, setIsSystemUnlocked] = useState(false);
+    const [remainingTime, setRemainingTime] = useState(millisecondsPaid);
 
     const fetchRentalInfo = useCallback(async () => {
         const data = {
-            rentalId: phoneNumber,
-            rentalDurationInMilliseconds: 300000, // 5 minutes
+            rentalId: phones,
+            rentalDurationInMilliseconds: millisecondsPaid,
         };
 
         try {
-            const response = await fetch("http://localhost:9000/api/v1/rentals", {
+            const response = await fetch(`https://danabpowerbank-a0bf50dd740c.herokuapp.com/api/v1/rentals`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -197,63 +199,66 @@ const Success = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to save payment information');
+                throw new Error('Failed to unlock system');
             }
 
-            const data_res = await response.json();
-            setResponse(data_res);
-            localStorage.setItem(`${phoneNumber}`, phoneNumber);
-
-            console.log("Payment saved successfully:", data_res);
+            const rentalData = await response.json();
+            setIsSystemUnlocked(true);
+            console.log("System unlocked successfully:", rentalData);
         } catch (error) {
-            console.error('Error saving payment information:', error);
+            console.error('Error unlocking system:', error);
         }
-    }, [phoneNumber]);
+    }, [phones, millisecondsPaid]);
 
     useEffect(() => {
         if (millisecondsPaid) {
-            setRemainingTime(300000); // 5 minutes
+            connectSocket();
             fetchRentalInfo();
-        }
-    }, [millisecondsPaid, phoneNumber, fetchRentalInfo]);
 
-    useEffect(() => {
-        if (remainingTime !== null) {
+            socket.on('rentalCompleted', (data) => {
+                console.log('Rental completed', data);
+                setIsSystemUnlocked(false); // Example: handle system unlock completion
+            });
+
+            socket.on('rentalFailed', (data) => {
+                console.log('Rental failed', data);
+                // Handle rental failure
+            });
+
+            setRemainingTime(millisecondsPaid);
+
             const interval = setInterval(() => {
                 setRemainingTime(prevTime => {
                     if (prevTime <= 1000) {
                         clearInterval(interval);
+                        setIsSystemUnlocked(false);
                         return 0;
                     }
                     return prevTime - 1000;
                 });
             }, 1000);
 
-            return () => clearInterval(interval);
+            return () => {
+                clearInterval(interval);
+                socket.off('rentalCompleted');
+                socket.off('rentalFailed');
+            };
         }
-    }, [remainingTime]);
+    }, [millisecondsPaid, phones, fetchRentalInfo]);
 
     const formatTime = (milliseconds) => {
         const totalSeconds = Math.floor(milliseconds / 1000);
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
-
         return `${hours}h ${minutes}m ${seconds}s`;
     };
 
     return (
         <div className="container">
             <div className="notification notification--success">
-                <h1>Success</h1>
-                {response ? (
-                    <p>Response: {JSON.stringify(response)}</p>
-                ) : (
-                    <p>Waiting for response...</p>
-                )}
-                {remainingTime !== null && (
-                    <p>Time remaining: {formatTime(remainingTime)}</p>
-                )}
+                <h1>{isSystemUnlocked ? 'System Unlocked' : 'System Locked'}</h1>
+                <p>{remainingTime > 0 ? `Time remaining: ${formatTime(remainingTime)}` : 'Remaining time is 0s'}</p>
             </div>
         </div>
     );

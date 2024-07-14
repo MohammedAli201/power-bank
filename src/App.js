@@ -16,7 +16,8 @@ import Succes from './components/page/succes';
 import PrivateRoute from './components/PrivateRoute';
 import heroImage from './assets/images/logo_svg.svg';
 import './App.css';
-import Protected from "./components/protected"
+// import Protected from "./components/protected"
+import StepGuard from './hooks/StepGuard';
 
 const App = () => {
   const [completForm, setcompletForm] = useState(false);
@@ -44,7 +45,7 @@ const App = () => {
   };
 
   return (
-    <div className='App'>
+    <div className="App">
       <header className="header">
         <img src={heroImage} height={200} className="logo" alt="logo" />
         <nav className="navbar">
@@ -62,38 +63,31 @@ const App = () => {
             <li className="nav-item">
               <Link to="/Dashboard" className="nav-link dashboard-link" onClick={closeMenu}>Dashboard</Link>
             </li>
-            {/* <li className="nav-item">
-              <Link to="/StationInfo" className="nav-link station-link" onClick={closeMenu}>Station Info</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/ProfileBusiness" className="nav-link profile-link" onClick={closeMenu}>Profile Business</Link>
-            </li> */}
-            {/* <li className="nav-item">
-              <Link to="/upload" className="nav-link upload-link" onClick={closeMenu}>Upload</Link>
-            </li> */}
           </ul>
         </nav>
       </header>
       <main>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          
           <Route element={<PrivateRoute />}>
             <Route path="/Dashboard" element={<Dashboard />} />
           </Route>
-          {/* <Route path="/Dashboard" element={<Dashboard />} /> */}
-          <Route path="/ServiceBooking/:stationId?" element={<ServiceBooking completedForm={completedForm} />} />
-          <Route path="/BookingConfirmation" element={completForm && <BookingConfirmation conformationForm={conformationForm} />} />
-          <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
-          {/* <Route path="/StationInfo" element={<StationInfo />} /> */}
+          <Route element={<StepGuard requiredStep={0} />}>
+            <Route path="/ServiceBooking/:stationId?" element={<ServiceBooking completedForm={completedForm} />} />
+          </Route>
+          <Route element={<StepGuard requiredStep={1} />}>
+            <Route path="/BookingConfirmation" element={completForm && <BookingConfirmation conformationForm={conformationForm} />} />
+          </Route>
+          <Route element={<StepGuard requiredStep={2} />}>
+            <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
+          </Route>
+          <Route element={<StepGuard requiredStep={3} />}>
+            <Route path="/Succes" element={<Succes />} />
+          </Route>
           <Route path="/ProfileBusiness" element={<ProfileBusiness />} />
           <Route element={<PrivateRoute />}>
             <Route path="/StationInfo" element={<StationInfo />} />
-          </Route> 
-          <Route element={<Protected />}>
-          <Route path="/Succes" element={ <Succes />} />
-          </Route> 
-        
+          </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
       </main>

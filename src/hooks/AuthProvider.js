@@ -6,8 +6,8 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [IsPaymentCompleted, setIsPaymentCompleted] = useState(false);
-  const [userInputInfo,setUserInputInfo] = useState({selectHrs: 1, amount: 0, phones: '', hrToMs:1, stationId:''}); //
-  
+  const [userInputInfo,setUserInputInfo] = useState({selectHrs: 1, amount: 0, phones: '', hrToMs:1, stationId:'', millisecondsPaid:1}); //
+  const [currentStep, setCurrentStep] = useState(0);
 
 
   const [token, setToken] = useState(localStorage.getItem('site') || '');
@@ -66,7 +66,7 @@ const handleUserInputInfo = (data) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, IsPaymentCompleted,userInputInfo, loginAction, logOut, paymentCompleted, setNavigate,handleUserInputInfo }}>
+    <AuthContext.Provider value={{ token, user, IsPaymentCompleted,userInputInfo,currentStep, setCurrentStep, loginAction, logOut, paymentCompleted, setNavigate,handleUserInputInfo }}>
       {children}
     </AuthContext.Provider>
   );

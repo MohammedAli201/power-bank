@@ -9,12 +9,12 @@ import { useAuth } from '../hooks/AuthProvider';
 import Loader from "../components/loader";
 import Completed from "../components/completed";
 const PaymentProcessing = () => {
-
+  const [endTimeMilliseconds_, setEndTimeMilliseconds] = useState(0);
   // const location = useLocation();
   // const userInfo = location.state;
   // const stationName = 'WSEP161683346505';
   const apiBaseUrl = `${config.URL}api/v1/stations/powerBankRouter/`;
-  const paymentURL = "http://localhost:9000/api/v1/stations/payments/savePaymentInfoWithUserInfo";
+  const paymentURL = "http://loca lhost:9000/api/v1/stations/payments/savePaymentInfoWithUserInfo";
 
   // const [error, setError] = useState("");
   const [stationData, setStationData] = useState(null);
@@ -23,7 +23,7 @@ const PaymentProcessing = () => {
   // const [isPaymentCompleted, setIsPaymentCompleted] = useState(false);
   // const [paymentInfores, setPaymentInfores] = useState(null);
   const hasFetchedData = useRef(false);
-  const {userInputInfo,paymentCompleted} = useAuth();
+  const {userInputInfo,paymentCompleted,handleUserInputInfo,setCurrentStep} = useAuth();
   const {selectHrs,amount,phones,hrToMs,stationId} = userInputInfo
   const stationName = getStationCode(stationId);
   const navigate = useNavigate();
@@ -157,6 +157,7 @@ const PaymentProcessing = () => {
           phoneNumber: phones
         }
       });
+      setEndTimeMilliseconds(endTimeMilliseconds);
       console.log("Payment saved successfully:", res);
     } catch (error) {
       console.error('Error saving payment information:', error);
@@ -169,7 +170,10 @@ const PaymentProcessing = () => {
       const stationResponse = await fetch(`${apiBaseUrl}${stationName}`, { method: 'GET' });
 
       if (!stationResponse.ok) {
-        throw new Error('Failed to fetch station information');
+        // throw new Error('Failed to fetch station information');
+        handleUserInputInfo({ selectHrs, amount, phones, hrToMs ,stationId, millisecondsPaid:hrToMs});
+        setCurrentStep(4)
+        navigate('/Succes')
       }
 
       const stationData = await stationResponse.json();
@@ -179,9 +183,10 @@ const PaymentProcessing = () => {
       console.error('Error fetching station data or making payment:', error);
       // setError('Error fetching station data or making payment');
     }
-  }, [apiBaseUrl, evcPaymentRequest, stationName]);
+  }, [apiBaseUrl, evcPaymentRequest, stationName, handleUserInputInfo, setCurrentStep, selectHrs, amount, phones, hrToMs, stationId,navigate]);
 
   useEffect(() => {
+   
   
     savePaymentWithPowerBank();
 
@@ -189,10 +194,11 @@ const PaymentProcessing = () => {
       fetchDataAndMakePayment();
       hasFetchedData.current = true;
     }
-  }, [fetchDataAndMakePayment, savePaymentWithPowerBank, userInputInfo]);
+  }, [fetchDataAndMakePayment, savePaymentWithPowerBank, userInputInfo, endTimeMilliseconds_, phones, navigate]);
 
 
   return (
+    
     <div className="payment-container">
     
       {loading ? (

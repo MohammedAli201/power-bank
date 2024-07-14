@@ -4,13 +4,14 @@ import { useAuth } from "../hooks/AuthProvider";
 import '../assets/styles/BookingConfirmation.css';
 
 const BookingConfirmation = ({ conformationForm }) => {
-  const { userInputInfo } = useAuth();
+  const { userInputInfo,setCurrentStep } = useAuth();
   const { selectHrs, amount, phones } = userInputInfo;
   const navigate = useNavigate();
 
   const completeReview = () => {
     alert('Payment has been made');
     conformationForm();
+    setCurrentStep(2);
     navigate("/PaymentProcessing");
   };
 

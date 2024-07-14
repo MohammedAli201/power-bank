@@ -3,18 +3,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/AuthProvider";
 import '../assets/styles/ServiceBooking.css';
 
-
 const ServiceBooking = ({ completedForm }) => {
   const navigate = useNavigate();
   const { stationId } = useParams();
 
   const [selectHrs, setSelectHrs] = useState(1);
-  // const [costperHr, setCostperHr] = useState(0.5);
   const costperHr = 0.5;
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  // const [email, setEmail] = useState('');
-  const { handleUserInputInfo } = useAuth();
+
+  const { handleUserInputInfo, setCurrentStep } = useAuth();
+
   const handleSelectHour = (hour) => {
     setSelectHrs(hour);
   };
@@ -29,21 +28,18 @@ const ServiceBooking = ({ completedForm }) => {
     setPhone(phoneInput);
   };
 
-  // const handleEmailChange = (e) => {
-  //   setEmail(e.target.value);
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (phoneError || !/^061\d{7}$/.test(phone)) {
       setPhoneError('Please enter a valid phone number');
       return;
     }
-    let amount = selectHrs * costperHr;
-    let hrToMs = 3600000*selectHrs;
+    const amount = selectHrs * costperHr;
+    const hrToMs = 3600000 * selectHrs;
     completedForm();
-    let phones = phone.replace("06", "2526");
-    handleUserInputInfo({ selectHrs, amount, phones, hrToMs ,stationId});
+    const phones = phone.replace("06", "2526");
+    handleUserInputInfo({ selectHrs, amount, phones, hrToMs, stationId });
+    setCurrentStep(1);
     navigate("/BookingConfirmation");
   };
 
@@ -76,7 +72,6 @@ const ServiceBooking = ({ completedForm }) => {
         />
         {phoneError && <p className="error">{phoneError}</p>}
       </div>
-     
       <button className="submit-button" onClick={handleSubmit}>Submit</button>
       <div className="contact-info">
         <h3>Contact Us</h3>
