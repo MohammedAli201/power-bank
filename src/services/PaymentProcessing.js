@@ -10,16 +10,14 @@ import Loader from "../components/loader";
 import Completed from "../components/completed";
 const PaymentProcessing = () => {
   const [endTimeMilliseconds_, setEndTimeMilliseconds] = useState(0);
-  // const location = useLocation();
-  // const userInfo = location.state;
-  // const stationName = 'WSEP161683346505';
+ 
   const apiBaseUrl = `${config.URL}api/v1/stations/powerBankRouter/`;
   const paymentURL = "http://loca lhost:9000/api/v1/stations/payments/savePaymentInfoWithUserInfo";
 
   // const [error, setError] = useState("");
   const [stationData, setStationData] = useState(null);
   // const [paymentIsSucceeded, setPaymentIsSucceeded] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   // const [isPaymentCompleted, setIsPaymentCompleted] = useState(false);
   // const [paymentInfores, setPaymentInfores] = useState(null);
   const hasFetchedData = useRef(false);
@@ -151,7 +149,7 @@ const PaymentProcessing = () => {
 
       const res = await response.json();
       paymentCompleted();
-      navigate('/Success', {
+      navigate('/Succes', {
         state: {
           millisecondsPaid: endTimeMilliseconds,
           phoneNumber: phones

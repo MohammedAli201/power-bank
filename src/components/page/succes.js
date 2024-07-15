@@ -1,25 +1,25 @@
-// import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../../hooks/AuthProvider';
 import { connectSocket, socket } from '../../services/websocketService';
 import '../../assets/styles/Success.css';
 
-import React, { useState, useEffect, useCallback } from 'react';
-
-import '../../assets/styles/Success.css';
-
-// import { useNavigate } from 'react-router-dom';
-
-// import { useAuth } from '../../hooks/AuthProvider';
-// import { useNavigate } from 'react-router-dom';
-// import { connectSocket, socket } from '../../services/websocketService';
-import '../../assets/styles/Success.css';
-
 const Success = () => {
     const { userInputInfo } = useAuth();
-    const { phones } = userInputInfo;
-    //TODO: This millisecondsPaid should be from the user input but for now it is hardcoded
-    const millisecondsPaid= 300000;
-    // const navigate = useNavigate();
+    const { phones } = userInputInfo; // Assume userInputInfo includes userId
+    const millisecondsPaid = 300000; // Hardcoded for now
+    const [isGenereated, setIsGenereated] = useState(false);
+
+    const guidGenerator = useCallback(() => {
+        var S4 = function() {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        };
+      
+        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+    }, []);
+
+    const userIdRef = useRef(guidGenerator()); // Generate a unique user ID only once
+    const userId = userIdRef.current;
+    // console.log("userId", userId);
 
     const [isSystemUnlocked, setIsSystemUnlocked] = useState(false);
     const [remainingTime, setRemainingTime] = useState(0);
@@ -57,7 +57,9 @@ const Success = () => {
     }, [phones, millisecondsPaid]);
 
     useEffect(() => {
-        connectSocket();
+        if (userId) {
+            connectSocket(userId); // Connect to the WebSocket server with the user ID
+        }
 
         const storedStartTime = parseInt(localStorage.getItem('rentalStartTime'), 10);
         const storedDuration = parseInt(localStorage.getItem('rentalDuration'), 10);
@@ -105,7 +107,7 @@ const Success = () => {
             socket.off('rentalCompleted');
             socket.off('rentalFailed');
         };
-    }, [millisecondsPaid, phones, fetchRentalInfo]);
+    }, [millisecondsPaid, phones, fetchRentalInfo, userId]);
 
     const formatTime = (milliseconds) => {
         const totalSeconds = Math.floor(milliseconds / 1000);

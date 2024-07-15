@@ -1,15 +1,15 @@
 // src/services/websocketService.js
 import io from 'socket.io-client';
 import config from '../config/config';
+// const SOCKET_URL = `${config.URL}`;
+const SOCKET_URL = `${config.URL}`;
 
-// Use the WebSocket protocol if needed and ensure the URL is correct
-// const SOCKET_URL = "http://localhost:9000"; 
-const SOCKET_URL = `${config.URL}`; 
 const socket = io(SOCKET_URL);
 
-const connectSocket = () => {
+const connectSocket = (userId) => {
   socket.on('connect', () => {
     console.log('Connected to WebSocket server');
+    socket.emit('join', userId); // Join the user's room
   });
 
   socket.on('disconnect', () => {
@@ -18,12 +18,12 @@ const connectSocket = () => {
 
   socket.on('rentalCompleted', (data) => {
     console.log('Rental completed', data);
-    // Implement your logic here, e.g., update UI or state
+    // You can pass this to your components via state or context
   });
 
   socket.on('rentalFailed', (data) => {
     console.log('Rental failed', data);
-    // Implement your logic here, e.g., update UI or state
+    // You can pass this to your components via state or context
   });
 };
 
