@@ -35,7 +35,8 @@ const ServiceBooking = ({ completedForm }) => {
       return;
     }
     const amount = selectHrs * costperHr;
-    const hrToMs = 3600000 * selectHrs;
+    // const hrToMs = 3600000 * 0.00833;
+    const hrToMs = 30000;
     completedForm();
     const phones = phone.replace("06", "2526");
     handleUserInputInfo({ selectHrs, amount, phones, hrToMs, stationId });
