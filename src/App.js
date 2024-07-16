@@ -4,7 +4,7 @@ import { useAuth } from './hooks/AuthProvider';
 import AuthProvider from './hooks/AuthProvider';
 import ServiceBooking from './components/ServiceBooking';
 import BookingConfirmation from './components/BookingConfirmation';
-import PaymentProcessing from './services/PaymentProcessing';
+// import PaymentProcessing from './services/PaymentProcessing';
 import Dashboard from './components/Dashboard';
 import Footer from './components/page/Footer';
 import MainPage from './components/page/MainPage';
@@ -35,6 +35,7 @@ const App = () => {
 
   const conformationForm = (data) => {
     setConformation(true);
+    console.log('conformationForm', conformation);
   };
 
   const closeMenu = () => {
@@ -78,10 +79,10 @@ const App = () => {
           <Route element={<StepGuard requiredStep={1} />}>
             <Route path="/BookingConfirmation" element={completForm && <BookingConfirmation conformationForm={conformationForm} />} />
           </Route>
-          <Route element={<StepGuard requiredStep={2} />}>
+          {/* <Route element={<StepGuard requiredStep={2} />}>
             <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
-          </Route>
-          <Route element={<StepGuard requiredStep={3} />}>
+          </Route> */}
+          <Route element={<StepGuard requiredStep={2} />}>
             <Route path="/Succes" element={<Succes />} />
           </Route>
           <Route path="/ProfileBusiness" element={<ProfileBusiness />} />
