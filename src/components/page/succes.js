@@ -7,7 +7,7 @@ const Success = () => {
     const { userInputInfo } = useAuth();
     const { phones } = userInputInfo; // Assume userInputInfo includes userId
     const millisecondsPaid = 300000; // Hardcoded for now
-    const [isGenereated, setIsGenereated] = useState(false);
+    // const [isGenereated, setIsGenereated] = useState(false);
 
     const guidGenerator = useCallback(() => {
         var S4 = function() {
