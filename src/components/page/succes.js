@@ -7,19 +7,16 @@ const Success = () => {
     const { userInputInfo } = useAuth();
     const { phones } = userInputInfo; // Assume userInputInfo includes userId
     const millisecondsPaid = 300000; // Hardcoded for now
-    // const [isGenereated, setIsGenereated] = useState(false);
 
     const guidGenerator = useCallback(() => {
         var S4 = function() {
             return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         };
-      
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }, []);
 
     const userIdRef = useRef(guidGenerator()); // Generate a unique user ID only once
     const userId = userIdRef.current;
-    // console.log("userId", userId);
 
     const [isSystemUnlocked, setIsSystemUnlocked] = useState(false);
     const [remainingTime, setRemainingTime] = useState(0);
@@ -28,6 +25,7 @@ const Success = () => {
         const data = {
             rentalId: phones,
             rentalDurationInMilliseconds: millisecondsPaid,
+            userId, // Include userId in the request
         };
 
         try {
@@ -54,7 +52,7 @@ const Success = () => {
         } catch (error) {
             console.error('Error unlocking system:', error);
         }
-    }, [phones, millisecondsPaid]);
+    }, [phones, millisecondsPaid, userId]);
 
     useEffect(() => {
         if (userId) {
@@ -64,9 +62,14 @@ const Success = () => {
         const storedStartTime = parseInt(localStorage.getItem('rentalStartTime'), 10);
         const storedDuration = parseInt(localStorage.getItem('rentalDuration'), 10);
 
+        console.log('Stored start time:', storedStartTime);
+        console.log('Stored duration:', storedDuration);
+
         if (storedStartTime && storedDuration) {
             const elapsedTime = Date.now() - storedStartTime;
             const remaining = storedDuration - elapsedTime;
+            console.log('Elapsed time:', elapsedTime);
+            console.log('Remaining time:', remaining);
             if (remaining > 0) {
                 setRemainingTime(remaining);
                 setIsSystemUnlocked(true);

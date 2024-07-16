@@ -1,10 +1,11 @@
-// src/services/websocketService.js
 import io from 'socket.io-client';
 import config from '../config/config';
-// const SOCKET_URL = `${config.URL}`;
+
 const SOCKET_URL = `${config.URL}`;
 
-const socket = io(SOCKET_URL);
+const socket = io(SOCKET_URL, {
+  transports: ['websocket', 'polling'], // Specify transports
+});
 
 const connectSocket = (userId) => {
   socket.on('connect', () => {
