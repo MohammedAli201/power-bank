@@ -4,7 +4,7 @@ import config from '../config/config';
 const SOCKET_URL = `${config.URL}`;
 
 const socket = io(SOCKET_URL, {
-  transports: ['websocket', 'polling'], // Specify transports
+  transports: ['websocket'], // Specify transports to use only WebSocket
 });
 
 const connectSocket = (userId) => {
