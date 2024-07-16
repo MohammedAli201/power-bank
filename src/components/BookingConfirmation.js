@@ -12,7 +12,10 @@ const BookingConfirmation = ({ conformationForm }) => {
     alert('Payment has been made');
     conformationForm();
     setCurrentStep(2);
-    navigate("/PaymentProcessing");
+    // navigate("/PaymentProcessing");
+    navigate("/Succes");
+
+    
   };
 
   return (
