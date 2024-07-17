@@ -269,6 +269,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../../hooks/AuthProvider';
 import { connectSocket, socket } from '../../services/websocketService'; // Ensure correct import
 import '../../assets/styles/Success.css';
+import config from '../../config/config';
 
 const Success = () => {
   // const [rentalCompleted, setRentalCompleted] = useState({});
@@ -295,7 +296,7 @@ const Success = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:9000/api/v1/rentals`, {
+      const response = await fetch(`${config.URL}api/v1/rentals`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
