@@ -1,10 +1,11 @@
 import io from 'socket.io-client';
 import config from '../config/config';
 
-const SOCKET_URL = `${config.URL}`;
+const SOCKET_URL = `${config.URL_LOCAL}`;
 
 const socket = io(SOCKET_URL, {
-  transports: ['websocket'], // Specify transports to use only WebSocket
+  transports: ['websocket'],
+  query: { userId: 'your_user_id' } // Ensure to pass userId as a query parameter
 });
 
 const connectSocket = (userId) => {
@@ -19,12 +20,12 @@ const connectSocket = (userId) => {
 
   socket.on('rentalCompleted', (data) => {
     console.log('Rental completed', data);
-    // You can pass this to your components via state or context
+    // Handle the rental completion event
   });
 
   socket.on('rentalFailed', (data) => {
     console.log('Rental failed', data);
-    // You can pass this to your components via state or context
+    // Handle the rental failure event
   });
 };
 
