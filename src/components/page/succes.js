@@ -271,7 +271,7 @@ import { connectSocket, socket } from '../../services/websocketService'; // Ensu
 import '../../assets/styles/Success.css';
 
 const Success = () => {
-  const [rentalCompleted, setRentalCompleted] = useState({});
+  // const [rentalCompleted, setRentalCompleted] = useState({});
   const { userInputInfo } = useAuth();
   const { phones } = userInputInfo;
   const millisecondsPaid = 20000; // Hardcoded for now
@@ -347,17 +347,17 @@ const Success = () => {
     socket.on('rentalCompleted', (data) => {
       if (userId !== data.userId) {
         return;
-      } else {
-        const { rentalId, userId } = data;
-        setRentalCompleted({
-          rentalId,
-          userId,
-        });
-      }
+      } 
+        // const { rentalId, userId } = data;
+        // setRentalCompleted({
+        //   rentalId,
+        //   userId,
+        // });
+        // localStorage.removeItem(`${userId}-rentalStartTime`);
       setIsSystemUnlocked(false);
     });
 
-    console.log('rentalCompleted:', rentalCompleted);
+    // console.log('rentalCompleted:', rentalCompleted);
 
     socket.on('rentalFailed', (data) => {
       console.log('Rental failed');
