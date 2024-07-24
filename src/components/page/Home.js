@@ -1,5 +1,7 @@
 import React from "react";
-import heroImage from "../../assets/images/PowerBank-hero-section.png";
+// import heroImage from "../../assets/images/PowerBank-hero-section.png";
+import heroImage from "../../assets/images/new_powerbank_image.jpg";
+
 // import logo from "../../assets/images/Power.png";
 import "../../assets/styles/Home.css";
 import { useNavigate } from "react-router-dom";

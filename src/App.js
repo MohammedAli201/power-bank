@@ -18,6 +18,8 @@ import heroImage from './assets/images/logo_svg.svg';
 import './App.css';
 // import Protected from "./components/protected"
 import StepGuard from './hooks/StepGuard';
+import Helps from './components/page/helps';
+import Price from './components/page/Price';
 
 const App = () => {
   const [completForm, setcompletForm] = useState(false);
@@ -90,6 +92,8 @@ const App = () => {
             <Route path="/StationInfo" element={<StationInfo />} />
           </Route>
           <Route path="/login" element={<Login />} />
+          <Route path="/Help" element={<Helps />} />
+          <Route path="/price" element={<Price />} />
         </Routes>
       </main>
       <Footer />

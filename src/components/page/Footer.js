@@ -11,36 +11,36 @@ const Footer = () => {
       <footer className="footer-content">
         <div className="footer-row">
           <div className="footer-column">
-            <h3>COMPANY NAME</h3>
+            <h3>Our services</h3>
             <p>
-              Organize your footer content. Lorem ipsum dolor sit amet,
-              consectetur adipisicing elit.
+              DANAB POWER BANK waa shirkad bixisa adeega Powerbank renting ah oo qof laga kiraynayo si mobile-kisa uu ugu charger karesto ama uu u dabeesto.
             </p>
-          </div>
-          <div className="footer-column">
-            <h3>PRODUCTS</h3>
-            <ul>
-              <li><a href="https://www.facebook.com/drmuxsincm">Angular</a></li>
-              <li><a href="https://www.facebook.com/drmuxsincm">React</a></li>
-              <li><a href="https://www.facebook.com/drmuxsincm">Vue</a></li>
-              <li><a href="https://www.facebook.com/drmuxsincm">Laravel</a></li>
-            </ul>
           </div>
           <div className="footer-column">
             <h3>USEFUL LINKS</h3>
             <ul>
-              <li><a href="https://www.facebook.com/drmuxsincm">Pricing</a></li>
-              <li><a href="https://www.facebook.com/drmuxsincm">Settings</a></li>
-              <li><a href="https://www.facebook.com/drmuxsincm">Orders</a></li>
-              <li><a href="https://www.facebook.com/drmuxsincm">Help</a></li>
+              <li><a href="https://www.facebook.com/drmuxsincm">Facebook</a></li>
+              <li><a href="https://x.com/home?lang-en=">Twitter</a></li>
+              {/* <li><a href="https://www.facebook.com/drmuxsincm">Vue</a></li>
+              <li><a href="https://www.facebook.com/drmuxsincm">Laravel</a></li> */}
+            </ul>
+          </div>
+          <div className="footer-column">
+            <h3>MORE DETAILS</h3>
+            <ul>
+              <li><a href="/price">Pricing</a></li>
+             
+              <li><a href="/help">Help</a></li>
+              <li><a href="/ProfileBusiness">Profile Business</a></li>
+
             </ul>
           </div>
           <div className="footer-column">
             <h3>CONTACT</h3>
             <p>Muqdisho, Xamar Weyne, Somalia</p>
-            <p><a href="mailto:PowerBank@gmail.com">PowerBank@gmail.com</a></p>
-            <p><a href="tel:+252615738865">+252615738865</a></p>
-            <p><a href="tel:+25261575654">+25261575654</a></p>
+            <p><a href="mailto:PowerBank@gmail.com">danabpowerbank@gmail.com</a></p>
+            <p><a href="tel:+252619311148">+252619311148</a></p>
+          
           </div>
         </div>
         <div className="footer-row">
@@ -50,9 +50,9 @@ const Footer = () => {
         </div>
         <div className="footer-social">
           <a href="https://www.facebook.com" aria-label="Facebook"><FaFacebook /></a>
-          <a href="https://www.twitter.com" aria-label="Twitter"><FaTwitter /></a>
+          <a href="https://x.com/home?lang-en=" aria-label="Twitter"><FaTwitter /></a>
           <a href="https://www.instagram.com" aria-label="Instagram"><FaInstagram /></a>
-          <a href="https://www.linkedin.com" aria-label="LinkedIn"><FaLinkedin /></a>
+          <a href="https://www.linkedin.com/in/mohamedali-309752135/" aria-label="LinkedIn"><FaLinkedin /></a>
         </div>
       </footer>
     </div>

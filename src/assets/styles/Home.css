@@ -120,7 +120,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.25rem;
+  padding: 1.15rem;
+  transform: scale(1.5);
 }
 
 .hero-image img {
@@ -240,7 +241,7 @@
   }
 
   .hero-image {
-    padding: 0.625rem;
+    padding: 0.825rem;
   }
 }
 

@@ -41,11 +41,14 @@ const ProfileBusiness = () => {
                 <p>
                     For inquiries and rentals, please contact us:
                     <br />
-                    <strong>Phone:</strong> 0619311148
+                    <strong>International Phone:</strong> +252619311148
+                    <br />
+                   
+                    <strong>Local Phone:</strong>0619311148
                     <br />
                     <strong>Email:</strong> danabpowerbank@gmail.com
                     <br />
-                    <strong>Address:</strong> Black Sea
+                    <strong>Address:</strong>Muqdisho, Xamar Weyne, Somalia
                 </p>
             </div>
         </div>
