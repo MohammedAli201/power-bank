@@ -4,7 +4,7 @@ import { useAuth } from './hooks/AuthProvider';
 import AuthProvider from './hooks/AuthProvider';
 import ServiceBooking from './components/ServiceBooking';
 import BookingConfirmation from './components/BookingConfirmation';
-// import PaymentProcessing from './services/PaymentProcessing';
+import PaymentProcessing from './services/PaymentProcessing';
 import Dashboard from './components/Dashboard';
 import Footer from './components/page/Footer';
 import MainPage from './components/page/MainPage';
@@ -72,6 +72,8 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
+
           <Route element={<PrivateRoute />}>
             <Route path="/Dashboard" element={<Dashboard />} />
           </Route>
@@ -81,10 +83,10 @@ const App = () => {
           <Route element={<StepGuard requiredStep={1} />}>
             <Route path="/BookingConfirmation" element={completForm && <BookingConfirmation conformationForm={conformationForm} />} />
           </Route>
-          {/* <Route element={<StepGuard requiredStep={2} />}>
-            <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
-          </Route> */}
           <Route element={<StepGuard requiredStep={2} />}>
+            <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
+          </Route>
+          <Route element={<StepGuard requiredStep={3} />}>
             <Route path="/Succes" element={<Succes />} />
           </Route>
           <Route path="/ProfileBusiness" element={<ProfileBusiness />} />
@@ -92,7 +94,7 @@ const App = () => {
             <Route path="/StationInfo" element={<StationInfo />} />
           </Route>
           <Route path="/login" element={<Login />} />
-          <Route path="/Help" element={<Helps />} />
+          <Route path="/help" element={<Helps />} />
           <Route path="/price" element={<Price />} />
         </Routes>
       </main>

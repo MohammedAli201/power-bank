@@ -30,7 +30,7 @@ const Success = () => {
     };
 
     try {
-      const response = await fetch(`${config.URL}api/v1/rentals`, {
+      const response = await fetch(`${config.URL_LOCAL}api/v1/rentals`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,32 +56,33 @@ const Success = () => {
   }, [phones, millisecondsPaid, userId]);
 
 
-  const updateUserPaymentStatus = useCallback(async () => {
+  // const updateUserPaymentStatus = useCallback(async () => {
 
    
 
-    try {
+  //   try {
+  //     console.log('phones:', phones);
 
-      const response = await fetch(`${config.URL}api/v1/stations/payments/updatePaymentStatus/${phones}`, {
+  //     const response = await fetch(`${config.URL_LOCAL}api/v1/stations/payments/updatePaymentStatus/${phones}`, {
 
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        }
+  //       method: 'PATCH',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       }
        
-      });
+  //     });
 
-      if (!response.ok) {
-        throw new Error('Failed to update user payment status');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('Failed to update user payment status');
+  //     }
 
-      const updatedData = await response.json();
-      console.log('User payment status updated successfully:', updatedData);
-    } catch (error) {
-      console.error('Error updating user payment status:', error);
-    }
-  }
-   , [phones]);
+  //     const updatedData = await response.json();
+  //     console.log('User payment status updated successfully:', updatedData);
+  //   } catch (error) {
+  //     console.error('Error updating user payment status:', error);
+  //   }
+  // }
+  //  , [phones]);
 
 
   useEffect(() => {
@@ -112,15 +113,16 @@ const Success = () => {
       if (userId !== data.userId) {
         return;
       } 
+      console.log('Rental completed');
       setIsSystemUnlocked(false);
       // TODO update the user payment status in the database
-       updateUserPaymentStatus();
+      //  updateUserPaymentStatus();
+
+     
        
 
 
     });
-
-    // console.log('rentalCompleted:', rentalCompleted);
 
     socket.on('rentalFailed', (data) => {
       console.log('Rental failed');
@@ -144,7 +146,7 @@ const Success = () => {
       socket.off('rentalCompleted');
       socket.off('rentalFailed');
     };
-  }, [millisecondsPaid, phones, fetchRentalInfo, userId, updateUserPaymentStatus]);
+  }, [millisecondsPaid, phones, fetchRentalInfo, userId]);
 
   const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);

@@ -9,11 +9,11 @@ const BookingConfirmation = ({ conformationForm }) => {
   const navigate = useNavigate();
 
   const completeReview = () => {
-    alert('Payment has been made');
+    // alert('Payment has been made');
     conformationForm();
     setCurrentStep(2);
-    // navigate("/PaymentProcessing");
-    navigate("/Succes");
+    navigate("/PaymentProcessing");
+    // navigate("/Succes");
 
     
   };
