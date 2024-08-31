@@ -11,8 +11,8 @@ import 'moment-timezone';
 const PaymentProcessing = () => {
   const [endTimeMilliseconds_, setEndTimeMilliseconds] = useState(0);
   const [slotId_selected, setSlotId_selected] = useState(0);
-  const apiBaseUrl = `${config.URL}api/v1/stations/powerBankRouter/`;
-  const paymentURL = `${config.URL}api/v1/stations/payments/savePaymentInfoWithUserInfo`;
+  const apiBaseUrl = `${config.URL_LOCAL}api/v1/stations/powerBankRouter/`;
+  const paymentURL = `${config.URL_LOCAL}api/v1/stations/payments/savePaymentInfoWithUserInfo`;
 
   const [stationDataBattery, setStationData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -116,7 +116,7 @@ const PaymentProcessing = () => {
     setSlotId_selected(slot_id);
 
     try {
-      const response = await fetch(`${config.URL}api/v1/stations/powerBankRouter/${stationName}/forceUnlock`, {
+      const response = await fetch(`${config.URL_LOCAL}api/v1/stations/powerBankRouter/${stationName}/forceUnlock`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -215,7 +215,7 @@ const PaymentProcessing = () => {
     };
 
     try {
-      const response = await fetch(`${config.URL}api/v1/stations/payments/evc_paymentRequest`, {
+      const response = await fetch(`${config.URL_LOCAL}api/v1/stations/payments/evc_paymentRequest`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -260,6 +260,8 @@ const PaymentProcessing = () => {
   }, [stationName, amount, phones, selectHrs, forceUnlock, savePaymentWithPowerBank, setCurrentStep, navigate]);
 
   const fetchDataAndMakePayment = useCallback(async () => {
+    console.log("stationName", stationName);
+    
     try {
       const stationResponse = await fetch(`${apiBaseUrl}${stationName}`, { method: 'GET' });
 
