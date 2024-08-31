@@ -2,40 +2,21 @@
 import io from 'socket.io-client';
 import config from '../config/config';
 
-const SOCKET_URL = `${config.URL}`;
-const socket = io(SOCKET_URL, {
-  transports: ['websocket']
-});
-
+// Function to connect to WebSocket and return socket instance
 const connectSocket = (userId) => {
-  socket.on('connect', () => {
-    console.log('Connected to WebSocket server');
-    socket.emit('join', userId); // Emit with dynamic userId
-  });
-
-  // Listen to rental completion specifically for this userId
-  const onRentalCompleted = (callback) => {
-    socket.on('rentalCompleted', (data) => {
-      if (data.userId === userId) {
-        callback(data);
-      }
+    const SOCKET_URL = `${config.URL}`;
+    const socket = io(SOCKET_URL, {
+        transports: ['websocket'],
+        query: { userId }
     });
-  };
 
-  const onRentalFailed = (callback) => {
-    socket.on('rentalFailed', (data) => {
-      if (data.userId === userId) {
-        callback(data);
-      }
+    // Log when connected
+    socket.on('connect', () => {
+        console.log('Connected to WebSocket server');
+        socket.emit('join', userId);  // Join a room based on userId
     });
-  };
 
-  const disconnectEvents = () => {
-    socket.off('rentalCompleted');
-    socket.off('rentalFailed');
-  };
-
-  return { onRentalCompleted, onRentalFailed, disconnectEvents };
+    return socket;
 };
 
-export { socket, connectSocket };
+export { connectSocket };
