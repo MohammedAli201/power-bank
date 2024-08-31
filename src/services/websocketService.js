@@ -1,22 +1,63 @@
-// // services/websocketService.js
+// // // services/websocketService.js
+// import io from 'socket.io-client';
+// import config from '../config/config';
+
+// // Function to connect to WebSocket and return socket instance
+// const connectSocket = (userId) => {
+//     const SOCKET_URL = `${config.URL}`;
+//     const socket = io(SOCKET_URL, {
+//         transports: ['websocket'],
+//         query: { userId }
+//     });
+
+//     // Log when connected
+//     socket.on('connect', () => {
+//         console.log('Connected to WebSocket server');
+//         socket.emit('join', userId);  // Join a room based on userId
+//     });
+
+//     return socket;
+// };
+
+// export { connectSocket };
+
+ // // services/websocketService.js
 import io from 'socket.io-client';
 import config from '../config/config';
+const SOCKET_URL = `${config.URL}`;
+const socket = io(SOCKET_URL, {
+  transports: ['websocket']
+});
 
-// Function to connect to WebSocket and return socket instance
 const connectSocket = (userId) => {
-    const SOCKET_URL = `${config.URL}`;
-    const socket = io(SOCKET_URL, {
-        transports: ['websocket'],
-        query: { userId }
-    });
+  socket.on('connect', () => {
+    console.log('Connected to WebSocket server');
+    socket.emit('join', userId); // Emit with dynamic userId
+  });
 
-    // Log when connected
-    socket.on('connect', () => {
-        console.log('Connected to WebSocket server');
-        socket.emit('join', userId);  // Join a room based on userId
+  // Listen to rental completion specifically for this userId
+  const onRentalCompleted = (callback) => {
+    socket.on('rentalCompleted', (data) => {
+      if (data.userId === userId) {
+        callback(data);
+      }
     });
+  };
 
-    return socket;
+  const onRentalFailed = (callback) => {
+    socket.on('rentalFailed', (data) => {
+      if (data.userId === userId) {
+        callback(data);
+      }
+    });
+  };
+
+  const disconnectEvents = () => {
+    socket.off('rentalCompleted');
+    socket.off('rentalFailed');
+  };
+
+  return { onRentalCompleted, onRentalFailed, disconnectEvents };
 };
 
-export { connectSocket };
+export { socket, connectSocket };

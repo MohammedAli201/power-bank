@@ -13,7 +13,6 @@ const PaymentProcessing = () => {
   const [slotId_selected, setSlotId_selected] = useState(0);
   const apiBaseUrl = `${config.URL}api/v1/stations/powerBankRouter/`;
   const paymentURL = `${config.URL}api/v1/stations/payments/savePaymentInfoWithUserInfo`;
-
   const [stationDataBattery, setStationData] = useState({});
   const [loading, setLoading] = useState(true);
   const hasFetchedData = useRef(false);
@@ -180,17 +179,19 @@ const PaymentProcessing = () => {
       currency: "USD",
       description: "wan diray"
     };
-
+console.log("stationIdBattery", data);
     try {
       const response = await fetch(`${config.URL}api/v1/stations/payments/evc_paymentRequest`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       });
 
       if (!response.ok) {
+        const errorMessage = await response.text(); // Get detailed error message from server
+        console.error('Failed to make payment request:', errorMessage);
         throw new Error('Failed to make payment request');
       }
 
