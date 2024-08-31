@@ -1,6 +1,6 @@
 // station.js
 const stationNameMap = {
-    'barubax': 'WSEP161683346505',
+    'castello': 'WSEP161721195358',
     'balack sea': 'WSEP161683346505',
 };
 

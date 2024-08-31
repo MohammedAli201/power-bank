@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+// import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthProvider';
 import { connectSocket, socket } from '../../services/websocketService'; // Ensure correct import
 import '../../assets/styles/Success.css';
@@ -8,8 +9,14 @@ import config from '../../config/config';
 const Success = () => {
   // const [rentalCompleted, setRentalCompleted] = useState({});
   const { userInputInfo } = useAuth();
-  const { phones } = userInputInfo;
-  const millisecondsPaid = 20000; // Hardcoded for now
+  const { phones,millisecondsPaid  } = userInputInfo;
+  //const millisecondsPaid =20000 ; // Hardcoded for now
+  console.log('millisecondsPaid:', millisecondsPaid);
+
+  // get value that was passed from navigator
+   
+  //const { createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds, } = useLocation();
+
 
   const guidGenerator = useCallback(() => {
     const S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
@@ -43,7 +50,7 @@ const Success = () => {
       }
 
       const rentalData = await response.json();
-      const startTime = Date.now();
+     const startTime = Date.now();
       localStorage.setItem(`${userId}-rentalStartTime`, startTime);
       localStorage.setItem(`${userId}-rentalDuration`, millisecondsPaid);
 
@@ -53,36 +60,33 @@ const Success = () => {
     } catch (error) {
       console.error('Error unlocking system:', error);
     }
-  }, [phones, millisecondsPaid, userId]);
+  }, [phones, userId, millisecondsPaid]);
 
 
-  // const updateUserPaymentStatus = useCallback(async () => {
+ const updateUserPaymentStatus = useCallback(async () => {
 
-   
+    try {
+      console.log('phones:', phones);
 
-  //   try {
-  //     console.log('phones:', phones);
+      const response = await fetch(`${config.URL_LOCAL}api/v1/stations/payments/updatePaymentStatus/${phones}`, {
 
-  //     const response = await fetch(`${config.URL_LOCAL}api/v1/stations/payments/updatePaymentStatus/${phones}`, {
-
-  //       method: 'PATCH',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       }
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        }
        
-  //     });
+      });
 
-  //     if (!response.ok) {
-  //       throw new Error('Failed to update user payment status');
-  //     }
+      if (!response.ok) {
+        throw new Error('Failed to update user payment status');
+      }
 
-  //     const updatedData = await response.json();
-  //     console.log('User payment status updated successfully:', updatedData);
-  //   } catch (error) {
-  //     console.error('Error updating user payment status:', error);
-  //   }
-  // }
-  //  , [phones]);
+      const updatedData = await response.json();
+      console.log('User payment status updated successfully:', updatedData);
+    } catch (error) {
+      console.error('Error updating user payment status:', error);
+    }
+  } , [phones]);
 
 
   useEffect(() => {
@@ -116,10 +120,7 @@ const Success = () => {
       console.log('Rental completed');
       setIsSystemUnlocked(false);
       // TODO update the user payment status in the database
-      //  updateUserPaymentStatus();
-
-     
-       
+      updateUserPaymentStatus();
 
 
     });
@@ -146,7 +147,7 @@ const Success = () => {
       socket.off('rentalCompleted');
       socket.off('rentalFailed');
     };
-  }, [millisecondsPaid, phones, fetchRentalInfo, userId]);
+  }, [millisecondsPaid, phones, fetchRentalInfo, userId, updateUserPaymentStatus]);
 
   const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);

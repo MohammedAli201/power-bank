@@ -7,6 +7,7 @@ const ServiceBooking = ({ completedForm }) => {
   const navigate = useNavigate();
   const { stationId } = useParams();
 
+
   const [selectHrs, setSelectHrs] = useState(1);
   const costperHr = 0.5;
   const [phone, setPhone] = useState('');
