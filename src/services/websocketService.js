@@ -1,34 +1,41 @@
+// // services/websocketService.js
 import io from 'socket.io-client';
 import config from '../config/config';
 
-// Function to create a new socket connection with a dynamic user ID
-const createSocket = (userId) => {
-  const SOCKET_URL = `${config.URL}`;
-  const socket = io(SOCKET_URL, {
-    transports: ['websocket'],
-    query: { userId }  // Dynamic user ID
-  });
+const SOCKET_URL = `${config.URL}`;
+const socket = io(SOCKET_URL, {
+  transports: ['websocket']
+});
 
+const connectSocket = (userId) => {
   socket.on('connect', () => {
     console.log('Connected to WebSocket server');
-    socket.emit('join', userId); // Join the user's room
+    socket.emit('join', userId); // Emit with dynamic userId
   });
 
-  socket.on('disconnect', () => {
-    console.log('Disconnected from WebSocket server');
-  });
+  // Listen to rental completion specifically for this userId
+  const onRentalCompleted = (callback) => {
+    socket.on('rentalCompleted', (data) => {
+      if (data.userId === userId) {
+        callback(data);
+      }
+    });
+  };
 
-  socket.on('rentalCompleted', (data) => {
-    console.log('Rental completed', data);
-    // Handle the rental completion event
-  });
+  const onRentalFailed = (callback) => {
+    socket.on('rentalFailed', (data) => {
+      if (data.userId === userId) {
+        callback(data);
+      }
+    });
+  };
 
-  socket.on('rentalFailed', (data) => {
-    console.log('Rental failed', data);
-    // Handle the rental failure event
-  });
+  const disconnectEvents = () => {
+    socket.off('rentalCompleted');
+    socket.off('rentalFailed');
+  };
 
-  return socket;
+  return { onRentalCompleted, onRentalFailed, disconnectEvents };
 };
 
-export { createSocket };
+export { socket, connectSocket };
