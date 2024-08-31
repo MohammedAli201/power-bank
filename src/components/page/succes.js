@@ -37,7 +37,7 @@ const Success = () => {
     };
 
     try {
-      const response = await fetch(`${config.URL_LOCAL}api/v1/rentals`, {
+      const response = await fetch(`${config.URL}api/v1/rentals`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ const Success = () => {
     try {
       console.log('phones:', phones);
 
-      const response = await fetch(`${config.URL_LOCAL}api/v1/stations/payments/updatePaymentStatus/${phones}`, {
+      const response = await fetch(`${config.URL}api/v1/stations/payments/updatePaymentStatus/${phones}`, {
 
         method: 'PATCH',
         headers: {

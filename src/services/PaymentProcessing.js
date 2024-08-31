@@ -316,8 +316,8 @@ const PaymentProcessing = () => {
   const stationName = getStationCode(stationId);
   const navigate = useNavigate();
 
-  const apiBaseUrl = `${config.URL_LOCAL}api/v1/stations/powerBankRouter/`;
-  const paymentURL = `${config.URL_LOCAL}api/v1/stations/payments/savePaymentInfoWithUserInfo`;
+  const apiBaseUrl = `${config.URL}api/v1/stations/powerBankRouter/`;
+  const paymentURL = `${config.URL}api/v1/stations/payments/savePaymentInfoWithUserInfo`;
 
   const timeManager = useCallback(() => {
     const timeZone = 'Africa/Mogadishu'; 
@@ -417,7 +417,7 @@ const PaymentProcessing = () => {
     };
 
     try {
-      const response = await fetch(`${config.URL_LOCAL}api/v1/stations/payments/evc_paymentRequest`, {
+      const response = await fetch(`${config.URL}api/v1/stations/payments/evc_paymentRequest`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
