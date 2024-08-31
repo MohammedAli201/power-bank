@@ -1,14 +1,14 @@
 import io from 'socket.io-client';
 import config from '../config/config';
 
-const SOCKET_URL = `${config.URL}`;
+// Function to create a new socket connection with a dynamic user ID
+const createSocket = (userId) => {
+  const SOCKET_URL = `${config.URL}`;
+  const socket = io(SOCKET_URL, {
+    transports: ['websocket'],
+    query: { userId }  // Dynamic user ID
+  });
 
-const socket = io(SOCKET_URL, {
-  transports: ['websocket'],
-  query: { userId: 'your_user_id' } // Ensure to pass userId as a query parameter
-});
-
-const connectSocket = (userId) => {
   socket.on('connect', () => {
     console.log('Connected to WebSocket server');
     socket.emit('join', userId); // Join the user's room
@@ -27,6 +27,8 @@ const connectSocket = (userId) => {
     console.log('Rental failed', data);
     // Handle the rental failure event
   });
+
+  return socket;
 };
 
-export { socket, connectSocket };
+export { createSocket };
