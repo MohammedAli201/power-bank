@@ -69,43 +69,10 @@ const PaymentProcessing = () => {
 
 
  
-  // const timeManager = useCallback((timestamp) => {
-  //   const timeZone = 'Africa/Mogadishu'; // Timezone for Mogadishu, Somalia
-  
-  //   const startTime = new Date(timestamp); // Use the provided timestamp as the start time
-  //   const zonedStartTime = toZonedTime(startTime, timeZone); // Convert UTC to Mogadishu time
-  //   const formattedStartTime = formatInTimeZone(zonedStartTime, timeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // Convert to ISO 8601 format in Mogadishu time
-    
-  //   const endTime = addHours(zonedStartTime, selectHrs); // Calculate end time in Mogadishu time
-  //   const formattedEndTime = formatInTimeZone(endTime, timeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // Convert to ISO 8601 format
-  
-  //   const createdAt = formattedStartTime; // Reuse the formatted start time
-  //   const endTimeMilliseconds = selectHrs * 60 * 60 * 1000; // End time in milliseconds
-  
-  //   return {
-  //     createdAt,
-  //     formattedStartTime,
-  //     formattedEndTime,
-  //     endTimeMilliseconds,
-  //   };
-  // }, [selectHrs]);
   
   
-  // const timeManager = useCallback(() => {
-  //   const startTime = new Date();
-  //   const formattedStartTime = startTime.toISOString(); // Convert to ISO 8601 format
-  //   const endTime = new Date(startTime.getTime() + selectHrs * 60 * 60 * 1000); // Calculate end time
-  //   const formattedEndTime = endTime.toISOString(); // Convert to ISO 8601 format
-  //   const createdAt = formattedStartTime; // Reuse the formatted start time
-  //   const endTimeMilliseconds = selectHrs * 60 * 60 * 1000; // End time in milliseconds
-
-  //   return {
-  //     createdAt,
-  //     formattedStartTime,
-  //     formattedEndTime,
-  //     endTimeMilliseconds
-  //   };
-  // }, [selectHrs]);
+  
+  
 
   const forceUnlock = useCallback(async (stationIdBattery) => {
     console.log("Force unlock initiated", stationIdBattery[0].slot_id);
