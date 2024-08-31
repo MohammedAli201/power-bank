@@ -6,7 +6,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [IsPaymentCompleted, setIsPaymentCompleted] = useState(false);
-  const [userInputInfo,setUserInputInfo] = useState({selectHrs: 1, amount: 0, phones: '', hrToMs:1, stationId:'', millisecondsPaid:1}); //
+  const [userInputInfo,setUserInputInfo] = useState({selectHrs: 1, amount: 0, phones: '', hrToMs:3600, stationId:'', millisecondsPaid:0}); //
   const [currentStep, setCurrentStep] = useState(0);
 
 

@@ -23,8 +23,10 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData();
-  }, [view]);
+  // eslint-disable-next-line no-use-before-define
+  }, [fetchData, view]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchData = async () => {
     setLoading(true);
     let url;
