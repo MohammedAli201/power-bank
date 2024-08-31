@@ -215,7 +215,7 @@ const PaymentProcessing = () => {
     };
 
     try {
-      const response = await fetch(`${config.URL_LOCAL}api/v1/stations/payments/evc_paymentRequest`, {
+      const response = await fetch(`${config.URL}api/v1/stations/payments/evc_paymentRequest`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -261,7 +261,7 @@ const PaymentProcessing = () => {
 
   const fetchDataAndMakePayment = useCallback(async () => {
     console.log("stationName", stationName);
-    
+
     try {
       const stationResponse = await fetch(`${apiBaseUrl}${stationName}`, { method: 'GET' });
 
