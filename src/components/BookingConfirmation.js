@@ -4,8 +4,14 @@ import { useAuth } from "../hooks/AuthProvider";
 import '../assets/styles/BookingConfirmation.css';
 
 const BookingConfirmation = ({ conformationForm }) => {
-  const { userInputInfo,setCurrentStep } = useAuth();
+  console.log('BookingConfirmation',conformationForm);
+
+  const { userInputInfo,setCurrentStep,agreement } = useAuth();
   const { selectHrs, amount, phones } = userInputInfo;
+
+ 
+
+
   const navigate = useNavigate();
 
   const completeReview = () => {
@@ -35,6 +41,16 @@ const BookingConfirmation = ({ conformationForm }) => {
             <th>Amount to be paid</th>
             <td>${amount.toFixed(2)}</td>
           </tr>
+
+            <tr>
+            <th>Amount to be paid</th>
+            <td>${amount.toFixed(2)}</td>
+          </tr>
+
+          <tr>
+            <th>Term and conditions</th>
+            <td>{agreement ? 'Agreed' : 'Not Agreed'}</td>
+            </tr>
         </tbody>
       </table>
       <button className="payment-button" onClick={completeReview}>Confirm and make payment</button>

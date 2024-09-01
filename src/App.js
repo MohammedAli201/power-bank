@@ -20,6 +20,7 @@ import './App.css';
 import StepGuard from './hooks/StepGuard';
 import Helps from './components/page/helps';
 import Price from './components/page/Price';
+import RentalAgreementPage from './components/Term_conditions/RentalAgreementPage ';
 
 const App = () => {
   const [completForm, setcompletForm] = useState(false);
@@ -96,6 +97,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/help" element={<Helps />} />
           <Route path="/price" element={<Price />} />
+          <Route path="/terms-conditions" element={<RentalAgreementPage />} />
         </Routes>
       </main>
       <Footer />
