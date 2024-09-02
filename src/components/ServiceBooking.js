@@ -320,8 +320,8 @@ const ServiceBooking = ({completedForm}) => {
       </button>
       <div className="contact-info">
         <h3>Contact Us</h3>
-        <p>Phone: 0611234567</p>
-        <p>Email: example@mail.com</p>
+        <p>Phone: 0611234567/0616251068/0616586503</p>
+        <p>Email: danabpowerbank@gmail.com</p>
       </div>
     </div>
   );
