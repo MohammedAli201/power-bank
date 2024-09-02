@@ -93,7 +93,7 @@ const PaymentProcessing = () => {
     const slot_id = stationIdBattery[0].slot_id
    // const battery_id = filterBatteries(stationIdBattery)[0].battery_id;
    // const batteryName = filterBatteries(stationIdBattery)[0].battery_name;
-   console.log("stationIdBattery", filterBatteries(stationIdBattery._b))
+  // console.log("stationIdBattery", filterBatteries(stationIdBattery._b))
     setSlotId_selected(slot_id);
 
     try {
