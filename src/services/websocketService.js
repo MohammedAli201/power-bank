@@ -44,6 +44,14 @@ const connectSocket = (userId) => {
     });
   };
 
+  const onRentaGraceTime = (callback) => {
+    socket.on('rentalCompleted', (data) => {
+      if (data.userId === userId) {
+        callback(data);
+      }
+    });
+  };
+
   const onRentalFailed = (callback) => {
     socket.on('rentalFailed', (data) => {
       if (data.userId === userId) {
@@ -52,12 +60,23 @@ const connectSocket = (userId) => {
     });
   };
 
+  // const lockForOveruse = (callback) => {
+  //   socket.on('rentalFailed', (data) => {
+  //     if (data.userId === userId) {
+  //       callback(data);
+  //     }
+  //   });
+  // };
+
   const disconnectEvents = () => {
     socket.off('rentalCompleted');
     socket.off('rentalFailed');
+    socket.off('gracePeriodEnded');
+
+
   };
 
-  return { onRentalCompleted, onRentalFailed, disconnectEvents };
+  return { onRentalCompleted, onRentalFailed, disconnectEvents,onRentaGraceTime };
 };
 
 export { socket, connectSocket };

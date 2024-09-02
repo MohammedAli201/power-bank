@@ -9,6 +9,12 @@ const AuthProvider = ({ children }) => {
   const [userInputInfo,setUserInputInfo] = useState({selectHrs: 1, amount: 0, phones: '', hrToMs:3600, stationId:'', millisecondsPaid:0}); //
   const [currentStep, setCurrentStep] = useState(0);
 const [agreement, setAgreement] = useState(false);
+const [userId, setUserId] = useState('');
+
+const createUserId = (id) => {
+  setUserId(id);
+};
+
 
   const [token, setToken] = useState(localStorage.getItem('site') || '');
   const navigateRef = useRef(null);  // Use ref to store navigate function
@@ -73,7 +79,7 @@ const onAgreement = (conditions) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, IsPaymentCompleted,userInputInfo,currentStep, setCurrentStep, loginAction, logOut, paymentCompleted, setNavigate,handleUserInputInfo, onAgreement,agreement  }}>
+    <AuthContext.Provider value={{ token, user, IsPaymentCompleted,userInputInfo,currentStep, setCurrentStep, loginAction, logOut, paymentCompleted, setNavigate,handleUserInputInfo, onAgreement,agreement,createUserId, userId  }}>
       {children}
     </AuthContext.Provider>
   );

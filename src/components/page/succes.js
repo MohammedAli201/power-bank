@@ -8,7 +8,7 @@ import config from '../../config/config';
 
 const Success = () => {
   // const [rentalCompleted, setRentalCompleted] = useState({});
-  const { userInputInfo } = useAuth();
+  const { userInputInfo ,createUserId} = useAuth();
   const { phones,millisecondsPaid  } = userInputInfo;
   //const millisecondsPaid =20000 ; // Hardcoded for now
   //console.log('millisecondsPaid:', millisecondsPaid);
@@ -35,6 +35,7 @@ const Success = () => {
       rentalDurationInMilliseconds: millisecondsPaid,
       userId,
     };
+    createUserId(userId);
 
     try {
       const response = await fetch(`${config.URL}api/v1/rentals`, {
@@ -60,7 +61,7 @@ const Success = () => {
     } catch (error) {
       console.error('Error unlocking system:', error);
     }
-  }, [phones, userId, millisecondsPaid]);
+  }, [phones, millisecondsPaid, userId, createUserId]);
 
 
  const updateUserPaymentStatus = useCallback(async () => {
@@ -122,6 +123,8 @@ const Success = () => {
       // TODO update the user payment status in the database
       updateUserPaymentStatus();
 
+      
+
 
     });
 
@@ -146,6 +149,8 @@ const Success = () => {
       clearInterval(interval);
       socket.off('rentalCompleted');
       socket.off('rentalFailed');
+
+
     };
   }, [millisecondsPaid, phones, fetchRentalInfo, userId, updateUserPaymentStatus]);
 
