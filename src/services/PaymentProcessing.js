@@ -89,12 +89,10 @@ const PaymentProcessing = () => {
 }, [selectHrs]);
 
   const forceUnlock = useCallback(async (stationIdBattery) => {
-   // console.log("Force unlock initiated", stationIdBattery[0].slot_id);
-   
+    console.log("Force unlock initiated", stationIdBattery[0].slot_id);
+    const slot_id = stationIdBattery[0].slot_id
    // const battery_id = filterBatteries(stationIdBattery)[0].battery_id;
    // const batteryName = filterBatteries(stationIdBattery)[0].battery_name;
-   const currentRentedBattery = filterBatteries(stationIdBattery.batteries);
-   const slot_id = currentRentedBattery[0].currentRentedBattery
    console.log("stationIdBattery", filterBatteries(stationIdBattery._b))
     setSlotId_selected(slot_id);
 
@@ -130,21 +128,20 @@ const PaymentProcessing = () => {
 
    // const { createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds } = timeManager(timestamp);
     // const { referenceId, timestamp, description, transactionId } = evcResponse;
-    // console.log("createdAt", createdAt);
-    // console.log("formattedStartTime", formattedStartTime);
-    // console.log("formattedEndTime", formattedEndTime);
-    // console.log("endTimeMilliseconds", endTimeMilliseconds);
-    // console.log("referenceId", referenceId);
-    // console.log("timestamp", timestamp);
-    const currentRentedBattery = filterBatteries(stationIdBattery.batteries);
-    const slot_id = currentRentedBattery[0].currentRentedBattery
+    console.log("createdAt", createdAt);
+    console.log("formattedStartTime", formattedStartTime);
+    console.log("formattedEndTime", formattedEndTime);
+    console.log("endTimeMilliseconds", endTimeMilliseconds);
+    console.log("referenceId", referenceId);
+    console.log("timestamp", timestamp);
+
 
     const newData = {
       stationName: stationName,
       branch_name: stationId,
-      battery_id: currentRentedBattery[0].battery_id,
+      battery_id: stationIdBattery[0].battery_id,
       userId: referenceId,
-      slotId: slot_id,
+      slotId: stationIdBattery[0].slot_id,
       evcReference: referenceId,
       timestampEvc:timestamp ,
       createdAt: createdAt ,
@@ -161,7 +158,7 @@ const PaymentProcessing = () => {
       lockStatus: 1
     };
 
-    // console.log("newData", newData);
+    console.log("newData", newData);
     handleUserInputInfo({ selectHrs, amount, phones, hrToMs:endTimeMilliseconds, stationId, millisecondsPaid: endTimeMilliseconds });
 
     try {
