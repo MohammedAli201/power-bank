@@ -316,11 +316,21 @@ import { connectSocket, socket } from '../../services/websocketService';
 import '../../assets/styles/Success.css';
 import config from '../../config/config';
 import SmsLetter from '../../services/smsLetter';
-
+import { useLocation } from 'react-router-dom';
 const Success = () => {
   const { userInputInfo, createUserId } = useAuth();
-  const millisecondsPaid = 20000; // Hardcoded for now
-  const phones = "616251068";
+  const { phones, millisecondsPaid } = userInputInfo;
+  // const millisecondsPaid = 20000; // Hardcoded for now
+  // const phones = "616251068";
+  const {state} = useLocation();
+  const {createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds} = state;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const rent ={
+    formattedStartTime,
+    formattedEndTime,
+    phones
+
+  }
   const [isCompletedRent, setIsCompletedRent] = useState(false);
   const [isSystemUnlocked, setIsSystemUnlocked] = useState(false);
   const [remainingTime, setRemainingTime] = useState(0);
@@ -366,11 +376,11 @@ const Success = () => {
       setRemainingTime(millisecondsPaid);
 
       if (!smsSentOnUnlockRef.current) {
-        const rent = {
-          formattedStartTime: '2024-09-07T19:20:42+03:00',
-          formattedEndTime: '2024-09-07T20:20:42+03:00',
-          phones: '616251068'
-        };
+        // const rent = {
+        //   formattedStartTime: '2024-09-07T19:20:42+03:00',
+        //   formattedEndTime: '2024-09-07T20:20:42+03:00',
+        //   phones: '616251068'
+        // };
         const type = 'createRent'; 
         const sendSms = SmsLetter({ rent: rent, type: type });
         sendSms();
@@ -381,7 +391,7 @@ const Success = () => {
     } catch (error) {
       console.error('Error unlocking system:', error);
     }
-  }, [phones, millisecondsPaid, userId, createUserId]);
+  }, [phones, millisecondsPaid, userId, createUserId, rent]);
 
   const updateUserPaymentStatus = useCallback(async () => {
     try {
@@ -438,11 +448,11 @@ const Success = () => {
       if (!isCompletedRent) {
         setIsCompletedRent(true);
         if (!smsSentOnLockRef.current) {
-          const rent = {
-            formattedStartTime: '2024-09-07T19:20:42+03:00',
-            formattedEndTime: '2024-09-07T20:20:42+03:00',
-            phones: '616251068'
-          };
+          // const rent = {
+          //   formattedStartTime: '2024-09-07T19:20:42+03:00',
+          //   formattedEndTime: '2024-09-07T20:20:42+03:00',
+          //   phones: '616251068'
+          // };
           const type = 'completedRent'; 
           const sendSms = SmsLetter({ rent: rent, type: type });
           sendSms();

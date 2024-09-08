@@ -775,29 +775,221 @@
 
 // export default PaymentProcessing;
 
+// import { useState, useEffect, useRef, useCallback } from "react";
+// import { useNavigate } from "react-router-dom";
+// import getStationCode from "../components/stations/station";
+// import '../assets/styles/PaymentProcessing.css';
+// import config from "../config/config";
+// import { useAuth } from '../hooks/AuthProvider';
+// import Loader from "../components/loader";
+// import Completed from "../components/completed";
+// import moment from 'moment-timezone'; 
+
+// const PaymentProcessing = () => {
+//   const [loading, setLoading] = useState(true);
+//   const hasFetchedData = useRef(false);
+  
+//   const { userInputInfo, paymentCompleted, handleUserInputInfo, setCurrentStep } = useAuth();
+//   const { selectHrs, amount, phones, stationId } = userInputInfo;
+
+//   const stationName = getStationCode(stationId);
+//   const navigate = useNavigate();
+
+//   const apiBaseUrl = `${config.URL}api/v1/stations/powerBankRouter/`;
+//   const paymentURL = `${config.URL}api/v1/stations/payments/savePaymentInfoWithUserInfo`;
+
+//   const timeManager = useCallback(() => {
+//     const timeZone = 'Africa/Mogadishu'; 
+//     const currentDateTime = moment().tz(timeZone);
+    
+//     return {
+//       createdAt: currentDateTime.format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+//       formattedStartTime: currentDateTime.format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+//       formattedEndTime: currentDateTime.clone().add(selectHrs, 'hours').format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+//       endTimeMilliseconds: selectHrs * 60 * 60 * 1000,
+//     };
+//   }, [selectHrs]);
+
+//   const filterBatteries = useCallback((batteries) => {
+//     return batteries.filter(battery => (
+//       battery.lock_status === "1" &&
+//       battery.battery_capacity === "100" &&
+//       battery.battery_abnormal === "0" &&
+//       battery.cable_abnormal === "0" &&
+//       battery.contact_abnormal === "0" &&
+//       battery.soh === "100"
+//     ));
+//   }, []);
+
+//   const forceUnlock = useCallback(async (stationIdBattery) => {
+//     const slot_id = stationIdBattery[0].slot_id;
+//     console.log("Force unlock initiated", slot_id);
+
+//     try {
+//       const response = await fetch(`${apiBaseUrl}${stationName}/forceUnlock`, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ stationName, slot_id }),
+//       });
+
+//       if (!response.ok) throw new Error('Failed to force unlock');
+//       console.log("Force unlock successful");
+//     } catch (error) {
+//       console.error('Error forcing unlock:', error);
+//     }
+//   }, [stationName, apiBaseUrl]);
+
+//   const savePaymentWithPowerBank = useCallback(async (referenceId, timestamp, description, transactionId, stationIdBattery) => {
+//     const { createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds } = timeManager();
+
+//     const newData = {
+//       stationName,
+//       branch_name: stationId,
+//       battery_id: stationIdBattery[0].battery_id,
+//       userId: referenceId,
+//       slotId: stationIdBattery[0].slot_id,
+//       evcReference: referenceId,
+//       timestampEvc: timestamp,
+//       createdAt,
+//       phoneNumber: phones,
+//       amount,
+//       isPaid: true,
+//       endRentTime: formattedEndTime,
+//       startTime: formattedStartTime,
+//       hoursPaid: selectHrs,
+//       millisecondsPaid: endTimeMilliseconds,
+//       currency: "USD",
+//       paymentStatus: "active",
+//       lockStatus: 1
+//     };
+
+//     handleUserInputInfo({ selectHrs, amount, phones, hrToMs: endTimeMilliseconds, stationId });
+
+//     try {
+//       const response = await fetch(paymentURL, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(newData),
+//       });
+
+//       if (!response.ok) throw new Error('Failed to save payment information');
+
+//       paymentCompleted();
+//       setCurrentStep(4);
+//       navigate('/Succes',{state: {createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds }});
+//     } catch (error) {
+//       console.error('Error saving payment information:', error);
+//     }
+//   }, [timeManager, stationName, stationId, phones, amount, selectHrs, handleUserInputInfo, paymentURL, paymentCompleted, setCurrentStep, navigate]);
+
+//   const evcPaymentRequest = useCallback(async (stationIdBattery) => {
+//     const data = {
+//       stationName,
+//       userId: phones,
+//       amount,
+//       accountNo: phones,
+//       hours: selectHrs,
+//       currency: "USD",
+//       description: "wan diray"
+//     };
+
+//     try {
+//       const response = await fetch(`${config.URL}api/v1/stations/payments/evc_paymentRequest`, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(data),
+//       });
+
+//       if (!response.ok) throw new Error('Failed to make payment request');
+
+//       const data_res = await response.json();
+
+//       if (data_res?.params) {
+//         const { referenceId, transactionId, description } = data_res.params;
+//         const { timestamp } = data_res;
+
+//         await forceUnlock(stationIdBattery);
+
+//         savePaymentWithPowerBank(referenceId, timestamp, description, transactionId, stationIdBattery);
+//         setLoading(false);
+       
+//       } else {
+//         throw new Error('Unexpected response structure');
+//       }
+//     } catch (error) {
+//       console.error('Error making payment request:', error);
+//     }
+//   }, [stationName, amount, phones, selectHrs, forceUnlock, savePaymentWithPowerBank]);
+
+//   const fetchDataAndMakePayment = useCallback(async () => {
+//     try {
+//       const stationResponse = await fetch(`${apiBaseUrl}${stationName}`, { method: 'GET' });
+
+//       if (!stationResponse.ok) throw new Error('Failed to fetch station information');
+
+//       const stationData_ = await stationResponse.json();
+
+//       const stationIdBattery = filterBatteries(stationData_.batteries);
+
+//       await evcPaymentRequest(stationIdBattery);
+//     } catch (error) {
+//       console.error('Error fetching station data or making payment:', error);
+//     }
+//   }, [stationName, apiBaseUrl, evcPaymentRequest, filterBatteries]);
+
+//   useEffect(() => {
+//     if (!hasFetchedData.current) {
+//       fetchDataAndMakePayment();
+//       hasFetchedData.current = true;
+//     }
+//   }, [fetchDataAndMakePayment]);
+
+//   return (
+//     <div className="payment-container">
+//       {loading ? (
+//         <Loader message="Payment is Under Process" />
+//       ) : (
+//         <div className="response--1">
+//           <Completed message="The payment is completed" />
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default PaymentProcessing;
+
+
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import getStationCode from "../components/stations/station";
-import '../assets/styles/PaymentProcessing.css';
-import config from "../config/config";
-import { useAuth } from '../hooks/AuthProvider';
+import { useRetries } from '../hooks/useRetries';  // Custom Hook for retries
+import { fetchStationData, forceUnlock } from "../services/stationService";  // Service for station API
+import { savePayment, evcPaymentRequest } from "../services/paymentService";  // Service for payment API
 import Loader from "../components/loader";
 import Completed from "../components/completed";
-import moment from 'moment-timezone'; 
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+import config from "../config/config";
+import { useAuth } from '../hooks/AuthProvider';
+import getStationCode from "../components/stations/station";
+import moment from "moment-timezone";
 
 const PaymentProcessing = () => {
   const [loading, setLoading] = useState(true);
   const hasFetchedData = useRef(false);
-  
-  const { userInputInfo, paymentCompleted, handleUserInputInfo, setCurrentStep } = useAuth();
+  const { withRetry } = useRetries(3);  // Max attempts = 3 for retry logic
+  const { userInputInfo, paymentCompleted, handleUserInputInfo, setCurrentStep, agreement } = useAuth();
   const { selectHrs, amount, phones, stationId } = userInputInfo;
-
   const stationName = getStationCode(stationId);
   const navigate = useNavigate();
-
-  const apiBaseUrl = `${config.URL}api/v1/stations/powerBankRouter/`;
-  const paymentURL = `${config.URL}api/v1/stations/payments/savePaymentInfoWithUserInfo`;
-
+  const apiBaseUrl = `${config.URL_LOCAL}api/v1/stations/powerBankRouter/`;
+  const paymentURL = `${config.URL_LOCAL}api/v1/stations/payments/savePaymentInfoWithUserInfo`;
   const timeManager = useCallback(() => {
     const timeZone = 'Africa/Mogadishu'; 
     const currentDateTime = moment().tz(timeZone);
@@ -809,41 +1001,8 @@ const PaymentProcessing = () => {
       endTimeMilliseconds: selectHrs * 60 * 60 * 1000,
     };
   }, [selectHrs]);
-
-  const filterBatteries = useCallback((batteries) => {
-    return batteries.filter(battery => (
-      battery.lock_status === "1" &&
-      battery.battery_capacity === "100" &&
-      battery.battery_abnormal === "0" &&
-      battery.cable_abnormal === "0" &&
-      battery.contact_abnormal === "0" &&
-      battery.soh === "100"
-    ));
-  }, []);
-
-  const forceUnlock = useCallback(async (stationIdBattery) => {
-    const slot_id = stationIdBattery[0].slot_id;
-    console.log("Force unlock initiated", slot_id);
-
-    try {
-      const response = await fetch(`${apiBaseUrl}${stationName}/forceUnlock`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ stationName, slot_id }),
-      });
-
-      if (!response.ok) throw new Error('Failed to force unlock');
-      console.log("Force unlock successful");
-    } catch (error) {
-      console.error('Error forcing unlock:', error);
-    }
-  }, [stationName, apiBaseUrl]);
-
-  const savePaymentWithPowerBank = useCallback(async (referenceId, timestamp, description, transactionId, stationIdBattery) => {
+  const savePaymentWithRetries = useCallback(async (referenceId, timestamp, description, transactionId, stationIdBattery) => {
     const { createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds } = timeManager();
-
     const newData = {
       stationName,
       branch_name: stationId,
@@ -862,31 +1021,38 @@ const PaymentProcessing = () => {
       millisecondsPaid: endTimeMilliseconds,
       currency: "USD",
       paymentStatus: "active",
-      lockStatus: 1
+      lockStatus: 1,
+      term_and_conditions: agreement,
     };
 
     handleUserInputInfo({ selectHrs, amount, phones, hrToMs: endTimeMilliseconds, stationId });
 
     try {
-      const response = await fetch(paymentURL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newData),
-      });
-
-      if (!response.ok) throw new Error('Failed to save payment information');
-
+      await withRetry(savePayment, [paymentURL, newData]);
+      toast.success("Payment saved successfully!");
       paymentCompleted();
       setCurrentStep(4);
-      navigate('/Succes');
+      navigate('/Succes', { state: { createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds } });
     } catch (error) {
-      console.error('Error saving payment information:', error);
+      toast.error("Failed to save payment after multiple attempts.");
+      console.error("Error saving payment:", error);
     }
-  }, [timeManager, stationName, stationId, phones, amount, selectHrs, handleUserInputInfo, paymentURL, paymentCompleted, setCurrentStep, navigate]);
+  }, [timeManager, stationName, stationId, phones, amount, selectHrs, agreement, handleUserInputInfo, withRetry, paymentURL, paymentCompleted, setCurrentStep, navigate]);
+  const filterBatteries = (batteries) => {
+        return batteries.filter(battery => {
+            return (
+                battery.lock_status === "1" &&
+                battery.battery_capacity === "100" &&
+                battery.battery_abnormal === "0" &&
+                battery.cable_abnormal === "0" &&
+                battery.contact_abnormal === "0" &&
+                battery.soh === "100"
+           
+            );
+        });
+    }
 
-  const evcPaymentRequest = useCallback(async (stationIdBattery) => {
+  const processPayment = useCallback(async (stationIdBattery) => {
     const data = {
       stationName,
       userId: phones,
@@ -894,72 +1060,41 @@ const PaymentProcessing = () => {
       accountNo: phones,
       hours: selectHrs,
       currency: "USD",
-      description: "wan diray"
+      description: "wan diray",
     };
 
     try {
-      const response = await fetch(`${config.URL}api/v1/stations/payments/evc_paymentRequest`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) throw new Error('Failed to make payment request');
-
-      const data_res = await response.json();
-
-      if (data_res?.params) {
-        const { referenceId, transactionId, description } = data_res.params;
-        const { timestamp } = data_res;
-
-        await forceUnlock(stationIdBattery);
-
-        savePaymentWithPowerBank(referenceId, timestamp, description, transactionId, stationIdBattery);
-        setLoading(false);
-        setCurrentStep(4);
-        navigate('/Succes');
-      } else {
-        throw new Error('Unexpected response structure');
-      }
+      const paymentResponse = await withRetry(evcPaymentRequest, [data, `${config.URL_LOCAL}api/v1/stations/payments/evc_paymentRequest`]);
+      const { referenceId, transactionId, description, timestamp } = paymentResponse.params;
+      
+      await withRetry(forceUnlock, [apiBaseUrl, stationName, stationIdBattery[0].slot_id]);  // Force unlock logic
+      await savePaymentWithRetries(referenceId, timestamp, description, transactionId, stationIdBattery);  // Save payment logic
     } catch (error) {
-      console.error('Error making payment request:', error);
+      toast.error("Payment failed after multiple attempts.");
+      console.error("Error processing payment:", error);
     }
-  }, [stationName, amount, phones, selectHrs, forceUnlock, savePaymentWithPowerBank, setCurrentStep, navigate]);
-
-  const fetchDataAndMakePayment = useCallback(async () => {
-    try {
-      const stationResponse = await fetch(`${apiBaseUrl}${stationName}`, { method: 'GET' });
-
-      if (!stationResponse.ok) throw new Error('Failed to fetch station information');
-
-      const stationData_ = await stationResponse.json();
-
-      const stationIdBattery = filterBatteries(stationData_.batteries);
-
-      await evcPaymentRequest(stationIdBattery);
-    } catch (error) {
-      console.error('Error fetching station data or making payment:', error);
-    }
-  }, [stationName, apiBaseUrl, evcPaymentRequest, filterBatteries]);
+  }, [withRetry, phones, amount, selectHrs, apiBaseUrl, stationName, savePaymentWithRetries]);
 
   useEffect(() => {
     if (!hasFetchedData.current) {
-      fetchDataAndMakePayment();
+      fetchStationData(apiBaseUrl, stationName)
+        .then(stationData => {
+          const stationIdBattery = filterBatteries(stationData.batteries);
+          return processPayment(stationIdBattery);
+        })
+        .catch(error => {
+          toast.error("Failed to fetch station data.");
+          console.error("Error fetching station data:", error);
+        });
+      
       hasFetchedData.current = true;
     }
-  }, [fetchDataAndMakePayment]);
+  }, [apiBaseUrl, stationName, processPayment]);
 
   return (
     <div className="payment-container">
-      {loading ? (
-        <Loader message="Payment is Under Process" />
-      ) : (
-        <div className="response--1">
-          <Completed message="The payment is completed" />
-        </div>
-      )}
+      {loading ? <Loader message="Payment is Under Process" /> : <Completed message="The payment is completed" />}
+      <ToastContainer />
     </div>
   );
 };
