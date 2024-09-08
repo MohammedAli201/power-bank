@@ -15,6 +15,12 @@ const BookingConfirmation = ({ conformationForm }) => {
   const navigate = useNavigate();
 
   const completeReview = () => {
+    // check if the user has agreed to the terms and conditions
+    if (!agreement) {
+      alert('Please agree to the terms and conditions');
+      return;
+    }
+    
     // alert('Payment has been made');
     conformationForm();
     setCurrentStep(2);

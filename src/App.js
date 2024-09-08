@@ -87,9 +87,9 @@ const App = () => {
           <Route element={<StepGuard requiredStep={2} />}>
             <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
           </Route>
-          <Route element={<StepGuard requiredStep={3} />}>
+          {/* <Route element={<StepGuard requiredStep={3} />}>
             <Route path="/Succes" element={<Succes />} />
-          </Route>
+          </Route> */}
           <Route path="/ProfileBusiness" element={<ProfileBusiness />} />
           <Route element={<PrivateRoute />}>
             <Route path="/StationInfo" element={<StationInfo />} />
@@ -98,7 +98,11 @@ const App = () => {
           <Route path="/help" element={<Helps />} />
           <Route path="/price" element={<Price />} />
           <Route path="/terms-conditions" element={<RentalAgreementPage />} />
+          <Route path="/Succes" element={<Succes />} />
+
         </Routes>
+        
+        
       </main>
       <Footer />
     </div>

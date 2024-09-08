@@ -1,82 +1,98 @@
-// // // services/websocketService.js
 // import io from 'socket.io-client';
 // import config from '../config/config';
 
-// // Function to connect to WebSocket and return socket instance
+// const SOCKET_URL = `${config.URL_LOCAL}`;
+// const socket = io(SOCKET_URL, {
+//   transports: ['websocket'],
+// });
+
 // const connectSocket = (userId) => {
-//     const SOCKET_URL = `${config.URL}`;
-//     const socket = io(SOCKET_URL, {
-//         transports: ['websocket'],
-//         query: { userId }
-//     });
+//   socket.on('connect', () => {
+//     console.log('Connected to WebSocket server');
+//     socket.emit('join', userId); // Emit with dynamic userId
+//   });
 
-//     // Log when connected
-//     socket.on('connect', () => {
-//         console.log('Connected to WebSocket server');
-//         socket.emit('join', userId);  // Join a room based on userId
+//   const onRentalCompleted = (callback) => {
+//     socket.on('rentalCompleted', (data) => {
+//       console.log('Rental completed event received:', data);
+//       if (data.userId === userId) {
+//         callback(data);
+//       }
 //     });
+//   };
 
-//     return socket;
+//   const onRentalFailed = (callback) => {
+//     socket.on('rentalFailed', (data) => {
+//       console.log('Rental failed event received:', data);
+//       if (data.userId === userId) {
+//         callback(data);
+//       }
+//     });
+//   };
+
+//   const disconnectEvents = () => {
+//     socket.off('rentalCompleted');
+//     socket.off('rentalFailed');
+//   };
+
+//   return { onRentalCompleted, onRentalFailed, disconnectEvents };
 // };
 
-// export { connectSocket };
-
- // // services/websocketService.js
+// export { socket, connectSocket };
 import io from 'socket.io-client';
-import config from '../config/config';
-const SOCKET_URL = `${config.URL}`;
-const socket = io(SOCKET_URL, {
-  transports: ['websocket']
-});
-
-const connectSocket = (userId) => {
-  socket.on('connect', () => {
-    console.log('Connected to WebSocket server');
-    socket.emit('join', userId); // Emit with dynamic userId
-  });
-
-  // Listen to rental completion specifically for this userId
-  const onRentalCompleted = (callback) => {
-    socket.on('rentalCompleted', (data) => {
-      if (data.userId === userId) {
-        callback(data);
-      }
-    });
-  };
-
-  const onRentaGraceTime = (callback) => {
-    socket.on('rentalCompleted', (data) => {
-      if (data.userId === userId) {
-        callback(data);
-      }
-    });
-  };
-
-  const onRentalFailed = (callback) => {
-    socket.on('rentalFailed', (data) => {
-      if (data.userId === userId) {
-        callback(data);
-      }
-    });
-  };
-
-  // const lockForOveruse = (callback) => {
-  //   socket.on('rentalFailed', (data) => {
-  //     if (data.userId === userId) {
-  //       callback(data);
-  //     }
-  //   });
-  // };
-
-  const disconnectEvents = () => {
-    socket.off('rentalCompleted');
-    socket.off('rentalFailed');
-    socket.off('gracePeriodEnded');
-
-
-  };
-
-  return { onRentalCompleted, onRentalFailed, disconnectEvents,onRentaGraceTime };
-};
-
-export { socket, connectSocket };
+ import config from '../config/config';
+ const SOCKET_URL = `${config.URL_LOCAL}`;
+ const socket = io(SOCKET_URL, {
+   transports: ['websocket']
+ });
+ 
+ const connectSocket = (userId) => {
+   socket.on('connect', () => {
+     console.log('Connected to WebSocket server');
+     socket.emit('join', userId); // Emit with dynamic userId
+   });
+ 
+   // Listen to rental completion specifically for this userId
+   const onRentalCompleted = (callback) => {
+     socket.on('rentalCompleted', (data) => {
+       if (data.userId === userId) {
+         callback(data);
+       }
+     });
+   };
+ 
+   const onRentaGraceTime = (callback) => {
+     socket.on('rentalCompleted', (data) => {
+       if (data.userId === userId) {
+         callback(data);
+       }
+     });
+   };
+ 
+   const onRentalFailed = (callback) => {
+     socket.on('rentalFailed', (data) => {
+       if (data.userId === userId) {
+         callback(data);
+       }
+     });
+   };
+ 
+   // const lockForOveruse = (callback) => {
+   //   socket.on('rentalFailed', (data) => {
+   //     if (data.userId === userId) {
+   //       callback(data);
+   //     }
+   //   });
+   // };
+ 
+   const disconnectEvents = () => {
+     socket.off('rentalCompleted');
+     socket.off('rentalFailed');
+ 
+ 
+   };
+ 
+   return { onRentalCompleted, onRentalFailed, disconnectEvents,onRentaGraceTime };
+ };
+ 
+ export { socket, connectSocket };
