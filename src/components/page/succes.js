@@ -323,7 +323,7 @@ const Success = () => {
   // const millisecondsPaid = 20000; // Hardcoded for now
   // const phones = "616251068";
   const {state} = useLocation();
-  const {createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds} = state;
+  const { formattedStartTime, formattedEndTime} = state;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const rent ={
     formattedStartTime,
@@ -479,7 +479,7 @@ const Success = () => {
       socket.off('rentalCompleted');
       socket.off('rentalFailed');
     };
-  }, [millisecondsPaid, phones, fetchRentalInfo, userId, updateUserPaymentStatus, isCompletedRent]);
+  }, [millisecondsPaid, phones, fetchRentalInfo, userId, updateUserPaymentStatus, isCompletedRent, rent]);
 
   const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
