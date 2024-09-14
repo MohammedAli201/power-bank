@@ -16,7 +16,11 @@ const SmsLetter = ({ rent, type }) => {
     const createRentMessage = () => {
         return `Asc, Walal wad kumahadsantahy inaad kiresaty powerbank. Sacad kirada waxe kabilaabanesa ${formatTime(rent.formattedStartTime)} waxeyna ku ektahay ${formatTime(rent.formattedEndTime)}.`;
     };
-
+    const ExtractLastNineDigits = (number) => {
+        // Convert the number to a string, then slice the last 9 characters
+        const result = number.toString().slice(-9);
+        return result;
+      };
     const completedRentMessage = () => {
         return `Asc, Walal waqtiga kiresiga wa ku dhamaaday,adu mahadsan powerbank dib uso celi.`;
     };
@@ -43,7 +47,7 @@ const SmsLetter = ({ rent, type }) => {
     // Async function to send the SMS
     const sendSms = async () => {
         const message = getMessage();
-        const mobile = rent.phones;
+        const mobile = ExtractLastNineDigits(rent.phones);
         const senderid = "DANAB PowerBank";
         const sms_data = { message, mobile, senderid };
 
