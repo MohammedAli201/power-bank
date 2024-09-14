@@ -1,6 +1,6 @@
 import config from "../config/config";
 
-const SMS_URL = `http://localhost:9000/api/v1/sms/SendNotification`;
+const SMS_URL = `${config.URL}api/v1/sms/SendNotification`;
 
 const SmsLetter = ({ rent, type }) => {
     
