@@ -328,7 +328,6 @@ const Success = () => {
   const rent ={
     formattedStartTime,
     formattedEndTime,
-    phones
 
   }
   const [isCompletedRent, setIsCompletedRent] = useState(false);

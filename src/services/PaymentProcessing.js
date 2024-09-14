@@ -69,6 +69,8 @@ const PaymentProcessing = () => {
       paymentCompleted();
       setCurrentStep(4);
       setLoading(false);
+      console.log("Payment saved successfully!");
+      console.log("createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds:", createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds);
       navigate('/Succes', { state: { createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds } });
     } catch (error) {
       toast.error("Failed to save payment after multiple attempts.");
