@@ -61,7 +61,7 @@ const PaymentProcessing = () => {
       term_and_conditions: agreement,
     };
 
-    handleUserInputInfo({ selectHrs, amount, phones, hrToMs: endTimeMilliseconds, stationId });
+    handleUserInputInfo({ selectHrs, amount, phones, hrToMs: endTimeMilliseconds, stationId, millisecondsPaid: endTimeMilliseconds });
 
     try {
       await withRetry(savePayment, [paymentURL, newData]);
