@@ -10,6 +10,7 @@ import Loader from "../components/loader";
 import Completed from "../components/completed";
 import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
+import '../assets/styles/PaymentProcessing.css';
 import config from "../config/config";
 import { useAuth } from '../hooks/AuthProvider';
 import getStationCode from "../components/stations/station";
