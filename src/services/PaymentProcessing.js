@@ -44,7 +44,7 @@ const PaymentProcessing = () => {
       branch_name: stationId,
       battery_id: stationIdBattery[0].battery_id,
       userId: referenceId,
-      slotId: stationIdBattery[0].slot_id,
+      slot_id: stationIdBattery[0].slot_id,
       evcReference: referenceId,
       timestampEvc: timestamp,
       createdAt,
@@ -103,8 +103,8 @@ const PaymentProcessing = () => {
     try {
       const paymentResponse = await withRetry(evcPaymentRequest, [data, `${config.URL}api/v1/stations/payments/evc_paymentRequest`]);
       const { referenceId, transactionId, description, timestamp } = paymentResponse.params;
-      
-      await withRetry(forceUnlock, [apiBaseUrl, stationName, stationIdBattery[0].slot_id]);  // Force unlock logic
+      const slot_id = stationIdBattery[0].slot_id;
+      await withRetry(forceUnlock, [apiBaseUrl, stationName, slot_id]);  // Force unlock logic
       await savePaymentWithRetries(referenceId, timestamp, description, transactionId, stationIdBattery);  // Save payment logic
     } catch (error) {
       toast.error("Payment failed after multiple attempts.");
