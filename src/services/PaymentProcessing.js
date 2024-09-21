@@ -19,7 +19,7 @@ import moment from "moment-timezone";
 const PaymentProcessing = () => {
   const [loading, setLoading] = useState(true);
   const hasFetchedData = useRef(false);
-  const { withRetry } = useRetries(3);  // Max attempts = 3 for retry logic
+  const { withRetry } = useRetries(1);  // Max attempts = 3 for retry logic
   const { userInputInfo, paymentCompleted, handleUserInputInfo, setCurrentStep, agreement } = useAuth();
   const { selectHrs, amount, phones, stationId } = userInputInfo;
   const stationName = getStationCode(stationId);
