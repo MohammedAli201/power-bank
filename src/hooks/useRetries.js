@@ -1,7 +1,7 @@
 // useRetries.js
 import { useCallback } from 'react';
 
-export const useRetries = (maxAttempts = 3) => {
+export const useRetries = (maxAttempts = 1) => {
   const withRetry = useCallback(async (callback, args = []) => {
     let attempts = 0;
 
