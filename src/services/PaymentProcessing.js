@@ -95,8 +95,9 @@ const timeManager = useCallback(() => {
       console.log("createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds:", createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds);
       navigate('/Succes', { state: { createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds } });
     } catch (error) {
+
       toast.error("Failed to save payment after multiple attempts.");
-      console.error("Error saving payment:", error);
+      navigate('/ServiceBooking');
     }
   }, [timeManager, stationName, stationId, phones, amount, selectHrs, agreement, handleUserInputInfo, withRetry, paymentURL, paymentCompleted, setCurrentStep, navigate]);
   const filterBatteries = (batteries) => {
@@ -132,9 +133,10 @@ const timeManager = useCallback(() => {
       await savePaymentWithRetries(referenceId, timestamp, description, transactionId, stationIdBattery);  // Save payment logic
     } catch (error) {
       toast.error("Payment failed after multiple attempts.");
-      console.error("Error processing payment:", error);
+      navigate('/ServiceBooking');
+
     }
-  }, [withRetry, phones, amount, selectHrs, apiBaseUrl, stationName, savePaymentWithRetries]);
+  }, [stationName, phones, amount, selectHrs, withRetry, apiBaseUrl, savePaymentWithRetries, navigate]);
 
   useEffect(() => {
     if (!hasFetchedData.current) {
@@ -145,12 +147,13 @@ const timeManager = useCallback(() => {
         })
         .catch(error => {
           toast.error("Failed to fetch station data.");
+          navigate('/ServiceBooking');
           console.error("Error fetching station data:", error);
         });
       
       hasFetchedData.current = true;
     }
-  }, [apiBaseUrl, stationName, processPayment]);
+  }, [apiBaseUrl, stationName, processPayment, navigate]);
 
   return (
     <div className="payment-container">
