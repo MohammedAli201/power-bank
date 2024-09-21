@@ -1,27 +1,90 @@
+// import React from "react";
+// import { useNavigate } from "react-router-dom";
+// import { useAuth } from "../hooks/AuthProvider";
+// import '../assets/styles/BookingConfirmation.css';
+
+// const BookingConfirmation = ({ conformationForm }) => {
+//   console.log('BookingConfirmation',conformationForm);
+
+//   const { userInputInfo,setCurrentStep,agreement } = useAuth();
+//   const { selectHrs, amount, phones } = userInputInfo;
+
+ 
+
+
+//   const navigate = useNavigate();
+
+//   const completeReview = () => {
+//     // alert('Payment has been made');
+//     conformationForm();
+//     setCurrentStep(2);
+//     navigate("/PaymentProcessing");
+//     // navigate("/Succes");
+
+    
+//   };
+
+//   return (
+//     <div className="results-container">
+//       <h1>Information Summary</h1>
+//       <table className="summary-table">
+//         <tbody>
+//           <tr>
+//             <th>Amount of hours you selected</th>
+//             <td>{selectHrs} hrs</td>
+//           </tr>
+//           <tr>
+//             <th>Phone</th>
+//             <td>{phones}</td>
+//           </tr>
+//           <tr>
+//             <th>Amount to be paid</th>
+//             <td>${amount.toFixed(2)}</td>
+//           </tr>
+
+//             <tr>
+//             <th>Amount to be paid</th>
+//             <td>${amount.toFixed(2)}</td>
+//           </tr>
+
+//           <tr>
+//             <th>Term and conditions</th>
+//             <td>{agreement ? 'Agreed' : 'Not Agreed'}</td>
+//             </tr>
+//         </tbody>
+//       </table>
+//       <button className="payment-button" onClick={completeReview}>Confirm and make payment</button>
+//     </div>
+//   );
+// };
+
+// export default BookingConfirmation;
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/AuthProvider";
 import '../assets/styles/BookingConfirmation.css';
 
 const BookingConfirmation = ({ conformationForm }) => {
-  console.log('BookingConfirmation',conformationForm);
+  console.log('BookingConfirmation', conformationForm);
 
-  const { userInputInfo,setCurrentStep,agreement } = useAuth();
+  const { userInputInfo, setCurrentStep, agreement } = useAuth();
   const { selectHrs, amount, phones } = userInputInfo;
-
- 
-
 
   const navigate = useNavigate();
 
   const completeReview = () => {
-    // alert('Payment has been made');
     conformationForm();
     setCurrentStep(2);
     navigate("/PaymentProcessing");
-    // navigate("/Succes");
+  };
 
-    
+  // Display "minutes" or "hours" based on the duration
+  const displayDuration = (selectHrs) => {
+    if (selectHrs >= 20 && selectHrs <= 40) {
+      return `${selectHrs} minutes`;
+    } else {
+      return `${selectHrs} hour${selectHrs > 1 ? 's' : ''}`;
+    }
   };
 
   return (
@@ -30,8 +93,8 @@ const BookingConfirmation = ({ conformationForm }) => {
       <table className="summary-table">
         <tbody>
           <tr>
-            <th>Amount of hours you selected</th>
-            <td>{selectHrs} hrs</td>
+            <th>Amount of time you selected</th>
+            <td>{displayDuration(selectHrs)}</td>
           </tr>
           <tr>
             <th>Phone</th>
@@ -41,19 +104,15 @@ const BookingConfirmation = ({ conformationForm }) => {
             <th>Amount to be paid</th>
             <td>${amount.toFixed(2)}</td>
           </tr>
-
-            <tr>
-            <th>Amount to be paid</th>
-            <td>${amount.toFixed(2)}</td>
-          </tr>
-
           <tr>
-            <th>Term and conditions</th>
+            <th>Terms and conditions</th>
             <td>{agreement ? 'Agreed' : 'Not Agreed'}</td>
-            </tr>
+          </tr>
         </tbody>
       </table>
-      <button className="payment-button" onClick={completeReview}>Confirm and make payment</button>
+      <button className="payment-button" onClick={completeReview}>
+        Confirm and make payment
+      </button>
     </div>
   );
 };

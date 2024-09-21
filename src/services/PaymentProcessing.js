@@ -26,17 +26,39 @@ const PaymentProcessing = () => {
   const navigate = useNavigate();
   const apiBaseUrl = `${config.URL}api/v1/stations/powerBankRouter/`;
   const paymentURL = `${config.URL}api/v1/stations/payments/savePaymentInfoWithUserInfo`;
-  const timeManager = useCallback(() => {
-    const timeZone = 'Africa/Mogadishu'; 
-    const currentDateTime = moment().tz(timeZone);
+  // const timeManager = useCallback(() => {
+  //   const timeZone = 'Africa/Mogadishu'; 
+  //   const currentDateTime = moment().tz(timeZone);
     
-    return {
-      createdAt: currentDateTime.format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
-      formattedStartTime: currentDateTime.format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
-      formattedEndTime: currentDateTime.clone().add(selectHrs, 'hours').format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
-      endTimeMilliseconds: selectHrs * 60 * 60 * 1000,
-    };
-  }, [selectHrs]);
+  //   return {
+  //     createdAt: currentDateTime.format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+  //     formattedStartTime: currentDateTime.format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+  //     formattedEndTime: currentDateTime.clone().add(selectHrs, 'hours').format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+  //     endTimeMilliseconds: selectHrs * 60 * 60 * 1000,
+  //   };
+  // }, [selectHrs]);
+
+
+  
+
+const timeManager = useCallback(() => {
+  const timeZone = 'Africa/Mogadishu'; 
+  const currentDateTime = moment().tz(timeZone);
+
+  // Check if `selectHrs` is in minutes or hours
+  const isMinutes = selectHrs >= 20 && selectHrs <= 40;
+
+  // Calculate the end time based on whether it's minutes or hours
+  const duration = isMinutes ? selectHrs : selectHrs * 60;
+
+  return {
+    createdAt: currentDateTime.format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+    formattedStartTime: currentDateTime.format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+    formattedEndTime: currentDateTime.clone().add(duration, 'minutes').format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+    endTimeMilliseconds: duration * 60 * 1000, // Convert to milliseconds
+  };
+}, [selectHrs]);
+
   const savePaymentWithRetries = useCallback(async (referenceId, timestamp, description, transactionId, stationIdBattery) => {
     const { createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds } = timeManager();
     const newData = {

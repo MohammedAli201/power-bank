@@ -336,7 +336,7 @@ const Success = () => {
   const [remainingTime, setRemainingTime] = useState(0);
 
   const smsSentOnUnlockRef = useRef(false); // Use useRef to avoid rerenders
-  const smsSentOnLockRef = useRef(false);
+  // const smsSentOnLockRef = useRef(false);
 
   const guidGenerator = useCallback(() => {
     const S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
@@ -376,11 +376,7 @@ const Success = () => {
       setRemainingTime(millisecondsPaid);
 
       if (!smsSentOnUnlockRef.current) {
-        // const rent = {
-        //   formattedStartTime: '2024-09-07T19:20:42+03:00',
-        //   formattedEndTime: '2024-09-07T20:20:42+03:00',
-        //   phones: '616251068'
-        // };
+       
         const type = 'createRent'; 
         const sendSms = SmsLetter({ rent: rent, type: type });
         sendSms();
@@ -438,16 +434,17 @@ const Success = () => {
     }
 
     socket.on('rentalCompleted', (data) => {
-      if (userId !== data.userId) {
-        return;
-      }
-      console.log('Rental completed');
+
+      // if (userId !== data.userId) {
+      //   return;
+      // }
+      //console.log('Rental completed');
       setIsSystemUnlocked(false);
       updateUserPaymentStatus();
 
       if (!isCompletedRent) {
         setIsCompletedRent(true);
-        if (!smsSentOnLockRef.current) {
+        
           // const rent = {
           //   formattedStartTime: '2024-09-07T19:20:42+03:00',
           //   formattedEndTime: '2024-09-07T20:20:42+03:00',
@@ -456,8 +453,8 @@ const Success = () => {
           const type = 'completedRent'; 
           const sendSms = SmsLetter({ rent: rent, type: type });
           sendSms();
-          smsSentOnLockRef.current = true; // Mark SMS as sent
-        }
+          // smsSentOnLockRef.current = true; // Mark SMS as sent
+        
       }
     });
 

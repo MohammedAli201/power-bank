@@ -213,18 +213,53 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/AuthProvider";
 import '../assets/styles/ServiceBooking.css';
 
-const ServiceBooking = ({completedForm}) => {
+const ServiceBooking = ({ completedForm }) => {
   const navigate = useNavigate();
   const { stationId } = useParams();
-  const [selectHrs, setSelectHrs] = useState(1);
-  const costperHr = 0.5;
+  const [selectHrs, setSelectHrs] = useState(20);
+  const costper20Min = 0.30;
+  const constper30Min = 0.40;
+  const constper40Min = 0.50;
+  let costperHr = 0.75;
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const [amountprMin, setAmount] = useState(0.30);
 
   const { handleUserInputInfo, setCurrentStep, onAgreement, agreement } = useAuth();
- 
+
   const handleSelectHour = (hour) => {
-    setSelectHrs(hour);
+    console.log(hour);
+    switch (hour) {
+      case 20:
+        setSelectHrs(hour);
+        costperHr = costper20Min;
+        setAmount(0.30);
+        break;
+      case 30:
+        setSelectHrs(hour);
+        costperHr = constper30Min;
+        setAmount(0.40);
+        break;
+      case 40:
+        setSelectHrs(hour);
+        costperHr = constper40Min;
+        setAmount(0.50);
+        break;
+      case 1:
+        setSelectHrs(hour);
+        costperHr = 0.75;
+        setAmount(0.75);
+        break;
+      case 2:
+        setSelectHrs(hour);
+        costperHr = 1.50;
+        setAmount(1.50);
+        break;
+      default:
+        setSelectHrs(20);
+        costperHr = 0.30;
+    }
+    console.log(costperHr);
   };
 
   const handlePhoneChange = (e) => {
@@ -251,7 +286,7 @@ const ServiceBooking = ({completedForm}) => {
       alert('You must agree to the terms and conditions to proceed.');
       return;
     }
-    const amount = selectHrs * costperHr;
+    const amount = amountprMin;
 
     let formattedPhone = phone;
     if (phone.startsWith("06")) {
@@ -269,21 +304,21 @@ const ServiceBooking = ({completedForm}) => {
 
   return (
     <div className="options-container">
-      <h2>Choose Hours</h2>
+      <h2>Choose Duration</h2>
       <div className="hour-selector">
-        {[1, 2, 3, 4, 5].map((hour) => (
+        {[20, 30, 40, 1, 2].map((hour) => (
           <div
             key={hour}
             className={`hour-option ${selectHrs === hour ? 'selected' : ''}`}
             onClick={() => handleSelectHour(hour)}
           >
-            {hour}
+            {hour >= 20 && hour <= 40 ? `${hour} min` : `${hour} hr${hour > 1 ? 's' : ''}`}
           </div>
         ))}
       </div>
       <div className="amount">
         <h3>Amount to Pay:</h3>
-        <p>${(selectHrs * costperHr).toFixed(2)}</p>
+        <p>${(amountprMin).toFixed(2)}</p>
       </div>
       <div className="phone-input">
         <h3>Phone Number</h3>
@@ -298,15 +333,15 @@ const ServiceBooking = ({completedForm}) => {
       </div>
       <div style={{ margin: '20px 0' }}>
         <label>
-          <input 
-            type="checkbox" 
-            checked={agreement} 
+          <input
+            type="checkbox"
+            checked={agreement}
             onChange={handleAgreementChange}
           />
           {' '} I agree to the <a href="/terms-conditions" style={{ textDecoration: 'underline', color: 'blue' }}>terms and conditions</a>.
         </label>
       </div>
-      <button 
+      <button
         className="submit-button"
         onClick={handleSubmit}
         disabled={!agreement}
