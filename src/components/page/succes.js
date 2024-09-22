@@ -445,11 +445,6 @@ const Success = () => {
       if (!isCompletedRent) {
         setIsCompletedRent(true);
         
-          // const rent = {
-          //   formattedStartTime: '2024-09-07T19:20:42+03:00',
-          //   formattedEndTime: '2024-09-07T20:20:42+03:00',
-          //   phones: '616251068'
-          // };
           const type = 'completedRent'; 
           const sendSms = SmsLetter({ rent: rent, type: type });
           sendSms();
