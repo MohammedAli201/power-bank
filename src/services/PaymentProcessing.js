@@ -86,7 +86,7 @@ const timeManager = useCallback(() => {
       term_and_conditions: agreement,
     };
 
-    handleUserInputInfo({ selectHrs:hoursPaidFromMill, amount, phones, hrToMs: endTimeMilliseconds, stationId, millisecondsPaid: endTimeMilliseconds });
+    handleUserInputInfo({ selectHrs, amount, phones, hrToMs: endTimeMilliseconds, stationId, millisecondsPaid: endTimeMilliseconds });
 
     try {
       await withRetry(savePayment, [paymentURL, newData]);
@@ -102,7 +102,7 @@ const timeManager = useCallback(() => {
       toast.error("Failed to save payment after multiple attempts.");
       navigate('/ServiceBooking');
     }
-  }, [timeManager, stationName, stationId, phones, amount, selectHrs, agreement, handleUserInputInfo, withRetry, paymentURL, paymentCompleted, setCurrentStep, navigate]);
+  }, [timeManager, stationName, stationId, phones, amount, agreement, handleUserInputInfo, selectHrs, withRetry, paymentURL, paymentCompleted, setCurrentStep, navigate]);
   const filterBatteries = (batteries) => {
         return batteries.filter(battery => {
             return (
