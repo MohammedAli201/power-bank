@@ -60,7 +60,10 @@ const timeManager = useCallback(() => {
 }, [selectHrs]);
 
   const savePaymentWithRetries = useCallback(async (referenceId, timestamp, description, transactionId, stationIdBattery) => {
+   
     const { createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds } = timeManager();
+    const hoursPaidFromMill = endTimeMilliseconds/3600000;
+
     const newData = {
       stationName,
       branch_name: stationId,
@@ -75,7 +78,7 @@ const timeManager = useCallback(() => {
       isPaid: true,
       endRentTime: formattedEndTime,
       startTime: formattedStartTime,
-      hoursPaid: selectHrs,
+      hoursPaid: hoursPaidFromMill,
       millisecondsPaid: endTimeMilliseconds,
       currency: "USD",
       paymentStatus: "active",
@@ -83,7 +86,7 @@ const timeManager = useCallback(() => {
       term_and_conditions: agreement,
     };
 
-    handleUserInputInfo({ selectHrs, amount, phones, hrToMs: endTimeMilliseconds, stationId, millisecondsPaid: endTimeMilliseconds });
+    handleUserInputInfo({ selectHrs:hoursPaidFromMill, amount, phones, hrToMs: endTimeMilliseconds, stationId, millisecondsPaid: endTimeMilliseconds });
 
     try {
       await withRetry(savePayment, [paymentURL, newData]);
