@@ -186,7 +186,7 @@
 // export default PaymentProcessing;
 
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchStationData } from "../services/stationService";  // Service for station API
 import { evcPaymentRequest } from "../services/paymentService";  // Service for payment API
@@ -199,6 +199,8 @@ import config from "../config/config";
 import { useAuth } from '../hooks/AuthProvider';
 import getStationCode from "../components/stations/station";
 import moment from "moment-timezone";
+
+
 
 const PaymentProcessing = () => {
   const [loading, setLoading] = useState(true);
@@ -224,6 +226,7 @@ const PaymentProcessing = () => {
       duration,
     };
   }, [selectHrs]);
+
   const guidGenerator = useCallback(() => {
     const S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
@@ -232,20 +235,14 @@ const PaymentProcessing = () => {
   const userIdRef = useRef(guidGenerator());
   const userId = userIdRef.current;
 
-  const BullRedisRequest = useCallback(async ( formattedStartTime,
-    formattedEndTime,
-    phones,
-    userId,endTimeMilliseconds) => {
-
-
-    const rent ={
-      rentalDurationInMilliseconds:endTimeMilliseconds,
+  const BullRedisRequest = useCallback(async (formattedStartTime, formattedEndTime, phones, userId, endTimeMilliseconds) => {
+    const rent = {
+      rentalDurationInMilliseconds: endTimeMilliseconds,
       formattedStartTime,
       formattedEndTime,
-      rentalId:phones,
+      rentalId: phones,
       userId,
-  
-    }
+    };
 
     try {
       const response = await fetch(`${config.URL}api/v1/rentals`, {
@@ -257,7 +254,12 @@ const PaymentProcessing = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to unlock system');
+        navigate('/error', {
+          state: {
+            errorType: "Unlock Error",
+            errorMessage: "Failed to unlock the system."
+          }
+        });
       }
 
       const rentalData = await response.json();
@@ -265,10 +267,14 @@ const PaymentProcessing = () => {
     } catch (error) {
       console.error('Error unlocking system:', error);
       toast.error("Failed to unlock the system.");
+      navigate('/error', {
+        state: {
+          errorType: "Unlock Error",
+          errorMessage: "Failed to unlock the system."
+        }
+      });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]);
-
+  }, [navigate]);
 
   const processPayment = useCallback(async (stationIdBattery) => {
     const { createdAt, formattedStartTime, formattedEndTime, endTimeMilliseconds } = timeManager();
@@ -307,19 +313,18 @@ const PaymentProcessing = () => {
       paymentCompleted();
       setCurrentStep(4);
       setLoading(false);
-   const res = await BullRedisRequest(  formattedStartTime,
-        formattedEndTime,
-        phones,
-        userId,endTimeMilliseconds);
-        console.log("bull res ",res)
-        
-     
+   
+      await BullRedisRequest(formattedStartTime, formattedEndTime, phones, userId, endTimeMilliseconds);
     } catch (error) {
       toast.error("Payment failed.");
-      navigate('/ServiceBooking');
+      navigate('/error', {
+        state: {
+          errorType: "Payment Error",
+          errorMessage: "Payment failed. Please try again."
+        }
+      });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeManager, stationName, phones, amount, stationId, agreement, handleUserInputInfo, BullRedisRequest, paymentCompleted, setCurrentStep, navigate]);
+  }, [timeManager, stationName, phones, amount, stationId, agreement, handleUserInputInfo, paymentCompleted, setCurrentStep, BullRedisRequest, userId, navigate]);
 
   const filterBatteries = (batteries) => {
     return batteries.filter(battery => (
@@ -332,8 +337,6 @@ const PaymentProcessing = () => {
     ));
   }
 
- 
-
   useEffect(() => {
     if (!hasFetchedData.current) {
       fetchStationData(apiBaseUrl, stationName)
@@ -342,9 +345,14 @@ const PaymentProcessing = () => {
           return processPayment(stationIdBattery);
         })
         .catch(error => {
+          
           toast.error("Failed to fetch station data.");
-          navigate('/ServiceBooking');
-          console.error("Error fetching station data:", error);
+          navigate('/error', {
+            state: {
+              errorType: "Station Data Error",
+              errorMessage: "Failed to fetch station data."
+            }
+          });
         });
 
       hasFetchedData.current = true;
@@ -353,7 +361,11 @@ const PaymentProcessing = () => {
 
   return (
     <div className="payment-container">
-      {loading ? <Loader message="Payment is Under Process" /> : <Completed message="The payment is completed" />}
+      {loading ? (
+        <Loader message="Payment is Under Process" />
+      ) : (
+        <Completed message="The payment is completed" />
+      )}
       <ToastContainer />
     </div>
   );

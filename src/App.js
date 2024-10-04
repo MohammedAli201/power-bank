@@ -12,7 +12,8 @@ import Login from './components/page/login';
 import StationInfo from './components/StationInfo';
 import ProfileBusiness from './components/page/ProfileBusiness';
 // import VideoUpload from './components/page/upload';
-import Succes from './components/page/succes';
+// import Succes from './components/page/succes';
+import ErrorHandler from './components/page/ErrorHandler';
 import PrivateRoute from './components/PrivateRoute';
 import heroImage from './assets/images/logo_svg.svg';
 import './App.css';
@@ -74,6 +75,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/error" element={<ErrorHandler />} />
+
 
           <Route element={<PrivateRoute />}>
             <Route path="/Dashboard" element={<Dashboard />} />
@@ -88,7 +91,7 @@ const App = () => {
             <Route path="/PaymentProcessing" element={conformation && <PaymentProcessing />} />
           </Route>
           <Route element={<StepGuard requiredStep={3} />}>
-            <Route path="/Succes" element={<Succes />} />
+            <Route path="/error" element={<ErrorHandler />} />
           </Route>
           <Route path="/ProfileBusiness" element={<ProfileBusiness />} />
           <Route element={<PrivateRoute />}>
